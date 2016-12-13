@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunchAndLearnService", "LunchAndLearnService\LunchAndLearnService.csproj", "{856B1607-6C29-4B71-A9FB-A99F8D18C571}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunchAndLearnService.Tests", "LunchAndLearnService.Tests\LunchAndLearnService.Tests.csproj", "{33FBAEEE-6D0D-4FC3-860F-01011FDF3C5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunchAndLearn.Data", "..\LunchAndLearn.Data\LunchAndLearn.Data\LunchAndLearn.Data.csproj", "{A4B67B53-CC9E-4823-B147-D861D88DB2FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunchAndLearn.Management", "..\LunchAndLearn.Management\LunchAndLearn.Management\LunchAndLearn.Management.csproj", "{6717772B-933C-42A9-9EEF-4522CDF81EAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunchAndLearn.Model", "..\LunchAndLearn.Model\LunchAndLearn.Model\LunchAndLearn.Model.csproj", "{3AC9FB75-990D-4E7D-AF0F-69682457622F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{856B1607-6C29-4B71-A9FB-A99F8D18C571}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{856B1607-6C29-4B71-A9FB-A99F8D18C571}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{856B1607-6C29-4B71-A9FB-A99F8D18C571}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{856B1607-6C29-4B71-A9FB-A99F8D18C571}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33FBAEEE-6D0D-4FC3-860F-01011FDF3C5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33FBAEEE-6D0D-4FC3-860F-01011FDF3C5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33FBAEEE-6D0D-4FC3-860F-01011FDF3C5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33FBAEEE-6D0D-4FC3-860F-01011FDF3C5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4B67B53-CC9E-4823-B147-D861D88DB2FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4B67B53-CC9E-4823-B147-D861D88DB2FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4B67B53-CC9E-4823-B147-D861D88DB2FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4B67B53-CC9E-4823-B147-D861D88DB2FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6717772B-933C-42A9-9EEF-4522CDF81EAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6717772B-933C-42A9-9EEF-4522CDF81EAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6717772B-933C-42A9-9EEF-4522CDF81EAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6717772B-933C-42A9-9EEF-4522CDF81EAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AC9FB75-990D-4E7D-AF0F-69682457622F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AC9FB75-990D-4E7D-AF0F-69682457622F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AC9FB75-990D-4E7D-AF0F-69682457622F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AC9FB75-990D-4E7D-AF0F-69682457622F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,57 @@
+﻿using LunchAndLearn.Data;
+using LunchAndLearn.Model;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace LunchAndLearn.Management
+{
+  public class InstructorManager : BaseManager, ILunchAndLearnRepository<Instructor, int>
+  {
+    public InstructorManager() { }
+
+    public InstructorManager(LunchAndLearnContext context)
+        : base(context)
+    {
+    }
+
+
+    // CRUD
+
+    /// <summary>Create a new instructor</summary>
+    public void Create(Instructor instructor)
+    {
+      ValidateModel(instructor);
+
+      AddEntity(instructor);
+    }
+
+
+    /// <summary>Get an instructor</summary>
+    public Instructor Get(int id)
+    {
+      return Context.Instructors.Where(al => al.InstructorId == id).First();
+    }
+
+    public List<Instructor> GetAll()
+    {
+      return Context.Instructors.ToList();
+    }
+    /// <summary>Update existing instructor</summary>
+    public void Update(Instructor instructor)
+    {
+      ValidateModel(instructor);
+      UpdateEntity(instructor);
+    }
+
+    /// <summary>Delete instructor</summary>
+    public void Delete(int id)
+    {
+      //DeleteEntity(new Instructor());
+    }
+
+
+    // Getters
+
+
+  }
+}
