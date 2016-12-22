@@ -13,16 +13,18 @@ namespace LunchAndLearnService.Controllers
   [RoutePrefix("api/class")]
   public class ClassController : ApiController
   {
-    LunchAndLearnManager _lunchAndLearnManager;
+    readonly ILunchAndLearnManager _lunchAndLearnManager;
+
     public ClassController()
     {
       _lunchAndLearnManager = new LunchAndLearnManager();
     }
+
     // GET api/class
     [HttpGet]
     [Route("all")]
     [ResponseType(typeof(ICollection<Class>))]
-    public IHttpActionResult GetAll()
+    public virtual IHttpActionResult GetAll()
     {
       var classes = _lunchAndLearnManager.ClassManager.GetAll();
       return this.Ok(classes);
@@ -31,7 +33,7 @@ namespace LunchAndLearnService.Controllers
     [HttpGet]
     [Route("{id}")]
     [ResponseType(typeof(ICollection<Class>))]
-    public IHttpActionResult Get(int id)
+    public virtual IHttpActionResult Get(int id)
     {
       var dbClass = _lunchAndLearnManager.ClassManager.Get(id);
       return this.Ok(dbClass);
@@ -46,16 +48,7 @@ namespace LunchAndLearnService.Controllers
     [Route("create")]
     public IHttpActionResult Create(Class lClass)
     {
-      try
-      {
-        _lunchAndLearnManager.ClassManager.Create(lClass);
-        var url = Url.Link("GetClassById", new { id = lClass.ClassId });
-        return this.Created(url, lClass);
-      }
-      catch (Exception ex)
-      {
-        return this.BadRequest();
-      }
+      throw new NotImplementedException();
     }
 
     // PUT api/class/5

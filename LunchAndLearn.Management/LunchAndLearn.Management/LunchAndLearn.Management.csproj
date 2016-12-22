@@ -51,7 +51,8 @@
   <ItemGroup>
     <Compile Include="BaseManager.cs" />
     <Compile Include="Classmanager.cs" />
-    <Compile Include="ILunchAndLearnRepository.cs" />
+    <Compile Include="Interfaces\ILunchAndLearnManager.cs" />
+    <Compile Include="Interfaces\ILunchAndLearnRepository.cs" />
     <Compile Include="InstructorManager.cs" />
     <Compile Include="LunchAndLearnManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,6 +75,7 @@
       <Name>LunchAndLearn.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

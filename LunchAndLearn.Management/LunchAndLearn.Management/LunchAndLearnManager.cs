@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LunchAndLearn.Management
 {
-  public class LunchAndLearnManager : BaseManager
+  public class LunchAndLearnManager : BaseManager, ILunchAndLearnManager
   {
     Lazy<ClassManager> _classManager;
     Lazy<InstructorManager> _instructorManager;

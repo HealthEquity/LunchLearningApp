@@ -29,12 +29,12 @@ namespace LunchAndLearn.Management
 
 
     /// <summary>Get a Class</summary>
-    public Class Get(int id)
+    public virtual Class Get(int id)
     {
-      return Context.Classes.Where(al => al.ClassId == id).First();
+      return Context.Classes.First(al => al.ClassId == id);
     }
 
-    public List<Class> GetAll()
+    public virtual List<Class> GetAll()
     {
       return Context.Classes.ToList();
     }
