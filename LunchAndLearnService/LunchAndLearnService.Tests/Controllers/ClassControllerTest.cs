@@ -1,14 +1,14 @@
 ﻿using System.Web.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LunchAndLearnService;
 using LunchAndLearnService.Controllers;
+using NUnit.Framework;
 
 namespace LunchAndLearnService.Tests.Controllers
 {
-  [TestClass]
+  [TestFixture]
   public class ClassControllerTest
   {
-    [TestMethod]
+    [Test]
     public void Index()
     {
       // Arrange
