@@ -1,4 +1,5 @@
-﻿using LunchAndLearn.Data;
+﻿using System;
+using LunchAndLearn.Data;
 using LunchAndLearn.Model;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,26 +28,26 @@ namespace LunchAndLearn.Management
 
 
     /// <summary>Get an instructor</summary>
-    public Instructor Get(int id)
+    public virtual Instructor Get(int id)
     {
-      return Context.Instructors.Where(al => al.InstructorId == id).First();
+      return Context.Instructors.FirstOrDefault(al => al.InstructorId == id);
     }
 
-    public List<Instructor> GetAll()
+    public virtual List<Instructor> GetAll()
     {
       return Context.Instructors.ToList();
     }
     /// <summary>Update existing instructor</summary>
-    public void Update(Instructor instructor)
+    public virtual void Update(Instructor instructor)
     {
       ValidateModel(instructor);
       UpdateEntity(instructor);
     }
 
     /// <summary>Delete instructor</summary>
-    public void Delete(int id)
+    public virtual void Delete(int id)
     {
-      //DeleteEntity(new Instructor());
+      DeleteEntity(new Instructor());
     }
 
 

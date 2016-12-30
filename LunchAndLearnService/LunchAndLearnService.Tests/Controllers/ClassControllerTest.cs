@@ -1,13 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Web.Http;
 using System.Web.Http.Results;
-using System.Web.Mvc;
-using LunchAndLearnService;
 using LunchAndLearnService.Controllers;
 using NUnit.Framework;
-using LunchAndLearn.Management;
 using LunchAndLearn.Model;
 using Telerik.JustMock;
 

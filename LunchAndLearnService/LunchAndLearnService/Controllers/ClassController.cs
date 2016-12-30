@@ -44,13 +44,6 @@ namespace LunchAndLearnService.Controllers
     {
     }
 
-    [HttpPost]
-    [Route("create")]
-    public IHttpActionResult Create(Class lClass)
-    {
-      throw new NotImplementedException();
-    }
-
     // PUT api/class/5
     public void Put(int id, [FromBody]string value)
     {
