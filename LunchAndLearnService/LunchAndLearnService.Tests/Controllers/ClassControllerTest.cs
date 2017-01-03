@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http.Results;
+using LunchAndLearn.Management;
 using LunchAndLearnService.Controllers;
 using NUnit.Framework;
 using LunchAndLearn.Model;
@@ -27,38 +28,41 @@ namespace LunchAndLearnService.Tests.Controllers
     public void GetAll_UnderNormalConditions_DoesNotReturnNull()
     {
       // Arrange
-      var mockClassController = Mock.Create<ClassController>();
-      Mock.Arrange(() => mockClassController.GetAll())
-        .Returns(new OkNegotiatedContentResult<ICollection<Class>>(_mockClassList, mockClassController)).OccursOnce();
+      var lunchAndLearnManager = Mock.Create<ILunchAndLearnManager>();
+      Mock.Arrange(() => lunchAndLearnManager.ClassManager.GetAll()).Returns(_mockClassList).OccursOnce();
+      var classController = new ClassController(lunchAndLearnManager);
 
       //// Act
-      var result = (OkNegotiatedContentResult<ICollection<Class>>)mockClassController.GetAll();
+      var result = (OkNegotiatedContentResult<List<Class>>)classController.GetAll();
 
       var actualResult = result.Content;
 
       //// Assert
       Assert.IsNotNull(actualResult);
-      Mock.Assert(mockClassController);
+      Assert.That(actualResult.Count, Is.GreaterThan(1));
+      Mock.Assert(lunchAndLearnManager);
     }
 
     [Test]
     public void GetOneById_WhereIdExists_DoesNotReturnNull([Values(1, 2)]int idToRetrieve)
     {
-      //Arrange
-      var mockClassController = Mock.Create<ClassController>();
-      Mock.Arrange(() => mockClassController.Get(idToRetrieve))
-        .Returns(new OkNegotiatedContentResult<ICollection<Class>>(_mockClassList.Where(x => x.ClassId == idToRetrieve).ToList(), mockClassController))
+      // Arrange
+      var lunchAndLearnManager = Mock.Create<ILunchAndLearnManager>();
+      var expected = _mockClassList.FirstOrDefault(x => x.ClassId == idToRetrieve);
+      Mock.Arrange(() => lunchAndLearnManager.ClassManager.Get(idToRetrieve))
+        .Returns(_mockClassList.FirstOrDefault(x => x.ClassId == idToRetrieve))
         .OccursOnce();
+      var classController = new ClassController(lunchAndLearnManager);
 
-      //Act
-      var result = (OkNegotiatedContentResult<ICollection<Class>>)mockClassController.Get(idToRetrieve);
+      //// Act
+      var result = (OkNegotiatedContentResult<Class>)classController.Get(idToRetrieve);
 
       var actualResult = result.Content;
 
 
       //Assert
-      Assert.IsNotNull(actualResult);
-      Mock.Assert(mockClassController);
+      Mock.Assert(lunchAndLearnManager);
+      Assert.That(actualResult, Is.EqualTo(expected));
     }
   }
 }

@@ -26,7 +26,7 @@ namespace LunchAndLearnService.Controllers
     [HttpGet]
     [Route("all")]
     [ResponseType(typeof(List<Instructor>))]
-    public virtual IHttpActionResult GetAll()
+    public IHttpActionResult GetAll()
     {
       var response = _lunchAndLearnManager.InstructorManager.GetAll();
       return Ok(response);
@@ -35,23 +35,32 @@ namespace LunchAndLearnService.Controllers
     [HttpGet]
     [Route("{id}")]
     [ResponseType(typeof(Instructor))]
-    public virtual IHttpActionResult Get(int id)
+    public IHttpActionResult Get(int id)
     {
       var response = _lunchAndLearnManager.InstructorManager.Get(id);
       return Ok(response);
     }
 
     [HttpPut]
-    public virtual IHttpActionResult Put(Instructor instructor)
+    public IHttpActionResult Put(Instructor instructor)
     {
       _lunchAndLearnManager.InstructorManager.Update(instructor);
       return Ok();
     }
 
     [HttpDelete]
-    public virtual IHttpActionResult Delete(int id)
+    public IHttpActionResult Delete(int id)
     {
       _lunchAndLearnManager.InstructorManager.Delete(id);
+      return Ok();
+    }
+
+    [HttpPost]
+    [Route("create")]
+    [ResponseType(typeof(OkResult))]
+    public IHttpActionResult Create(Instructor instructor)
+    {
+      _lunchAndLearnManager.InstructorManager.Create(instructor);
       return Ok();
     }
   }

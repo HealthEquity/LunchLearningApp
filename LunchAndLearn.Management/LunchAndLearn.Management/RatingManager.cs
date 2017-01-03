@@ -28,12 +28,12 @@ namespace LunchAndLearn.Management
 
 
     /// <summary>Get a rating</summary>
-    public Rating Get(int id)
+    public virtual Rating Get(int id)
     {
       return Context.Ratings.Where(al => al.RatingId == id).First();
     }
 
-    public List<Rating> GetAll()
+    public virtual List<Rating> GetAll()
     {
       return Context.Ratings.ToList();
     }

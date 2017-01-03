@@ -15,6 +15,11 @@ namespace LunchAndLearnService.Controllers
   {
     readonly ILunchAndLearnManager _lunchAndLearnManager;
 
+    public ClassController(ILunchAndLearnManager lunchAndLearnManager)
+    {
+      _lunchAndLearnManager = lunchAndLearnManager;
+    }
+
     public ClassController()
     {
       _lunchAndLearnManager = new LunchAndLearnManager();
@@ -23,8 +28,8 @@ namespace LunchAndLearnService.Controllers
     // GET api/class
     [HttpGet]
     [Route("all")]
-    [ResponseType(typeof(ICollection<Class>))]
-    public virtual IHttpActionResult GetAll()
+    [ResponseType(typeof(List<Class>))]
+    public IHttpActionResult GetAll()
     {
       var classes = _lunchAndLearnManager.ClassManager.GetAll();
       return this.Ok(classes);
@@ -32,16 +37,19 @@ namespace LunchAndLearnService.Controllers
 
     [HttpGet]
     [Route("{id}")]
-    [ResponseType(typeof(ICollection<Class>))]
-    public virtual IHttpActionResult Get(int id)
+    [ResponseType(typeof(Class))]
+    public IHttpActionResult Get(int id)
     {
       var dbClass = _lunchAndLearnManager.ClassManager.Get(id);
       return this.Ok(dbClass);
     }
 
-    // POST api/ticket
-    public void Post([FromBody]string value)
+    [HttpPost]
+    [Route("create")]
+    public IHttpActionResult Post([FromBody]Class classToCreate)
     {
+      _lunchAndLearnManager.ClassManager.Create(classToCreate);
+      return Ok();
     }
 
     // PUT api/class/5

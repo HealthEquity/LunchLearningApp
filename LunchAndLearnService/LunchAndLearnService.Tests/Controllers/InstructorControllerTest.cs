@@ -98,6 +98,29 @@ namespace LunchAndLearnService.Tests.Controllers
     }
 
     [Test]
+    public void CreateInstructor_UnderNormalConditions_ReturnsOkResponse()
+    {
+      //Arrange
+      var instructorToBeCreated = new Instructor()
+      {
+        InstructorId = 10,
+        InstructorName = "Wayne Gretzky",
+        IsActive = true
+      };
+
+      Mock.Arrange(() => _lunchAndLearnManager.InstructorManager.Create(instructorToBeCreated)).OccursOnce();
+
+      var instructorController = new InstructorController(_lunchAndLearnManager);
+
+      //Act
+      var actual = instructorController.Create(instructorToBeCreated) as OkResult;
+
+      //Assert
+      Mock.Assert(_lunchAndLearnManager);
+      Assert.That(actual, Is.TypeOf<OkResult>());
+    }
+
+    [Test]
     public void UpdateInstructor_WhereInstructorExists_UpdatesEntityWithoutError([Values(1, 2, 3)]int idOfInstructorToUpdate)
     {
       //Arrange
