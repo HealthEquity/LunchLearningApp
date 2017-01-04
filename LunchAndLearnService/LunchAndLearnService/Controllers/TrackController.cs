@@ -61,6 +61,9 @@ namespace LunchAndLearnService.Controllers
       return Ok();
     }
 
+    [HttpDelete]
+    [Route("delete")]
+    [ResponseType(typeof(OkResult))]
     public IHttpActionResult Delete(int id)
     {
       _lunchAndLearnManager.TrackManager.Delete(id);
