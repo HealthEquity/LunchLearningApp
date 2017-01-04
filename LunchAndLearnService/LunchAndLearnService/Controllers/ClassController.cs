@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Http.Results;
 
 namespace LunchAndLearnService.Controllers
 {
@@ -46,20 +47,29 @@ namespace LunchAndLearnService.Controllers
 
     [HttpPost]
     [Route("create")]
-    public IHttpActionResult Post([FromBody]Class classToCreate)
+    [ResponseType(typeof(OkResult))]
+    public IHttpActionResult Post(Class classToCreate)
     {
       _lunchAndLearnManager.ClassManager.Create(classToCreate);
       return Ok();
     }
 
-    // PUT api/class/5
-    public void Put(int id, [FromBody]string value)
+    [HttpPut]
+    [Route("update")]
+    [ResponseType(typeof(OkResult))]
+    public IHttpActionResult Put(Class classToBeUpdated)
     {
+      _lunchAndLearnManager.ClassManager.Update(classToBeUpdated);
+      return Ok();
     }
 
-    // DELETE api/class/5
-    public void Delete(int id)
+    [HttpDelete]
+    [Route("delete")]
+    [ResponseType(typeof(OkResult))]
+    public IHttpActionResult Delete(int id)
     {
+      _lunchAndLearnManager.ClassManager.Delete(id);
+      return Ok();
     }
   }
 }

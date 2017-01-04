@@ -10,6 +10,7 @@ using LunchAndLearn.Model;
 using LunchAndLearnService.Controllers;
 using NUnit.Framework;
 using Telerik.JustMock;
+using Telerik.JustMock.Helpers;
 
 namespace LunchAndLearnService.Tests.Controllers
 {
@@ -102,6 +103,63 @@ namespace LunchAndLearnService.Tests.Controllers
       //Assert
       Mock.Assert(_lunchAndLearnManager);
       Assert.That(actualContent, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void CreateRating_UnderNormalConditions_ReturnsOkResponse()
+    {
+      //Arrange
+      var rating = new Rating()
+      {
+        InstructorId = 5,
+        ClassId = 5,
+        ClassRating = 5,
+        Comment = "Creating a new rating comment..",
+        InstructorRating = 5,
+        RatingId = 5
+      };
+      Mock.Arrange(() => _lunchAndLearnManager.RatingManager.Create(rating)).OccursOnce();
+      var ratingController = new RatingController(_lunchAndLearnManager);
+
+      //Act
+      var actual = ratingController.Post(rating) as OkResult;
+      //Assert
+      Mock.Assert(_lunchAndLearnManager);
+      Assert.IsNotNull(actual);
+      Assert.That(actual, Is.TypeOf<OkResult>());
+    }
+
+    [Test]
+    public void UpdateRating_WhereRatingExists_ReturnsOkResponse([Values(1,2,3)] int ratingIdToUpdate)
+    {
+      //arrange
+      var rating = _ratingsList.FirstOrDefault(x => x.RatingId == ratingIdToUpdate);
+
+      Mock.Arrange(() => _lunchAndLearnManager.RatingManager.Update(rating)).OccursOnce();
+      var ratingController = new RatingController(_lunchAndLearnManager);
+
+      //act
+      var actual = ratingController.Put(rating) as OkResult;
+
+      //assert
+      Mock.Assert(_lunchAndLearnManager);
+      Assert.That(actual, Is.TypeOf<OkResult>());
+    }
+
+    [Test]
+    public void DeleteRating_WhereRatingExists_ReturnsOkResponse([Values(1,2,3)] int ratingIdToDelete)
+    {
+      //arrange
+      Mock.Arrange(() => _lunchAndLearnManager.RatingManager.Delete(ratingIdToDelete)).OccursOnce();
+
+      var ratingController = new RatingController(_lunchAndLearnManager);
+
+      //act
+      var actual = ratingController.Delete(ratingIdToDelete) as OkResult;
+
+      //assert
+      Mock.Assert(_lunchAndLearnManager);
+      Assert.That(actual, Is.TypeOf<OkResult>());
     }
   }
 }

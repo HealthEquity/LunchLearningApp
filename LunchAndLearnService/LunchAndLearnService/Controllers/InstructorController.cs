@@ -42,6 +42,8 @@ namespace LunchAndLearnService.Controllers
     }
 
     [HttpPut]
+    [Route("update")]
+    [ResponseType(typeof(OkResult))]
     public IHttpActionResult Put(Instructor instructor)
     {
       _lunchAndLearnManager.InstructorManager.Update(instructor);
@@ -49,6 +51,8 @@ namespace LunchAndLearnService.Controllers
     }
 
     [HttpDelete]
+    [Route("delete")]
+    [ResponseType(typeof(OkResult))]
     public IHttpActionResult Delete(int id)
     {
       _lunchAndLearnManager.InstructorManager.Delete(id);
@@ -58,7 +62,7 @@ namespace LunchAndLearnService.Controllers
     [HttpPost]
     [Route("create")]
     [ResponseType(typeof(OkResult))]
-    public IHttpActionResult Create(Instructor instructor)
+    public IHttpActionResult Post(Instructor instructor)
     {
       _lunchAndLearnManager.InstructorManager.Create(instructor);
       return Ok();

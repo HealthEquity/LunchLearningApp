@@ -43,5 +43,32 @@ namespace LunchAndLearnService.Controllers
       var response = _lunchAndLearnManager.RatingManager.Get(id);
       return Ok(response);
     }
+
+    [HttpPost]
+    [Route("create")]
+    [ResponseType(typeof(OkResult))]
+    public IHttpActionResult Post(Rating rating)
+    {
+      _lunchAndLearnManager.RatingManager.Create(rating);
+      return Ok();
+    }
+
+    [HttpPut]
+    [Route("update")]
+    [ResponseType(typeof(OkResult))]
+    public IHttpActionResult Put(Rating rating)
+    {
+      _lunchAndLearnManager.RatingManager.Update(rating);
+      return Ok();
+    }
+
+    [HttpDelete]
+    [Route("delete")]
+    [ResponseType(typeof(OkResult))]
+    public IHttpActionResult Delete(int id)
+    {
+      _lunchAndLearnManager.RatingManager.Delete(id);
+      return Ok();
+    }
   }
 }

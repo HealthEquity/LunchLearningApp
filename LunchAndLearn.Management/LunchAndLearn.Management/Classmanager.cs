@@ -21,7 +21,7 @@ namespace LunchAndLearn.Management
     // CRUD
 
     /// <summary>Create a new class</summary>
-    public void Create(Class lClass)
+    public virtual void Create(Class lClass)
     {
       ValidateModel(lClass);
       AddEntity(lClass);
@@ -39,21 +39,16 @@ namespace LunchAndLearn.Management
       return Context.Classes.ToList();
     }
     /// <summary>Update existing class</summary>
-    public void Update(Class lClass)
+    public virtual void Update(Class lClass)
     {
       ValidateModel(lClass);
       UpdateEntity(lClass);
     }
 
     /// <summary>Delete class</summary>
-    public void Delete(int id)
+    public virtual void Delete(int id)
     {
-      //DeleteEntity(new Class());
+      DeleteEntity(new Class());
     }
-
-
-    // Getters
-
-
   }
 }

@@ -113,7 +113,7 @@ namespace LunchAndLearnService.Tests.Controllers
       var instructorController = new InstructorController(_lunchAndLearnManager);
 
       //Act
-      var actual = instructorController.Create(instructorToBeCreated) as OkResult;
+      var actual = instructorController.Post(instructorToBeCreated) as OkResult;
 
       //Assert
       Mock.Assert(_lunchAndLearnManager);
