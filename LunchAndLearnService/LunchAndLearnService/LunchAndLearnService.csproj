@@ -237,6 +237,8 @@
     <Compile Include="Controllers\ClassController.cs" />
     <Compile Include="Controllers\InstructorController.cs" />
     <Compile Include="Controllers\RatingController.cs" />
+    <Compile Include="Controllers\RoomController.cs" />
+    <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

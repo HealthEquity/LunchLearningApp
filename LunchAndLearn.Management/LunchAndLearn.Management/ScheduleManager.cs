@@ -18,7 +18,7 @@ namespace LunchAndLearn.Management
     // CRUD
 
     /// <summary>Create a new schedule</summary>
-    public void Create(Schedule schedule)
+    public virtual void Create(Schedule schedule)
     {
       ValidateModel(schedule);
 
@@ -27,28 +27,25 @@ namespace LunchAndLearn.Management
 
 
     /// <summary>Get a schedule</summary>
-    public Schedule Get(int id)
+    public virtual Schedule Get(int id)
     {
       return Context.Schedules.Where(al => al.ScheduleId == id).First();
     }
 
-    public List<Schedule> GetAll()
+    public virtual List<Schedule> GetAll()
     {
       return Context.Schedules.ToList();
     }
     /// <summary>Update existing schedule</summary>
-    public void Update(Schedule schedule)
+    public virtual void Update(Schedule schedule)
     {
       ValidateModel(schedule);
       UpdateEntity(schedule);
     }
     /// <summary>Delete schedule</summary>
-    public void Delete(int id)
+    public virtual void Delete(int id)
     {
-      //DeleteEntity(new Schedule());
+      DeleteEntity(new Schedule());
     }
-    // Getters
-
-
   }
 }

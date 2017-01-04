@@ -18,7 +18,7 @@ namespace LunchAndLearn.Management
     // CRUD
 
     /// <summary>Create a new room</summary>
-    public void Create(Room room)
+    public virtual void Create(Room room)
     {
       ValidateModel(room);
 
@@ -27,29 +27,26 @@ namespace LunchAndLearn.Management
 
 
     /// <summary>Get a room</summary>
-    public Room Get(int id)
+    public virtual Room Get(int id)
     {
       return Context.Rooms.Where(al => al.RoomId == id).First();
     }
 
-    public List<Room> GetAll()
+    public virtual List<Room> GetAll()
     {
       return Context.Rooms.ToList();
     }
     /// <summary>Update existing room</summary>
-    public void Update(Room room)
+    public virtual void Update(Room room)
     {
       ValidateModel(room);
       UpdateEntity(room);
     }
 
     /// <summary>Delete room</summary>
-    public void Delete(int id)
+    public virtual void Delete(int id)
     {
-      //DeleteEntity(new Room());
+      DeleteEntity(new Room());
     }
-    // Getters
-
-
   }
 }

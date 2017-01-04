@@ -106,6 +106,8 @@
     <Compile Include="Controllers\ClassControllerTest.cs" />
     <Compile Include="Controllers\InstructorControllerTest.cs" />
     <Compile Include="Controllers\RatingControllerTest.cs" />
+    <Compile Include="Controllers\RoomControllerTest.cs" />
+    <Compile Include="Controllers\ScheduleControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
