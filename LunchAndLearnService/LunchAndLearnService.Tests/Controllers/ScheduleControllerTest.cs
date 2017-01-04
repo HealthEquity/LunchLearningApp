@@ -13,8 +13,8 @@ using Telerik.JustMock;
 
 namespace LunchAndLearnService.Tests.Controllers
 {
-  [TestFixture()]
-  public class ScheduleControllerTest
+  [TestFixture]
+  internal class ScheduleControllerTest
   {
     private ILunchAndLearnManager _lunchAndLearnManager;
     private List<Schedule> _scheduleList;

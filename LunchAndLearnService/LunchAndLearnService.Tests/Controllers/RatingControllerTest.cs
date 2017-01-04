@@ -15,7 +15,7 @@ using Telerik.JustMock.Helpers;
 namespace LunchAndLearnService.Tests.Controllers
 {
   [TestFixture]
-  class RatingControllerTest
+  internal class RatingControllerTest
   {
     private ILunchAndLearnManager _lunchAndLearnManager;
     private List<Rating> _ratingsList;

@@ -10,7 +10,7 @@ using Telerik.JustMock;
 namespace LunchAndLearnService.Tests.Controllers
 {
   [TestFixture]
-  public class ClassControllerTest
+  internal class ClassControllerTest
   {
     private List<Class> _mockClassList;
     private ILunchAndLearnManager _lunchAndLearnManager;
