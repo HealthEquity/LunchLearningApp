@@ -103,12 +103,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\ClassControllerTest.cs" />
-    <Compile Include="Controllers\InstructorControllerTest.cs" />
-    <Compile Include="Controllers\RatingControllerTest.cs" />
-    <Compile Include="Controllers\RoomControllerTest.cs" />
-    <Compile Include="Controllers\ScheduleControllerTest.cs" />
-    <Compile Include="Controllers\TrackControllerTest.cs" />
+    <Compile Include="LunchAndLearnManagement\ClassManagerTest.cs" />
+    <Compile Include="LunchAndLearnService.Controllers\ClassControllerTest.cs" />
+    <Compile Include="LunchAndLearnService.Controllers\InstructorControllerTest.cs" />
+    <Compile Include="LunchAndLearnService.Controllers\RatingControllerTest.cs" />
+    <Compile Include="LunchAndLearnService.Controllers\RoomControllerTest.cs" />
+    <Compile Include="LunchAndLearnService.Controllers\ScheduleControllerTest.cs" />
+    <Compile Include="LunchAndLearnService.Controllers\TrackControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

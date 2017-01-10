@@ -19,11 +19,13 @@ namespace LunchAndLearn.Management
     // CRUD
 
     /// <summary>Create a new rating</summary>
-    public virtual void Create(Rating rating)
+    public virtual Rating Create(Rating rating)
     {
       ValidateModel(rating);
 
       AddEntity(rating);
+
+      return rating;
     }
 
 

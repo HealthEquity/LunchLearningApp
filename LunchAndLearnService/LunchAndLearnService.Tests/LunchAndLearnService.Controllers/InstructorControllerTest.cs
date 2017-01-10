@@ -1,17 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web.Http;
 using System.Web.Http.Results;
 using LunchAndLearn.Management;
 using LunchAndLearn.Model;
 using LunchAndLearnService.Controllers;
 using NUnit.Framework;
-using NUnit.Framework.Constraints;
 using Telerik.JustMock;
-using Telerik.JustMock.AutoMock.Ninject.Infrastructure.Language;
-using Telerik.JustMock.Helpers;
 
-namespace LunchAndLearnService.Tests.Controllers
+namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
 {
   [TestFixture]
   internal class InstructorControllerTest

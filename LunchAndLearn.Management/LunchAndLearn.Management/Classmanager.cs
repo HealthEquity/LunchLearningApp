@@ -21,10 +21,11 @@ namespace LunchAndLearn.Management
     // CRUD
 
     /// <summary>Create a new class</summary>
-    public virtual void Create(Class lClass)
+    public virtual Class Create(Class lClass)
     {
       ValidateModel(lClass);
       AddEntity(lClass);
+      return lClass;
     }
 
 

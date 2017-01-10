@@ -21,11 +21,13 @@ namespace LunchAndLearn.Management
     // CRUD
 
     /// <summary>Create a new track</summary>
-    public virtual void Create(Track track)
+    public virtual Track Create(Track track)
     {
       ValidateModel(track);
 
       AddEntity(track);
+
+      return track;
     }
 
 

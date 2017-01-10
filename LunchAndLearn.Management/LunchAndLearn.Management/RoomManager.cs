@@ -18,11 +18,13 @@ namespace LunchAndLearn.Management
     // CRUD
 
     /// <summary>Create a new room</summary>
-    public virtual void Create(Room room)
+    public virtual Room Create(Room room)
     {
       ValidateModel(room);
 
       AddEntity(room);
+
+      return room;
     }
 
 

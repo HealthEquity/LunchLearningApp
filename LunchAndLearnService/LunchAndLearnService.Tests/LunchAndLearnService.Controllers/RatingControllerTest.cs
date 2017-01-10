@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Http;
 using System.Web.Http.Results;
 using LunchAndLearn.Management;
 using LunchAndLearn.Model;
 using LunchAndLearnService.Controllers;
 using NUnit.Framework;
 using Telerik.JustMock;
-using Telerik.JustMock.Helpers;
 
-namespace LunchAndLearnService.Tests.Controllers
+namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
 {
   [TestFixture]
   internal class RatingControllerTest

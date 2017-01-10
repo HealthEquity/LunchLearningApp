@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LunchAndLearn.Data
 {
-  public partial class LunchAndLearnContext : DbContext
+  public class LunchAndLearnContext : DbContext
   {
     public DbSet<Instructor> Instructors { get; set; }
     public DbSet<Class> Classes { get; set; }

@@ -18,11 +18,13 @@ namespace LunchAndLearn.Management
     // CRUD
 
     /// <summary>Create a new schedule</summary>
-    public virtual void Create(Schedule schedule)
+    public virtual Schedule Create(Schedule schedule)
     {
       ValidateModel(schedule);
 
       AddEntity(schedule);
+
+      return schedule;
     }
 
 
