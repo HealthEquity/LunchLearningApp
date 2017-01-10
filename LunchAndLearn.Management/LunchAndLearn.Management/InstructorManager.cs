@@ -19,11 +19,13 @@ namespace LunchAndLearn.Management
     // CRUD
 
     /// <summary>Create a new instructor</summary>
-    public virtual void Create(Instructor instructor)
+    public virtual Instructor Create(Instructor instructor)
     {
       ValidateModel(instructor);
 
       AddEntity(instructor);
+
+      return instructor;
     }
 
 

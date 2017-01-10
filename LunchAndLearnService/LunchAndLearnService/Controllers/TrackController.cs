@@ -11,54 +11,53 @@ using LunchAndLearn.Model;
 
 namespace LunchAndLearnService.Controllers
 {
-  [RoutePrefix("api/rating")]
-  public class RatingController : ApiController
+  public class TrackController : ApiController
   {
     private readonly ILunchAndLearnManager _lunchAndLearnManager;
 
-    public RatingController(ILunchAndLearnManager lunchAndLearnManager)
+    public TrackController(ILunchAndLearnManager lunchAndLearnManager)
     {
       _lunchAndLearnManager = lunchAndLearnManager;
     }
 
-    public RatingController()
+    public TrackController()
     {
       _lunchAndLearnManager = new LunchAndLearnManager();
     }
 
-    [Route("all")]
     [HttpGet]
-    [ResponseType(typeof(List<Rating>))]
+    [Route("all")]
+    [ResponseType(typeof(List<Track>))]
     public IHttpActionResult GetAll()
     {
-      var response = _lunchAndLearnManager.RatingManager.GetAll();
+      var response = _lunchAndLearnManager.TrackManager.GetAll();
       return Ok(response);
     }
 
-    [Route("{id}")]
     [HttpGet]
-    [ResponseType(typeof(Rating))]
+    [Route("{id}")]
+    [ResponseType(typeof(Track))]
     public IHttpActionResult Get(int id)
     {
-      var response = _lunchAndLearnManager.RatingManager.Get(id);
+      var response = _lunchAndLearnManager.TrackManager.Get(id);
       return Ok(response);
     }
 
     [HttpPost]
     [Route("create")]
     [ResponseType(typeof(OkResult))]
-    public IHttpActionResult Post(Rating rating)
+    public IHttpActionResult Create(Track track)
     {
-      _lunchAndLearnManager.RatingManager.Create(rating);
+      _lunchAndLearnManager.TrackManager.Create(track);
       return Ok();
     }
 
     [HttpPut]
     [Route("update")]
     [ResponseType(typeof(OkResult))]
-    public IHttpActionResult Put(Rating rating)
+    public IHttpActionResult Put(Track track)
     {
-      _lunchAndLearnManager.RatingManager.Update(rating);
+      _lunchAndLearnManager.TrackManager.Update(track);
       return Ok();
     }
 
@@ -67,7 +66,7 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Delete(int id)
     {
-      _lunchAndLearnManager.RatingManager.Delete(id);
+      _lunchAndLearnManager.TrackManager.Delete(id);
       return Ok();
     }
   }

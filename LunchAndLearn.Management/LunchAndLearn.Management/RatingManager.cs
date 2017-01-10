@@ -19,18 +19,20 @@ namespace LunchAndLearn.Management
     // CRUD
 
     /// <summary>Create a new rating</summary>
-    public void Create(Rating rating)
+    public virtual Rating Create(Rating rating)
     {
       ValidateModel(rating);
 
       AddEntity(rating);
+
+      return rating;
     }
 
 
     /// <summary>Get a rating</summary>
     public virtual Rating Get(int id)
     {
-      return Context.Ratings.Where(al => al.RatingId == id).First();
+      return Context.Ratings.FirstOrDefault(al => al.RatingId == id);
     }
 
     public virtual List<Rating> GetAll()
@@ -38,14 +40,14 @@ namespace LunchAndLearn.Management
       return Context.Ratings.ToList();
     }
     /// <summary>Update existing rating</summary>
-    public void Update(Rating rating)
+    public virtual void Update(Rating rating)
     {
       ValidateModel(rating);
       UpdateEntity(rating);
     }
 
     /// <summary>Delete rating</summary>
-    public void Delete(int id)
+    public virtual void Delete(int id)
     {
       //DeleteEntity(new Rating());
     }

@@ -8,7 +8,7 @@ namespace LunchAndLearn.Management
 {
   internal interface ILunchAndLearnRepository<TEntity, TKey>
   {
-    void Create(TEntity entity);
+    TEntity Create(TEntity entity);
     TEntity Get(TKey key);
     void Update(TEntity entity);
     void Delete(TKey key);

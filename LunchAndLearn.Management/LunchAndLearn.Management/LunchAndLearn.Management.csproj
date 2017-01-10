@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseManager.cs" />
-    <Compile Include="Classmanager.cs" />
+    <Compile Include="ClassManager.cs" />
     <Compile Include="Interfaces\ILunchAndLearnManager.cs" />
     <Compile Include="Interfaces\ILunchAndLearnRepository.cs" />
     <Compile Include="InstructorManager.cs" />

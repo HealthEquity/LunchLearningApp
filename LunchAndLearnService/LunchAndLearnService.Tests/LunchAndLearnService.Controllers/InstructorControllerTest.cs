@@ -1,20 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web.Http;
 using System.Web.Http.Results;
 using LunchAndLearn.Management;
 using LunchAndLearn.Model;
 using LunchAndLearnService.Controllers;
 using NUnit.Framework;
-using NUnit.Framework.Constraints;
 using Telerik.JustMock;
-using Telerik.JustMock.AutoMock.Ninject.Infrastructure.Language;
-using Telerik.JustMock.Helpers;
 
-namespace LunchAndLearnService.Tests.Controllers
+namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
 {
   [TestFixture]
-  public class InstructorControllerTest
+  internal class InstructorControllerTest
   {
     private List<Instructor> _mockInstructorList;
     private ILunchAndLearnManager _lunchAndLearnManager;
@@ -113,7 +109,7 @@ namespace LunchAndLearnService.Tests.Controllers
       var instructorController = new InstructorController(_lunchAndLearnManager);
 
       //Act
-      var actual = instructorController.Create(instructorToBeCreated) as OkResult;
+      var actual = instructorController.Post(instructorToBeCreated) as OkResult;
 
       //Assert
       Mock.Assert(_lunchAndLearnManager);

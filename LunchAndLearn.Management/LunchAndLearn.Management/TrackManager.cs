@@ -21,40 +21,37 @@ namespace LunchAndLearn.Management
     // CRUD
 
     /// <summary>Create a new track</summary>
-    public void Create(Track track)
+    public virtual Track Create(Track track)
     {
       ValidateModel(track);
 
       AddEntity(track);
+
+      return track;
     }
 
 
     /// <summary>Get a track</summary>
-    public Track Get(int id)
+    public virtual Track Get(int id)
     {
       return Context.Tracks.Where(al => al.TrackId == id).First();
     }
 
-    public List<Track> GetAll()
+    public virtual List<Track> GetAll()
     {
       return Context.Tracks.ToList();
     }
     /// <summary>Update existing Track</summary>
-    public void Update(Track track)
+    public virtual void Update(Track track)
     {
       ValidateModel(track);
       UpdateEntity(track);
     }
 
     /// <summary>Delete Track</summary>
-    public void Delete(int id)
+    public virtual void Delete(int id)
     {
-      //DeleteEntity(new Track());
+      DeleteEntity(new Track());
     }
-
-
-    // Getters
-
-
   }
 }
