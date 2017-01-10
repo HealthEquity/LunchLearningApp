@@ -2,7 +2,8 @@
 <div class="grid grid-pad">
   <div *ngFor="let class of classes" (click)="gotoDetail(class)" class="col-1-4">
     <div class="module class">
-      <h4>{{class.name}}</h4>
+      <h4>{{class.className}}</h4>
+      <div>{{class.classDescription}}</div>
     </div>
   </div>
 </div>

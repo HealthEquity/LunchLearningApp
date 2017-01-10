@@ -1,4 +1,5 @@
  export class DbClass {
      id: number;
-     name: string;
+     className: string;
+     classDescription: string;
  }

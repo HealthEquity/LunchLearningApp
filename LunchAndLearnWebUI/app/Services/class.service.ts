@@ -8,7 +8,7 @@ import { DbClass } from '../Models/dbClass';
 @Injectable()
 export class ClassService {
 
-  private headers = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json'});
+  private headers = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json', 'Access-Control-Allow-Origin': 'Allow'});
   private classUrl = 'api/class';  // URL to web api
 
   constructor(private http: Http, private _configuration: Configuration) {
