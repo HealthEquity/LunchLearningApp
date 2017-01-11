@@ -7,6 +7,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Http.Results;
 using LunchAndLearn.Management;
+using LunchAndLearn.Management.Interfaces;
 using LunchAndLearn.Model;
 
 namespace LunchAndLearnService.Controllers
@@ -14,16 +15,16 @@ namespace LunchAndLearnService.Controllers
   [RoutePrefix("api/rating")]
   public class RatingController : ApiController
   {
-    private readonly ILunchAndLearnManager _lunchAndLearnManager;
+    private readonly IManagerClass<Rating> _ratingManager;
 
-    public RatingController(ILunchAndLearnManager lunchAndLearnManager)
+    public RatingController(IManagerClass<Rating> ratingManager)
     {
-      _lunchAndLearnManager = lunchAndLearnManager;
+      _ratingManager = ratingManager;
     }
 
     public RatingController()
     {
-      _lunchAndLearnManager = new LunchAndLearnManager();
+      _ratingManager = new RatingManager();
     }
 
     [Route("all")]
@@ -31,8 +32,12 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(List<Rating>))]
     public IHttpActionResult GetAll()
     {
-      var response = _lunchAndLearnManager.RatingManager.GetAll();
-      return Ok(response);
+      List<Rating> ratings;
+      using (_ratingManager)
+      {
+        ratings = _ratingManager.GetAll(); 
+      }
+      return Ok(ratings);
     }
 
     [Route("{id}")]
@@ -40,8 +45,12 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(Rating))]
     public IHttpActionResult Get(int id)
     {
-      var response = _lunchAndLearnManager.RatingManager.Get(id);
-      return Ok(response);
+      Rating rating;
+      using (_ratingManager)
+      {
+        rating = _ratingManager.Get(id);
+      }
+      return Ok(rating);
     }
 
     [HttpPost]
@@ -49,7 +58,10 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Post(Rating rating)
     {
-      _lunchAndLearnManager.RatingManager.Create(rating);
+      using (_ratingManager)
+      {
+        _ratingManager.Create(rating);
+      }
       return Ok();
     }
 
@@ -58,7 +70,10 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Put(Rating rating)
     {
-      _lunchAndLearnManager.RatingManager.Update(rating);
+      using (_ratingManager)
+      {
+        _ratingManager.Update(rating); 
+      }
       return Ok();
     }
 
@@ -67,7 +82,10 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Delete(int id)
     {
-      _lunchAndLearnManager.RatingManager.Delete(id);
+      using (_ratingManager)
+      {
+        _ratingManager.Delete(id); 
+      }
       return Ok();
     }
   }

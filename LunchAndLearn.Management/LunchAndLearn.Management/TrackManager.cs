@@ -5,53 +5,75 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LunchAndLearn.Data.Interfaces;
+using LunchAndLearn.Data.Repositories;
+using LunchAndLearn.Management.Interfaces;
 
 namespace LunchAndLearn.Management
 {
-  public class TrackManager : BaseManager, ILunchAndLearnRepository<Track, int>
+  public class TrackManager : IManagerClass<Track>
   {
-    public TrackManager() { }
+    private readonly ILunchAndLearnRepository<Track> _lunchAndLearnRepository;
+
+    public TrackManager()
+    {
+      _lunchAndLearnRepository = new LunchAndLearnRepository<Track>();  
+    }
 
     public TrackManager(LunchAndLearnContext context)
-        : base(context)
     {
+      _lunchAndLearnRepository = new LunchAndLearnRepository<Track>(context);
     }
 
-
-    // CRUD
-
-    /// <summary>Create a new track</summary>
-    public virtual Track Create(Track track)
+    public Track Get(int id)
     {
-      ValidateModel(track);
-
-      AddEntity(track);
-
-      return track;
+      return _lunchAndLearnRepository.Get(id);
     }
 
-
-    /// <summary>Get a track</summary>
-    public virtual Track Get(int id)
+    public List<Track> GetAll()
     {
-      return Context.Tracks.Where(al => al.TrackId == id).First();
+      return _lunchAndLearnRepository.GetAll().ToList();
     }
 
-    public virtual List<Track> GetAll()
+    public int Create(Track entity)
     {
-      return Context.Tracks.ToList();
-    }
-    /// <summary>Update existing Track</summary>
-    public virtual void Update(Track track)
-    {
-      ValidateModel(track);
-      UpdateEntity(track);
+      _lunchAndLearnRepository.Create(entity);
+      _lunchAndLearnRepository.SaveChanges();
+      return entity.TrackId;
     }
 
-    /// <summary>Delete Track</summary>
-    public virtual void Delete(int id)
+    public void Update(Track entity)
     {
-      DeleteEntity(new Track());
+      _lunchAndLearnRepository.Update(entity);
+      _lunchAndLearnRepository.SaveChanges();
     }
+
+    public void Delete(int id)
+    {
+      _lunchAndLearnRepository.Delete(id);
+      _lunchAndLearnRepository.SaveChanges();
+    }
+
+    #region Disposal
+    private bool _disposed = false;
+
+    protected virtual void Dispose(bool disposing)
+    {
+      if (!this._disposed)
+      {
+        if (disposing)
+        {
+          _lunchAndLearnRepository.Dispose();
+        }
+      }
+      this._disposed = true;
+    }
+
+    public void Dispose()
+    {
+      Dispose(true);
+      GC.SuppressFinalize(this);
+    }
+    #endregion
   }
 }

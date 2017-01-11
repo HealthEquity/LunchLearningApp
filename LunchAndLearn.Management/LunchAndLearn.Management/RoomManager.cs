@@ -1,54 +1,77 @@
-﻿using LunchAndLearn.Data;
+﻿using System;
+using LunchAndLearn.Data;
 using LunchAndLearn.Model;
 using System.Collections.Generic;
 using System.Linq;
+using LunchAndLearn.Data.Interfaces;
+using LunchAndLearn.Data.Repositories;
+using LunchAndLearn.Management.Interfaces;
 
 namespace LunchAndLearn.Management
 {
-  public class RoomManager : BaseManager, ILunchAndLearnRepository<Room, int>
+  public class RoomManager : IManagerClass<Room>
   {
-    public RoomManager() { }
+    private readonly ILunchAndLearnRepository<Room> _lunchAndLearnRepository;
+
+    public RoomManager()
+    {
+      _lunchAndLearnRepository = new LunchAndLearnRepository<Room>();
+    }
 
     public RoomManager(LunchAndLearnContext context)
-        : base(context)
     {
+      _lunchAndLearnRepository = new LunchAndLearnRepository<Room>(context);
     }
 
-
-    // CRUD
-
-    /// <summary>Create a new room</summary>
-    public virtual Room Create(Room room)
+    public Room Get(int id)
     {
-      ValidateModel(room);
-
-      AddEntity(room);
-
-      return room;
+      return _lunchAndLearnRepository.Get(id);
     }
 
-
-    /// <summary>Get a room</summary>
-    public virtual Room Get(int id)
+    public List<Room> GetAll()
     {
-      return Context.Rooms.Where(al => al.RoomId == id).First();
+      return _lunchAndLearnRepository.GetAll().ToList();
     }
 
-    public virtual List<Room> GetAll()
+    public int Create(Room entity)
     {
-      return Context.Rooms.ToList();
-    }
-    /// <summary>Update existing room</summary>
-    public virtual void Update(Room room)
-    {
-      ValidateModel(room);
-      UpdateEntity(room);
+      _lunchAndLearnRepository.Create(entity);
+      _lunchAndLearnRepository.SaveChanges();
+      return entity.RoomId;
     }
 
-    /// <summary>Delete room</summary>
-    public virtual void Delete(int id)
+    public void Update(Room entity)
     {
-      DeleteEntity(new Room());
+      _lunchAndLearnRepository.Update(entity);
+      _lunchAndLearnRepository.SaveChanges();
     }
+
+    public void Delete(int id)
+    {
+      _lunchAndLearnRepository.Delete(id);
+      _lunchAndLearnRepository.SaveChanges();
+    }
+
+    #region Disposal
+    private bool _disposed = false;
+
+    protected virtual void Dispose(bool disposing)
+    {
+      if (!this._disposed)
+      {
+        if (disposing)
+        {
+          _lunchAndLearnRepository.Dispose();
+        }
+      }
+      this._disposed = true;
+    }
+
+    public void Dispose()
+    {
+      Dispose(true);
+      GC.SuppressFinalize(this);
+    }
+    #endregion
   }
 }

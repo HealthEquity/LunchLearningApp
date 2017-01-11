@@ -3,22 +3,24 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Http.Results;
 using LunchAndLearn.Management;
+using LunchAndLearn.Management.Interfaces;
 using LunchAndLearn.Model;
 
 namespace LunchAndLearnService.Controllers
 {
+  [RoutePrefix("api/room")]
   public class RoomController : ApiController
   {
-    private readonly ILunchAndLearnManager _lunchAndLearnManager;
+    private readonly IManagerClass<Room> _roomManager;
 
-    public RoomController(ILunchAndLearnManager lunchAndLearnManager)
+    public RoomController(IManagerClass<Room> roomManager)
     {
-      this._lunchAndLearnManager = lunchAndLearnManager;
+      this._roomManager = roomManager;
     }
 
     public RoomController()
     {
-      _lunchAndLearnManager = new LunchAndLearnManager();
+      _roomManager = new RoomManager();
     }
 
     [HttpGet]
@@ -26,8 +28,12 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(List<Room>))]
     public IHttpActionResult GetAll()
     {
-      var response = _lunchAndLearnManager.RoomManager.GetAll();
-      return Ok(response);
+      List<Room> rooms;
+      using (_roomManager)
+      {
+        rooms = _roomManager.GetAll(); 
+      }
+      return Ok(rooms);
     }
 
     [HttpGet]
@@ -35,8 +41,12 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(Room))]
     public IHttpActionResult Get(int id)
     {
-      var response = _lunchAndLearnManager.RoomManager.Get(id);
-      return Ok(response);
+      Room room;
+      using (_roomManager)
+      {
+        room = _roomManager.Get(id); 
+      }
+      return Ok(room);
     }
 
     [HttpPost]
@@ -44,7 +54,10 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Post(Room room)
     {
-      _lunchAndLearnManager.RoomManager.Create(room);
+      using (_roomManager)
+      {
+        _roomManager.Create(room);
+      }
       return Ok();
     }
 
@@ -53,7 +66,10 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Put(Room room)
     {
-      _lunchAndLearnManager.RoomManager.Update(room);
+      using (_roomManager)
+      {
+        _roomManager.Update(room); 
+      }
       return Ok();
     }
     
@@ -62,7 +78,10 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Delete(int id)
     {
-      _lunchAndLearnManager.RoomManager.Delete(id);
+      using (_roomManager)
+      {
+        _roomManager.Delete(id); 
+      }
       return Ok();
     }
   }

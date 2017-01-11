@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Http.Results;
 using LunchAndLearn.Management;
+using LunchAndLearn.Management.Interfaces;
 using LunchAndLearn.Model;
 using LunchAndLearnService.Controllers;
 using NUnit.Framework;
@@ -12,13 +13,13 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
   [TestFixture]
   internal class TrackControllerTest
   {
-    private ILunchAndLearnManager _lunchAndLearnManager;
+    private IManagerClass<Track> _trackManager;
     private List<Track> _trackList;
 
     [SetUp]
     public void Init()
     {
-      _lunchAndLearnManager = Mock.Create<ILunchAndLearnManager>();
+      _trackManager = Mock.Create<IManagerClass<Track>>();
       _trackList = new List<Track>()
       {
         new Track()
@@ -48,7 +49,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
     [TearDown]
     public void CleanUp()
     {
-      _lunchAndLearnManager = null;
+      _trackManager = null;
       _trackList = null;
     }
 
@@ -57,9 +58,9 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
     public void GetAllTracks_UnderNormalConditions_ReturnsListOfTracks()
     {
       //Arrange
-      Mock.Arrange(() => _lunchAndLearnManager.TrackManager.GetAll()).Returns(_trackList).OccursOnce();
+      Mock.Arrange(() => _trackManager.GetAll()).Returns(_trackList).OccursOnce();
 
-      var trackController = new TrackController(_lunchAndLearnManager);
+      var trackController = new TrackController(_trackManager);
 
       var expected = _trackList;
 
@@ -69,7 +70,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
 
 
       //Assert
-      Mock.Assert(_lunchAndLearnManager);
+      Mock.Assert(_trackManager);
       Assert.That(actualContent, Is.EqualTo(expected));
     }
 
@@ -77,20 +78,20 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
     public void GetTrackById_WhereTrackExists_ReturnsTrack([Values(1,2,3)] int idOfTrackToRetrieve)
     {
       //Arrange
-      Mock.Arrange(() => _lunchAndLearnManager.TrackManager.Get(idOfTrackToRetrieve))
+      Mock.Arrange(() => _trackManager.Get(idOfTrackToRetrieve))
         .Returns(_trackList.FirstOrDefault(t => t.TrackId == idOfTrackToRetrieve))
         .OccursOnce();
 
       var expected = _trackList.FirstOrDefault(tr => tr.TrackId == idOfTrackToRetrieve);
 
-      var trackController = new TrackController(_lunchAndLearnManager);
+      var trackController = new TrackController(_trackManager);
 
       //Act
       var actual = trackController.Get(idOfTrackToRetrieve) as OkNegotiatedContentResult<Track>;
       var actualContent = actual.Content;
 
       //Assert
-      Mock.Assert(_lunchAndLearnManager);
+      Mock.Assert(_trackManager);
       Assert.That(actualContent, Is.EqualTo(expected));
     }
 
@@ -106,15 +107,15 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
         TrackName = "track name 7"
       };
 
-      Mock.Arrange(() => _lunchAndLearnManager.TrackManager.Create(trackToCreate)).OccursOnce();
+      Mock.Arrange(() => _trackManager.Create(trackToCreate)).OccursOnce();
 
-      var trackController= new  TrackController(_lunchAndLearnManager);
+      var trackController= new  TrackController(_trackManager);
 
       //act
       var actual = trackController.Create(trackToCreate) as OkResult;
 
       //assert
-      Mock.Assert(_lunchAndLearnManager);
+      Mock.Assert(_trackManager);
       Assert.That(actual, Is.TypeOf<OkResult>());
     }
 
@@ -123,15 +124,15 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
     {
       //arrange
       var trackToUpdate = _trackList.FirstOrDefault(tr => tr.TrackId == idOfTrackToBeUpdated);
-      Mock.Arrange(() => _lunchAndLearnManager.TrackManager.Update(trackToUpdate)).OccursOnce();
+      Mock.Arrange(() => _trackManager.Update(trackToUpdate)).OccursOnce();
 
-      var trackController = new TrackController(_lunchAndLearnManager);
+      var trackController = new TrackController(_trackManager);
 
       //act
       var actual = trackController.Put(trackToUpdate) as OkResult;
 
       //assert
-      Mock.Assert(_lunchAndLearnManager);
+      Mock.Assert(_trackManager);
       Assert.That(actual, Is.TypeOf<OkResult>());
     }
 
@@ -139,15 +140,15 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
     public void DeleteTrack_WhereTrackExists_ReturnsOkResponse([Values(1, 2, 3)] int idOfTrackToBeDeleted)
     {
       //arrange
-      Mock.Arrange(() => _lunchAndLearnManager.TrackManager.Delete(idOfTrackToBeDeleted)).OccursOnce();
+      Mock.Arrange(() => _trackManager.Delete(idOfTrackToBeDeleted)).OccursOnce();
 
-      var trackController = new TrackController(_lunchAndLearnManager);
+      var trackController = new TrackController(_trackManager);
 
       //act
       var actual = trackController.Delete(idOfTrackToBeDeleted) as OkResult;
 
       //assert
-      Mock.Assert(_lunchAndLearnManager);
+      Mock.Assert(_trackManager);
       Assert.That(actual, Is.TypeOf<OkResult>());
     }
   }

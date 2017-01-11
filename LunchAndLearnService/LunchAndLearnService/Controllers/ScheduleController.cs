@@ -3,22 +3,24 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Http.Results;
 using LunchAndLearn.Management;
+using LunchAndLearn.Management.Interfaces;
 using LunchAndLearn.Model;
 
 namespace LunchAndLearnService.Controllers
 {
+  [RoutePrefix("api/schedule")]
   public class ScheduleController : ApiController
   {
-    private ILunchAndLearnManager _lunchAndLearnManager;
+    private IManagerClass<Schedule> _scheduleManager;
 
-    public ScheduleController(ILunchAndLearnManager lunchAndLearnManager)
+    public ScheduleController(IManagerClass<Schedule> scheduleManager)
     {
-      _lunchAndLearnManager = lunchAndLearnManager;
+      _scheduleManager = scheduleManager;
     }
 
     public ScheduleController()
     {
-      _lunchAndLearnManager = new LunchAndLearnManager();
+      _scheduleManager = new ScheduleManager();
     }
 
     [HttpGet]
@@ -26,8 +28,12 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(List<Schedule>))]
     public IHttpActionResult GetAll()
     {
-      var response = _lunchAndLearnManager.ScheduleManager.GetAll();
-      return Ok(response);
+      List<Schedule> schedules;
+      using (_scheduleManager)
+      {
+        schedules = _scheduleManager.GetAll();
+      }
+      return Ok(schedules);
     }
 
     [HttpGet]
@@ -35,8 +41,12 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(Schedule))]
     public IHttpActionResult Get(int id)
     {
-      var response = _lunchAndLearnManager.ScheduleManager.Get(id);
-      return Ok(response);
+      Schedule schedule;
+      using (_scheduleManager)
+      {
+        schedule = _scheduleManager.Get(id); 
+      }
+      return Ok(schedule);
     }
 
     [HttpPost]
@@ -44,7 +54,10 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Post(Schedule schedule)
     {
-      _lunchAndLearnManager.ScheduleManager.Create(schedule);
+      using (_scheduleManager)
+      {
+        _scheduleManager.Create(schedule); 
+      }
       return Ok();
     }
 
@@ -53,7 +66,10 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Put(Schedule schedule)
     {
-      _lunchAndLearnManager.ScheduleManager.Update(schedule);
+      using (_scheduleManager)
+      {
+        _scheduleManager.Update(schedule); 
+      }
       return Ok();
     }
 
@@ -62,7 +78,10 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public OkResult Delete(int id)
     {
-      _lunchAndLearnManager.ScheduleManager.Delete(id);
+      using (_scheduleManager)
+      {
+        _scheduleManager.Delete(id); 
+      }
       return Ok();
     }
   }

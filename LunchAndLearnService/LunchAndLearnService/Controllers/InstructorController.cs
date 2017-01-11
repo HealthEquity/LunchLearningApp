@@ -5,22 +5,23 @@ using System.Web.Http.Description;
 using System.Web.Http.Results;
 using LunchAndLearn.Model;
 using LunchAndLearn.Management;
+using LunchAndLearn.Management.Interfaces;
 
 namespace LunchAndLearnService.Controllers
 {
   [RoutePrefix("api/instructor")]
   public class InstructorController : ApiController
   {
-    readonly ILunchAndLearnManager _lunchAndLearnManager;
+    readonly IManagerClass<Instructor> _instructorManager;
 
-    public InstructorController(ILunchAndLearnManager lunchAndLearnManager)
+    public InstructorController(IManagerClass<Instructor> instructorManager)
     {
-      _lunchAndLearnManager = lunchAndLearnManager;
+      _instructorManager = instructorManager;
     }
 
     public InstructorController()
     {
-      _lunchAndLearnManager = new LunchAndLearnManager();
+      _instructorManager = new InstructorManager();
     }
 
     [HttpGet]
@@ -28,8 +29,12 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(List<Instructor>))]
     public IHttpActionResult GetAll()
     {
-      var response = _lunchAndLearnManager.InstructorManager.GetAll();
-      return Ok(response);
+      List<Instructor> instructors;
+      using (_instructorManager)
+      {
+        instructors = _instructorManager.GetAll(); 
+      }
+      return Ok(instructors);
     }
 
     [HttpGet]
@@ -37,8 +42,12 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(Instructor))]
     public IHttpActionResult Get(int id)
     {
-      var response = _lunchAndLearnManager.InstructorManager.Get(id);
-      return Ok(response);
+      Instructor instructor;
+      using (_instructorManager)
+      {
+        instructor = _instructorManager.Get(id); 
+      }
+      return Ok(instructor);
     }
 
     [HttpPut]
@@ -46,7 +55,10 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Put(Instructor instructor)
     {
-      _lunchAndLearnManager.InstructorManager.Update(instructor);
+      using (_instructorManager)
+      {
+        _instructorManager.Update(instructor); 
+      }
       return Ok();
     }
 
@@ -55,7 +67,10 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Delete(int id)
     {
-      _lunchAndLearnManager.InstructorManager.Delete(id);
+      using (_instructorManager)
+      {
+        _instructorManager.Delete(id); 
+      }
       return Ok();
     }
 
@@ -64,7 +79,10 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Post(Instructor instructor)
     {
-      _lunchAndLearnManager.InstructorManager.Create(instructor);
+      using (_instructorManager)
+      {
+        _instructorManager.Create(instructor); 
+      }
       return Ok();
     }
   }
