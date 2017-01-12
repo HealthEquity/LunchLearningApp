@@ -190,3 +190,13 @@ C:\Repos\LunchAndLearn\LunchAndLearnService\LunchAndLearnService\bin\System.Web.
 C:\Repos\LunchAndLearn\LunchAndLearnService\LunchAndLearnService\obj\Debug\LunchAndLearnService.csprojResolveAssemblyReference.cache
 C:\Repos\LunchAndLearn\LunchAndLearnService\LunchAndLearnService\obj\Debug\LunchAndLearnService.dll
 C:\Repos\LunchAndLearn\LunchAndLearnService\LunchAndLearnService\obj\Debug\LunchAndLearnService.pdb
+C:\Repos\LunchAndLearn\LunchAndLearnService\LunchAndLearnService\bin\Microsoft.Practices.ServiceLocation.dll
+C:\Repos\LunchAndLearn\LunchAndLearnService\LunchAndLearnService\bin\Microsoft.Practices.Unity.Configuration.dll
+C:\Repos\LunchAndLearn\LunchAndLearnService\LunchAndLearnService\bin\Microsoft.Practices.Unity.dll
+C:\Repos\LunchAndLearn\LunchAndLearnService\LunchAndLearnService\bin\Microsoft.Practices.Unity.RegistrationByConvention.dll
+C:\Repos\LunchAndLearn\LunchAndLearnService\LunchAndLearnService\bin\Microsoft.Practices.ServiceLocation.pdb
+C:\Repos\LunchAndLearn\LunchAndLearnService\LunchAndLearnService\bin\Microsoft.Practices.ServiceLocation.xml
+C:\Repos\LunchAndLearn\LunchAndLearnService\LunchAndLearnService\bin\Microsoft.Practices.Unity.xml
+C:\Repos\LunchAndLearn\LunchAndLearnService\LunchAndLearnService\bin\Microsoft.Practices.Unity.Configuration.xml
+C:\Repos\LunchAndLearn\LunchAndLearnService\LunchAndLearnService\bin\Microsoft.Practices.Unity.RegistrationByConvention.xml
+C:\Repos\LunchAndLearn\LunchAndLearnService\LunchAndLearnService\bin\Unity.WebApi.dll

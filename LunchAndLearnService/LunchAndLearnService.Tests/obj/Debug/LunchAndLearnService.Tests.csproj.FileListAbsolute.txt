@@ -146,3 +146,9 @@ C:\Repos\LunchAndLearn\LunchAndLearnService\LunchAndLearnService.Tests\obj\Debug
 C:\Repos\LunchAndLearn\LunchAndLearnService\LunchAndLearnService.Tests\obj\Debug\LunchAndLearnService.Tests.pdb
 C:\Repos\LunchAndLearn\LunchAndLearnService\LunchAndLearnService.Tests\bin\Debug\Telerik.JustMock.dll
 C:\Repos\LunchAndLearn\LunchAndLearnService\LunchAndLearnService.Tests\bin\Debug\Telerik.JustMock.xml
+C:\Repos\LunchAndLearn\LunchAndLearnService\LunchAndLearnService.Tests\bin\Debug\Microsoft.Practices.Unity.dll
+C:\Repos\LunchAndLearn\LunchAndLearnService\LunchAndLearnService.Tests\bin\Debug\Unity.WebApi.dll
+C:\Repos\LunchAndLearn\LunchAndLearnService\LunchAndLearnService.Tests\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\Repos\LunchAndLearn\LunchAndLearnService\LunchAndLearnService.Tests\bin\Debug\Microsoft.Practices.Unity.xml
+C:\Repos\LunchAndLearn\LunchAndLearnService\LunchAndLearnService.Tests\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+C:\Repos\LunchAndLearn\LunchAndLearnService\LunchAndLearnService.Tests\bin\Debug\Microsoft.Practices.ServiceLocation.xml

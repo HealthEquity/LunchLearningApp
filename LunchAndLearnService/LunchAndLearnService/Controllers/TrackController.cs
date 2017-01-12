@@ -7,22 +7,19 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Http.Results;
 using LunchAndLearn.Management;
+using LunchAndLearn.Management.Interfaces;
 using LunchAndLearn.Model;
 
 namespace LunchAndLearnService.Controllers
 {
+  [RoutePrefix("api/track")]
   public class TrackController : ApiController
   {
-    private readonly ILunchAndLearnManager _lunchAndLearnManager;
+    private readonly IManagerClass<Track> _trackManager;
 
-    public TrackController(ILunchAndLearnManager lunchAndLearnManager)
+    public TrackController(IManagerClass<Track> trackManager)
     {
-      _lunchAndLearnManager = lunchAndLearnManager;
-    }
-
-    public TrackController()
-    {
-      _lunchAndLearnManager = new LunchAndLearnManager();
+      _trackManager = trackManager;
     }
 
     [HttpGet]
@@ -30,8 +27,12 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(List<Track>))]
     public IHttpActionResult GetAll()
     {
-      var response = _lunchAndLearnManager.TrackManager.GetAll();
-      return Ok(response);
+      List<Track> tracks;
+      using (_trackManager)
+      {
+        tracks = _trackManager.GetAll(); 
+      }
+      return Ok(tracks);
     }
 
     [HttpGet]
@@ -39,8 +40,12 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(Track))]
     public IHttpActionResult Get(int id)
     {
-      var response = _lunchAndLearnManager.TrackManager.Get(id);
-      return Ok(response);
+      Track track;
+      using (_trackManager)
+      {
+        track = _trackManager.Get(id); 
+      }
+      return Ok(track);
     }
 
     [HttpPost]
@@ -48,7 +53,10 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Create(Track track)
     {
-      _lunchAndLearnManager.TrackManager.Create(track);
+      using (_trackManager)
+      {
+        _trackManager.Create(track); 
+      }
       return Ok();
     }
 
@@ -57,7 +65,10 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Put(Track track)
     {
-      _lunchAndLearnManager.TrackManager.Update(track);
+      using (_trackManager)
+      {
+        _trackManager.Update(track); 
+      }
       return Ok();
     }
 
@@ -66,7 +77,10 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Delete(int id)
     {
-      _lunchAndLearnManager.TrackManager.Delete(id);
+      using (_trackManager)
+      {
+        _trackManager.Delete(id); 
+      }
       return Ok();
     }
   }
