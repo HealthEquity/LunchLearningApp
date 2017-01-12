@@ -22,11 +22,6 @@ namespace LunchAndLearnService.Controllers
       _classManager = classManager;
     }
 
-    public ClassController()
-    {
-      _classManager = new ClassManager();
-    }
-
     // GET api/class
     [HttpGet]
     [Route("all")]

@@ -7,19 +7,12 @@ using LunchAndLearn.Data.Interfaces;
 
 namespace LunchAndLearn.Data.Repositories
 {
-  public class LunchAndLearnRepository<T> : ILunchAndLearnRepository<T>, IDisposable where T : class
+  public class LunchAndLearnRepository<T> : ILunchAndLearnRepository<T> where T : class
   {
-    private readonly LunchAndLearnContext _databaseContext;
-
-    public LunchAndLearnRepository(LunchAndLearnContext databaseContext)
-    {
-      _databaseContext = databaseContext;
-      Initialize();
-    }
+    private readonly LunchAndLearnContext _databaseContext = new LunchAndLearnContext();
 
     public LunchAndLearnRepository()
     {
-      _databaseContext = new LunchAndLearnContext();
       Initialize();
     }
 

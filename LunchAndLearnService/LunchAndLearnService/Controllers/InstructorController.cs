@@ -19,11 +19,6 @@ namespace LunchAndLearnService.Controllers
       _instructorManager = instructorManager;
     }
 
-    public InstructorController()
-    {
-      _instructorManager = new InstructorManager();
-    }
-
     [HttpGet]
     [Route("all")]
     [ResponseType(typeof(List<Instructor>))]

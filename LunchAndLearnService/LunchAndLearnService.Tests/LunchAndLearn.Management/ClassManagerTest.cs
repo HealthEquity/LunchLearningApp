@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using LunchAndLearn.Data;
+using LunchAndLearn.Data.Interfaces;
 using LunchAndLearn.Data.Repositories;
 using LunchAndLearn.Management;
 using LunchAndLearn.Model;
@@ -15,11 +17,10 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
     private List<Class> _classList;
     private ClassManager _classManager;
 
+
     [SetUp]
     public void Init()
     {
-      _classManager = new ClassManager();
-
       _classList = new List<Class>()
       {
         new Class()
@@ -51,26 +52,31 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
     }
 
     [Test]
-    public void CreateClass_UnderNormalConditions_ReturnsNewlyCreatedClassId()
+    public void CreateClass_UnderNormalConditions_AddsClasstoClassList()
     {
       //Arrange
+      var originalCountOfClasses = _classList.Count;
       var classToBeCreated = new Class()
       {
         ClassDescription = "test class description",
         ClassName = "test class name"
       };
 
-      var mockRepo = Mock.Create<LunchAndLearnRepository<Class>>();
-      Mock.Arrange(() => mockRepo.Create(classToBeCreated)).DoNothing();
+      var mockRepo = Mock.Create<ILunchAndLearnRepository<Class>>();
+      Mock.Arrange(() => mockRepo.Create(Arg.IsAny<Class>()))
+        .DoInstead(() => _classList.Add(classToBeCreated))
+        .OccursOnce();
 
-      var classManager = new ClassManager();
+      _classManager = new ClassManager(mockRepo);
 
       //Act
-      var actual = classManager.Create(classToBeCreated);
+      _classManager.Create(classToBeCreated);
+      var actualCount = _classList.Count;
 
 
       //Assert
-      Assert.That(actual, Is.Not.EqualTo(0));
+      Mock.Assert(mockRepo);
+      Assert.That(actualCount, Is.EqualTo(originalCountOfClasses + 1));
     }
   }
 }

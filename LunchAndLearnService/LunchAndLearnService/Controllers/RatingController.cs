@@ -22,11 +22,6 @@ namespace LunchAndLearnService.Controllers
       _ratingManager = ratingManager;
     }
 
-    public RatingController()
-    {
-      _ratingManager = new RatingManager();
-    }
-
     [Route("all")]
     [HttpGet]
     [ResponseType(typeof(List<Rating>))]

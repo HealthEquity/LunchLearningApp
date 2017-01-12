@@ -18,11 +18,6 @@ namespace LunchAndLearnService.Controllers
       this._roomManager = roomManager;
     }
 
-    public RoomController()
-    {
-      _roomManager = new RoomManager();
-    }
-
     [HttpGet]
     [Route("all")]
     [ResponseType(typeof(List<Room>))]

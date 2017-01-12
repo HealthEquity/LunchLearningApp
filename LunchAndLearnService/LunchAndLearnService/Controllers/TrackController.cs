@@ -22,11 +22,6 @@ namespace LunchAndLearnService.Controllers
       _trackManager = trackManager;
     }
 
-    public TrackController()
-    {
-      _trackManager = new TrackManager();
-    }
-
     [HttpGet]
     [Route("all")]
     [ResponseType(typeof(List<Track>))]

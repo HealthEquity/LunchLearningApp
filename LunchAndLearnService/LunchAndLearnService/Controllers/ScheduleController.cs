@@ -18,11 +18,6 @@ namespace LunchAndLearnService.Controllers
       _scheduleManager = scheduleManager;
     }
 
-    public ScheduleController()
-    {
-      _scheduleManager = new ScheduleManager();
-    }
-
     [HttpGet]
     [Route("all")]
     [ResponseType(typeof(List<Schedule>))]

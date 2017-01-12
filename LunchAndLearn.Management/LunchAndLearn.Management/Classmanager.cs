@@ -2,6 +2,7 @@
 using LunchAndLearn.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,14 +16,9 @@ namespace LunchAndLearn.Management
   {
     private readonly ILunchAndLearnRepository<Class> _lunchAndLearnRepository;
 
-    public ClassManager()
+    public ClassManager(ILunchAndLearnRepository<Class> lunchAndLearnRepository)
     {
-      _lunchAndLearnRepository = new LunchAndLearnRepository<Class>();
-    }
-
-    public ClassManager(LunchAndLearnContext context)
-    {
-      _lunchAndLearnRepository = new LunchAndLearnRepository<Class>(context);
+      _lunchAndLearnRepository = lunchAndLearnRepository;
     }
 
     public Class Get(int id)
@@ -63,6 +59,7 @@ namespace LunchAndLearn.Management
       {
         if (disposing)
         {
+          //Dispose of all repos used in this class here Example: _productRepository, _personRepository
           _lunchAndLearnRepository.Dispose();
         }
       }

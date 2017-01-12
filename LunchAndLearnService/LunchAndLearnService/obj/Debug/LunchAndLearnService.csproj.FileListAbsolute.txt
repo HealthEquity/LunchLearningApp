@@ -199,3 +199,4 @@ C:\Repos\LunchAndLearn\LunchAndLearnService\LunchAndLearnService\bin\Microsoft.P
 C:\Repos\LunchAndLearn\LunchAndLearnService\LunchAndLearnService\bin\Microsoft.Practices.Unity.xml
 C:\Repos\LunchAndLearn\LunchAndLearnService\LunchAndLearnService\bin\Microsoft.Practices.Unity.Configuration.xml
 C:\Repos\LunchAndLearn\LunchAndLearnService\LunchAndLearnService\bin\Microsoft.Practices.Unity.RegistrationByConvention.xml
+C:\Repos\LunchAndLearn\LunchAndLearnService\LunchAndLearnService\bin\Unity.WebApi.dll

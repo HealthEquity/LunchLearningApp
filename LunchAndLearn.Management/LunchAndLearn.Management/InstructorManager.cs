@@ -13,14 +13,9 @@ namespace LunchAndLearn.Management
   {
     private readonly ILunchAndLearnRepository<Instructor> _lunchAndLearnRepository;
 
-    public InstructorManager()
+    public InstructorManager(ILunchAndLearnRepository<Instructor> lunchAndLearnRepository)
     {
-      _lunchAndLearnRepository = new LunchAndLearnRepository<Instructor>();
-    }
-
-    public InstructorManager(LunchAndLearnContext context)
-    {
-      _lunchAndLearnRepository = new LunchAndLearnRepository<Instructor>(context);
+      _lunchAndLearnRepository = lunchAndLearnRepository;
     }
 
     public Instructor Get(int id)

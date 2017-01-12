@@ -40,9 +40,9 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
     public void GetAll_UnderNormalConditions_DoesNotReturnNull()
     {
       // Arrange
-      var lunchAndLearnManager = Mock.Create<IManagerClass<Class>>();
-      Mock.Arrange(() => lunchAndLearnManager.GetAll()).Returns(_mockClassList).OccursOnce();
-      var classController = new ClassController(lunchAndLearnManager);
+      var classManager = Mock.Create<IManagerClass<Class>>();
+      Mock.Arrange(() => classManager.GetAll()).Returns(_mockClassList).OccursOnce();
+      var classController = new ClassController(classManager);
 
       //// Act
       var result = (OkNegotiatedContentResult<List<Class>>)classController.GetAll();
@@ -52,19 +52,19 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
       //// Assert
       Assert.IsNotNull(actualResult);
       Assert.That(actualResult.Count, Is.GreaterThan(1));
-      Mock.Assert(lunchAndLearnManager);
+      Mock.Assert(classManager);
     }
 
     [Test]
     public void GetOneById_WhereIdExists_DoesNotReturnNull([Values(1, 2)]int idToRetrieve)
     {
       // Arrange
-      var lunchAndLearnManager = Mock.Create<IManagerClass<Class>>();
+      var classManager = Mock.Create<IManagerClass<Class>>();
       var expected = _mockClassList.FirstOrDefault(x => x.ClassId == idToRetrieve);
-      Mock.Arrange(() => lunchAndLearnManager.Get(idToRetrieve))
+      Mock.Arrange(() => classManager.Get(idToRetrieve))
         .Returns(_mockClassList.FirstOrDefault(x => x.ClassId == idToRetrieve))
         .OccursOnce();
-      var classController = new ClassController(lunchAndLearnManager);
+      var classController = new ClassController(classManager);
 
       //// Act
       var result = (OkNegotiatedContentResult<Class>)classController.Get(idToRetrieve);
@@ -73,7 +73,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
 
 
       //Assert
-      Mock.Assert(lunchAndLearnManager);
+      Mock.Assert(classManager);
       Assert.That(actualResult, Is.EqualTo(expected));
     }
 

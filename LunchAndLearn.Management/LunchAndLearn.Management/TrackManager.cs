@@ -15,14 +15,9 @@ namespace LunchAndLearn.Management
   {
     private readonly ILunchAndLearnRepository<Track> _lunchAndLearnRepository;
 
-    public TrackManager()
+    public TrackManager(ILunchAndLearnRepository<Track> lunchAndLearnRepository)
     {
-      _lunchAndLearnRepository = new LunchAndLearnRepository<Track>();  
-    }
-
-    public TrackManager(LunchAndLearnContext context)
-    {
-      _lunchAndLearnRepository = new LunchAndLearnRepository<Track>(context);
+      _lunchAndLearnRepository = lunchAndLearnRepository;
     }
 
     public Track Get(int id)
