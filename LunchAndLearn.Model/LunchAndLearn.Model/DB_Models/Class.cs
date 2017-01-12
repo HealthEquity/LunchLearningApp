@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace LunchAndLearn.Model.DB_Models
@@ -14,5 +15,8 @@ namespace LunchAndLearn.Model.DB_Models
     public string ClassName { get; set; }
     [DataMember]
     public string ClassDescription { get; set; }
+
+    public virtual ICollection<Schedule> Schedules { get; set; }
+    public virtual ICollection<Rating> Ratings { get; set; }
   }
 }

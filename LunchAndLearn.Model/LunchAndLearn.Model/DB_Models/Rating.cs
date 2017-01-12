@@ -19,5 +19,8 @@ namespace LunchAndLearn.Model.DB_Models
     public int InstructorRating { get; set; }
     [DataMember]
     public string Comment { get; set; }
+
+    public virtual Class Class { get; set; }
+    public virtual Instructor Instructor { get; set; }
   }
 }

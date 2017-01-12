@@ -9,10 +9,14 @@ namespace LunchAndLearn.Data.Repositories
 {
   public class LunchAndLearnRepository<T> : ILunchAndLearnRepository<T> where T : class
   {
-    private readonly LunchAndLearnContext _databaseContext = new LunchAndLearnContext();
+    private readonly LunchAndLearnContext _databaseContext;
 
     public LunchAndLearnRepository()
     {
+       _databaseContext = new LunchAndLearnContext();
+#if DEBUG
+      _databaseContext.Database.Log = s => Debug.Write(s); 
+#endif
       Initialize();
     }
 
