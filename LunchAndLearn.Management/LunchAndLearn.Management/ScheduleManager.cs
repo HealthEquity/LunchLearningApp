@@ -6,6 +6,7 @@ using System.Linq;
 using LunchAndLearn.Data.Interfaces;
 using LunchAndLearn.Data.Repositories;
 using LunchAndLearn.Management.Interfaces;
+using LunchAndLearn.Model.DB_Models;
 
 namespace LunchAndLearn.Management
 {

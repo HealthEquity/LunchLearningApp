@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using LunchAndLearn.Data.Interfaces;
 using LunchAndLearn.Data.Repositories;
 using LunchAndLearn.Management.Interfaces;
+using LunchAndLearn.Model.DB_Models;
 
 namespace LunchAndLearn.Management
 {

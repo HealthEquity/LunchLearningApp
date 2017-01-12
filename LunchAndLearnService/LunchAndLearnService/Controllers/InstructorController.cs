@@ -6,6 +6,7 @@ using System.Web.Http.Results;
 using LunchAndLearn.Model;
 using LunchAndLearn.Management;
 using LunchAndLearn.Management.Interfaces;
+using LunchAndLearn.Model.DB_Models;
 
 namespace LunchAndLearnService.Controllers
 {

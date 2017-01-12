@@ -5,6 +5,7 @@ using LunchAndLearn.Data.Repositories;
 using LunchAndLearn.Management;
 using LunchAndLearn.Management.Interfaces;
 using LunchAndLearn.Model;
+using LunchAndLearn.Model.DB_Models;
 using Unity.WebApi;
 
 namespace LunchAndLearnService

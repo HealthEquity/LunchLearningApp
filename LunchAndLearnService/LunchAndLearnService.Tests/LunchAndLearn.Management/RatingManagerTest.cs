@@ -7,6 +7,7 @@ using LunchAndLearn.Data.Interfaces;
 using LunchAndLearn.Management;
 using LunchAndLearn.Management.Interfaces;
 using LunchAndLearn.Model;
+using LunchAndLearn.Model.DB_Models;
 using NUnit.Framework;
 using Telerik.JustMock;
 

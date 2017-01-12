@@ -5,6 +5,7 @@ using LunchAndLearn.Data.Interfaces;
 using LunchAndLearn.Data.Repositories;
 using LunchAndLearn.Management;
 using LunchAndLearn.Model;
+using LunchAndLearn.Model.DB_Models;
 using NUnit.Framework;
 using Telerik.JustMock;
 using Telerik.JustMock.Helpers;
