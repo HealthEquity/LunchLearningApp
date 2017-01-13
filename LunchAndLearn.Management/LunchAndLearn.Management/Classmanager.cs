@@ -24,31 +24,46 @@ namespace LunchAndLearn.Management
 
     public Class Get(int id)
     {
-      return _classRepository.Get(id);
+      using (_classRepository)
+      {
+        return _classRepository.Get(id);
+      }
     }
 
     public List<Class> GetAll()
     {
-      return _classRepository.GetAll().ToList();
+      using (_classRepository)
+      {
+        return _classRepository.GetAll().ToList();
+      }
     }
 
     public int Create(Class entity)
     {
-      _classRepository.Create(entity);
-      _classRepository.SaveChanges();
-      return entity.ClassId;
+      using (_classRepository)
+      {
+        _classRepository.Create(entity);
+        _classRepository.SaveChanges();
+        return entity.ClassId;
+      }
     }
 
     public void Update(Class entity)
     {
-      _classRepository.Update(entity);
-      _classRepository.SaveChanges();
+      using (_classRepository)
+      {
+        _classRepository.Update(entity);
+        _classRepository.SaveChanges();
+      }
     }
 
     public void Delete(int id)
     {
-      _classRepository.Delete(id);
-      _classRepository.SaveChanges();
+      using (_classRepository)
+      {
+        _classRepository.Delete(id);
+        _classRepository.SaveChanges(); 
+      }
     }
 
     #region Disposal

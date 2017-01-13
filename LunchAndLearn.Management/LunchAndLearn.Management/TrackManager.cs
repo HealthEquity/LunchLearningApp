@@ -23,31 +23,46 @@ namespace LunchAndLearn.Management
 
     public Track Get(int id)
     {
-      return _trackRepository.Get(id);
+      using (_trackRepository)
+      {
+        return _trackRepository.Get(id); 
+      }
     }
 
     public List<Track> GetAll()
     {
-      return _trackRepository.GetAll().ToList();
+      using (_trackRepository)
+      {
+        return _trackRepository.GetAll().ToList(); 
+      }
     }
 
     public int Create(Track entity)
     {
-      _trackRepository.Create(entity);
-      _trackRepository.SaveChanges();
-      return entity.TrackId;
+      using (_trackRepository)
+      {
+        _trackRepository.Create(entity);
+        _trackRepository.SaveChanges();
+        return entity.TrackId; 
+      }
     }
 
     public void Update(Track entity)
     {
-      _trackRepository.Update(entity);
-      _trackRepository.SaveChanges();
+      using (_trackRepository)
+      {
+        _trackRepository.Update(entity);
+        _trackRepository.SaveChanges(); 
+      }
     }
 
     public void Delete(int id)
     {
-      _trackRepository.Delete(id);
-      _trackRepository.SaveChanges();
+      using (_trackRepository)
+      {
+        _trackRepository.Delete(id);
+        _trackRepository.SaveChanges(); 
+      }
     }
 
     #region Disposal

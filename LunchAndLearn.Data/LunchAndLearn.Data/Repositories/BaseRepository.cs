@@ -17,12 +17,6 @@ namespace LunchAndLearn.Data.Repositories
 #if DEBUG
       DbContext.Database.Log = s => Debug.Write(s); 
 #endif
-      Initialize();
-    }
-
-    private void Initialize()
-    {
-      DbContext.Set<T>();
     }
 
     public void Create(T entity)

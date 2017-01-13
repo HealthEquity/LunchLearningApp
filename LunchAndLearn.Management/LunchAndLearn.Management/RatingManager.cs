@@ -21,31 +21,46 @@ namespace LunchAndLearn.Management
 
     public Rating Get(int id)
     {
-      return _ratingRepository.Get(id);
+      using (_ratingRepository)
+      {
+        return _ratingRepository.Get(id); 
+      }
     }
 
     public List<Rating> GetAll()
     {
-      return _ratingRepository.GetAll().ToList();
+      using (_ratingRepository)
+      {
+        return _ratingRepository.GetAll().ToList(); 
+      }
     }
 
     public int Create(Rating entity)
     {
-      _ratingRepository.Create(entity);
-      _ratingRepository.SaveChanges();
-      return entity.RatingId;
+      using (_ratingRepository)
+      {
+        _ratingRepository.Create(entity);
+        _ratingRepository.SaveChanges();
+        return entity.RatingId; 
+      }
     }
 
     public void Update(Rating entity)
     {
-      _ratingRepository.Update(entity);
-      _ratingRepository.SaveChanges();
+      using (_ratingRepository)
+      {
+        _ratingRepository.Update(entity);
+        _ratingRepository.SaveChanges(); 
+      }
     }
 
     public void Delete(int id)
     {
-      _ratingRepository.Delete(id);
-      _ratingRepository.SaveChanges();
+      using (_ratingRepository)
+      {
+        _ratingRepository.Delete(id);
+        _ratingRepository.SaveChanges(); 
+      }
     }
 
     #region Disposal
