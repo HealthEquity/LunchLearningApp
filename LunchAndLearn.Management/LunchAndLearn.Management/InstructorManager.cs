@@ -3,58 +3,71 @@ using LunchAndLearn.Data;
 using LunchAndLearn.Model;
 using System.Collections.Generic;
 using System.Linq;
+using LunchAndLearn.Data.Interfaces;
+using LunchAndLearn.Data.Repositories;
+using LunchAndLearn.Management.Interfaces;
+using LunchAndLearn.Model.DB_Models;
 
 namespace LunchAndLearn.Management
 {
-  public class InstructorManager : BaseManager, ILunchAndLearnRepository<Instructor, int>
+  public class InstructorManager : IManagerClass<Instructor>
   {
-    public InstructorManager() { }
+    private readonly IInstructorRepository _instructorRepository;
 
-    public InstructorManager(LunchAndLearnContext context)
-        : base(context)
+    public InstructorManager(IInstructorRepository instructorRepository)
     {
+      _instructorRepository = instructorRepository;
     }
 
-
-    // CRUD
-
-    /// <summary>Create a new instructor</summary>
-    public virtual Instructor Create(Instructor instructor)
+    public Instructor Get(int id)
     {
-      ValidateModel(instructor);
-
-      AddEntity(instructor);
-
-      return instructor;
+      return _instructorRepository.Get(id);
     }
 
-
-    /// <summary>Get an instructor</summary>
-    public virtual Instructor Get(int id)
+    public List<Instructor> GetAll()
     {
-      return Context.Instructors.FirstOrDefault(al => al.InstructorId == id);
+      return _instructorRepository.GetAll().ToList();
     }
 
-    public virtual List<Instructor> GetAll()
+    public int Create(Instructor entity)
     {
-      return Context.Instructors.ToList();
-    }
-    /// <summary>Update existing instructor</summary>
-    public virtual void Update(Instructor instructor)
-    {
-      ValidateModel(instructor);
-      UpdateEntity(instructor);
+      _instructorRepository.Create(entity);
+      _instructorRepository.SaveChanges();
+      return entity.InstructorId;
     }
 
-    /// <summary>Delete instructor</summary>
-    public virtual void Delete(int id)
+    public void Update(Instructor entity)
     {
-      DeleteEntity(new Instructor());
+      _instructorRepository.Update(entity);
+      _instructorRepository.SaveChanges();
     }
 
+    public void Delete(int id)
+    {
+      _instructorRepository.Delete(id);
+      _instructorRepository.SaveChanges();
+    }
 
-    // Getters
+    #region Disposal
+    private bool _disposed = false;
 
+    protected virtual void Dispose(bool disposing)
+    {
+      if (!this._disposed)
+      {
+        if (disposing)
+        {
+          _instructorRepository.Dispose();
+        }
+      }
+      this._disposed = true;
+    }
 
+    public void Dispose()
+    {
+      Dispose(true);
+      GC.SuppressFinalize(this);
+    }
+    #endregion
   }
 }

@@ -2,7 +2,9 @@
 using System.Linq;
 using System.Web.Http.Results;
 using LunchAndLearn.Management;
+using LunchAndLearn.Management.Interfaces;
 using LunchAndLearn.Model;
+using LunchAndLearn.Model.DB_Models;
 using LunchAndLearnService.Controllers;
 using NUnit.Framework;
 using Telerik.JustMock;
@@ -12,13 +14,13 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
   [TestFixture]
   internal class RatingControllerTest
   {
-    private ILunchAndLearnManager _lunchAndLearnManager;
+    private IManagerClass<Rating> _ratingManager;
     private List<Rating> _ratingsList;
 
     [SetUp]
     public void Init()
     {
-      _lunchAndLearnManager = Mock.Create<ILunchAndLearnManager>();
+      _ratingManager = Mock.Create<IManagerClass<Rating>>();
       _ratingsList = new List<Rating>()
       {
         new Rating()
@@ -54,7 +56,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
     [TearDown]
     public void Cleanup()
     {
-      _lunchAndLearnManager = null;
+      _ratingManager = null;
       _ratingsList = null;
     }
 
@@ -62,11 +64,11 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
     public void GetAllRatings_UnderNormalConditions_ReturnsMultipleRatings()
     {
       //Arrange
-      Mock.Arrange(() => _lunchAndLearnManager.RatingManager.GetAll()).Returns(_ratingsList).OccursOnce();
+      Mock.Arrange(() => _ratingManager.GetAll()).Returns(_ratingsList).OccursOnce();
 
       var expected = _ratingsList;
 
-      var ratingController = new RatingController(_lunchAndLearnManager);
+      var ratingController = new RatingController(_ratingManager);
 
       //Act
       var actual = ratingController.GetAll() as OkNegotiatedContentResult<List<Rating>>;
@@ -74,7 +76,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
 
 
       //Assert
-      Mock.Assert(_lunchAndLearnManager);
+      Mock.Assert(_ratingManager);
       Assert.That(actualContent, Is.EqualTo(expected));
     }
 
@@ -83,12 +85,12 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
     {
       //Arrange
       var expected = _ratingsList.FirstOrDefault(x => x.RatingId == idOfRatingToBeFound);
-      Mock.Arrange(() => _lunchAndLearnManager.RatingManager.Get(idOfRatingToBeFound))
+      Mock.Arrange(() => _ratingManager.Get(idOfRatingToBeFound))
         .Returns(_ratingsList.FirstOrDefault(x => x.RatingId == idOfRatingToBeFound))
         .OccursOnce();
 
-
-      var ratingController = new RatingController(_lunchAndLearnManager);
+      
+      var ratingController = new RatingController(_ratingManager);
 
       //Act
       var actual = ratingController.Get(idOfRatingToBeFound) as OkNegotiatedContentResult<Rating>;
@@ -96,7 +98,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
 
 
       //Assert
-      Mock.Assert(_lunchAndLearnManager);
+      Mock.Assert(_ratingManager);
       Assert.That(actualContent, Is.EqualTo(expected));
     }
 
@@ -113,13 +115,13 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
         InstructorRating = 5,
         RatingId = 5
       };
-      Mock.Arrange(() => _lunchAndLearnManager.RatingManager.Create(rating)).OccursOnce();
-      var ratingController = new RatingController(_lunchAndLearnManager);
+      Mock.Arrange(() => _ratingManager.Create(rating)).OccursOnce();
+      var ratingController = new RatingController(_ratingManager);
 
       //Act
       var actual = ratingController.Post(rating) as OkResult;
       //Assert
-      Mock.Assert(_lunchAndLearnManager);
+      Mock.Assert(_ratingManager);
       Assert.IsNotNull(actual);
       Assert.That(actual, Is.TypeOf<OkResult>());
     }
@@ -130,14 +132,14 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
       //arrange
       var rating = _ratingsList.FirstOrDefault(x => x.RatingId == ratingIdToUpdate);
 
-      Mock.Arrange(() => _lunchAndLearnManager.RatingManager.Update(rating)).OccursOnce();
-      var ratingController = new RatingController(_lunchAndLearnManager);
+      Mock.Arrange(() => _ratingManager.Update(rating)).OccursOnce();
+      var ratingController = new RatingController(_ratingManager);
 
       //act
       var actual = ratingController.Put(rating) as OkResult;
 
       //assert
-      Mock.Assert(_lunchAndLearnManager);
+      Mock.Assert(_ratingManager);
       Assert.That(actual, Is.TypeOf<OkResult>());
     }
 
@@ -145,15 +147,15 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
     public void DeleteRating_WhereRatingExists_ReturnsOkResponse([Values(1,2,3)] int ratingIdToDelete)
     {
       //arrange
-      Mock.Arrange(() => _lunchAndLearnManager.RatingManager.Delete(ratingIdToDelete)).OccursOnce();
+      Mock.Arrange(() => _ratingManager.Delete(ratingIdToDelete)).OccursOnce();
 
-      var ratingController = new RatingController(_lunchAndLearnManager);
+      var ratingController = new RatingController(_ratingManager);
 
       //act
       var actual = ratingController.Delete(ratingIdToDelete) as OkResult;
 
       //assert
-      Mock.Assert(_lunchAndLearnManager);
+      Mock.Assert(_ratingManager);
       Assert.That(actual, Is.TypeOf<OkResult>());
     }
   }

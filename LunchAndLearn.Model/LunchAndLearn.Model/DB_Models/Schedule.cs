@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace LunchAndLearn.Model
+namespace LunchAndLearn.Model.DB_Models
 {
   [DataContract]
   public class Schedule
@@ -24,5 +20,10 @@ namespace LunchAndLearn.Model
     public DateTime ClassDate { get; set; }
     [DataMember]
     public int RoomId { get; set; }
+
+    public virtual Class Class { get; set; }
+    public virtual Instructor Instructor { get; set; }
+    public virtual Track Track { get; set; }
+    public virtual Room Room { get; set; }
   }
 }

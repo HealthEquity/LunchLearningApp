@@ -2,54 +2,76 @@
 using LunchAndLearn.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LunchAndLearn.Data.Interfaces;
+using LunchAndLearn.Data.Repositories;
+using LunchAndLearn.Management.Interfaces;
+using LunchAndLearn.Model.DB_Models;
 
 namespace LunchAndLearn.Management
 {
-  public class ClassManager : BaseManager, ILunchAndLearnRepository<Class, int>
+  public class ClassManager : IManagerClass<Class>
   {
-    public ClassManager() { }
+    private readonly IClassRepository _classRepository;
 
-    public ClassManager(LunchAndLearnContext context)
-        : base(context)
+    public ClassManager(IClassRepository classRepository)
     {
+      _classRepository = classRepository;
     }
 
-
-    // CRUD
-
-    /// <summary>Create a new class</summary>
-    public virtual Class Create(Class lClass)
+    public Class Get(int id)
     {
-      ValidateModel(lClass);
-      AddEntity(lClass);
-      return lClass;
+      return _classRepository.Get(id);
     }
 
-
-    /// <summary>Get a Class</summary>
-    public virtual Class Get(int id)
+    public List<Class> GetAll()
     {
-      return Context.Classes.First(al => al.ClassId == id);
+      return _classRepository.GetAll().ToList();
     }
 
-    public virtual List<Class> GetAll()
+    public int Create(Class entity)
     {
-      return Context.Classes.ToList();
-    }
-    /// <summary>Update existing class</summary>
-    public virtual void Update(Class lClass)
-    {
-      ValidateModel(lClass);
-      UpdateEntity(lClass);
+      _classRepository.Create(entity);
+      _classRepository.SaveChanges();
+      return entity.ClassId;
     }
 
-    /// <summary>Delete class</summary>
-    public virtual void Delete(int id)
+    public void Update(Class entity)
     {
-      DeleteEntity(new Class());
+      _classRepository.Update(entity);
+      _classRepository.SaveChanges();
     }
+
+    public void Delete(int id)
+    {
+      _classRepository.Delete(id);
+      _classRepository.SaveChanges();
+    }
+
+    #region Disposal
+    private bool _disposed = false;
+
+    protected virtual void Dispose(bool disposing)
+    {
+      if (!this._disposed)
+      {
+        if (disposing)
+        {
+          //Dispose of all repos used in this class here Example: _productRepository, _personRepository
+          _classRepository.Dispose();
+        }
+      }
+      this._disposed = true;
+    }
+
+    public void Dispose()
+    {
+      Dispose(true);
+      GC.SuppressFinalize(this);
+    }
+    #endregion
   }
 }

@@ -103,7 +103,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LunchAndLearnManagement\ClassManagerTest.cs" />
+    <Compile Include="LunchAndLearn.Management\ClassManagerTest.cs" />
+    <Compile Include="LunchAndLearn.Management\InstructorManagerTest.cs" />
+    <Compile Include="LunchAndLearn.Management\RatingManagerTest.cs" />
+    <Compile Include="LunchAndLearn.Management\RoomManagerTest.cs" />
+    <Compile Include="LunchAndLearn.Management\ScheduleManagerTest.cs" />
+    <Compile Include="LunchAndLearn.Management\TrackManagerTest.cs" />
     <Compile Include="LunchAndLearnService.Controllers\ClassControllerTest.cs" />
     <Compile Include="LunchAndLearnService.Controllers\InstructorControllerTest.cs" />
     <Compile Include="LunchAndLearnService.Controllers\RatingControllerTest.cs" />
@@ -119,6 +124,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\LunchAndLearn.Data\LunchAndLearn.Data\LunchAndLearn.Data.csproj">
+      <Project>{A4B67B53-CC9E-4823-B147-D861D88DB2FF}</Project>
+      <Name>LunchAndLearn.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\LunchAndLearn.Management\LunchAndLearn.Management\LunchAndLearn.Management.csproj">
       <Project>{6717772B-933C-42A9-9EEF-4522CDF81EAF}</Project>
       <Name>LunchAndLearn.Management</Name>

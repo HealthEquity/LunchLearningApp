@@ -1,54 +1,73 @@
-﻿using LunchAndLearn.Data;
+﻿using System;
+using LunchAndLearn.Data;
 using LunchAndLearn.Model;
 using System.Collections.Generic;
 using System.Linq;
+using LunchAndLearn.Data.Interfaces;
+using LunchAndLearn.Data.Repositories;
+using LunchAndLearn.Management.Interfaces;
+using LunchAndLearn.Model.DB_Models;
 
 namespace LunchAndLearn.Management
 {
-  public class RoomManager : BaseManager, ILunchAndLearnRepository<Room, int>
+  public class RoomManager : IManagerClass<Room>
   {
-    public RoomManager() { }
+    private readonly IRoomRepository _roomRepository;
 
-    public RoomManager(LunchAndLearnContext context)
-        : base(context)
+    public RoomManager(IRoomRepository roomRepository)
     {
+      _roomRepository = roomRepository;
     }
 
-
-    // CRUD
-
-    /// <summary>Create a new room</summary>
-    public virtual Room Create(Room room)
+    public Room Get(int id)
     {
-      ValidateModel(room);
-
-      AddEntity(room);
-
-      return room;
+      return _roomRepository.Get(id);
     }
 
-
-    /// <summary>Get a room</summary>
-    public virtual Room Get(int id)
+    public List<Room> GetAll()
     {
-      return Context.Rooms.Where(al => al.RoomId == id).First();
+      return _roomRepository.GetAll().ToList();
     }
 
-    public virtual List<Room> GetAll()
+    public int Create(Room entity)
     {
-      return Context.Rooms.ToList();
-    }
-    /// <summary>Update existing room</summary>
-    public virtual void Update(Room room)
-    {
-      ValidateModel(room);
-      UpdateEntity(room);
+      _roomRepository.Create(entity);
+      _roomRepository.SaveChanges();
+      return entity.RoomId;
     }
 
-    /// <summary>Delete room</summary>
-    public virtual void Delete(int id)
+    public void Update(Room entity)
     {
-      DeleteEntity(new Room());
+      _roomRepository.Update(entity);
+      _roomRepository.SaveChanges();
     }
+
+    public void Delete(int id)
+    {
+      _roomRepository.Delete(id);
+      _roomRepository.SaveChanges();
+    }
+
+    #region Disposal
+    private bool _disposed = false;
+
+    protected virtual void Dispose(bool disposing)
+    {
+      if (!this._disposed)
+      {
+        if (disposing)
+        {
+          _roomRepository.Dispose();
+        }
+      }
+      this._disposed = true;
+    }
+
+    public void Dispose()
+    {
+      Dispose(true);
+      GC.SuppressFinalize(this);
+    }
+    #endregion
   }
 }

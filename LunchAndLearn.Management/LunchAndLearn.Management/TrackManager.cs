@@ -5,53 +5,71 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LunchAndLearn.Data.Interfaces;
+using LunchAndLearn.Data.Repositories;
+using LunchAndLearn.Management.Interfaces;
+using LunchAndLearn.Model.DB_Models;
 
 namespace LunchAndLearn.Management
 {
-  public class TrackManager : BaseManager, ILunchAndLearnRepository<Track, int>
+  public class TrackManager : IManagerClass<Track>
   {
-    public TrackManager() { }
+    private readonly ITrackRepository _trackRepository;
 
-    public TrackManager(LunchAndLearnContext context)
-        : base(context)
+    public TrackManager(ITrackRepository trackRepository)
     {
+      _trackRepository = trackRepository;
     }
 
-
-    // CRUD
-
-    /// <summary>Create a new track</summary>
-    public virtual Track Create(Track track)
+    public Track Get(int id)
     {
-      ValidateModel(track);
-
-      AddEntity(track);
-
-      return track;
+      return _trackRepository.Get(id);
     }
 
-
-    /// <summary>Get a track</summary>
-    public virtual Track Get(int id)
+    public List<Track> GetAll()
     {
-      return Context.Tracks.Where(al => al.TrackId == id).First();
+      return _trackRepository.GetAll().ToList();
     }
 
-    public virtual List<Track> GetAll()
+    public int Create(Track entity)
     {
-      return Context.Tracks.ToList();
-    }
-    /// <summary>Update existing Track</summary>
-    public virtual void Update(Track track)
-    {
-      ValidateModel(track);
-      UpdateEntity(track);
+      _trackRepository.Create(entity);
+      _trackRepository.SaveChanges();
+      return entity.TrackId;
     }
 
-    /// <summary>Delete Track</summary>
-    public virtual void Delete(int id)
+    public void Update(Track entity)
     {
-      DeleteEntity(new Track());
+      _trackRepository.Update(entity);
+      _trackRepository.SaveChanges();
     }
+
+    public void Delete(int id)
+    {
+      _trackRepository.Delete(id);
+      _trackRepository.SaveChanges();
+    }
+
+    #region Disposal
+    private bool _disposed = false;
+
+    protected virtual void Dispose(bool disposing)
+    {
+      if (!this._disposed)
+      {
+        if (disposing)
+        {
+          _trackRepository.Dispose();
+        }
+      }
+      this._disposed = true;
+    }
+
+    public void Dispose()
+    {
+      Dispose(true);
+      GC.SuppressFinalize(this);
+    }
+    #endregion
   }
 }

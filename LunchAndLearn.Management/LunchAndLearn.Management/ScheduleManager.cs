@@ -1,53 +1,73 @@
-﻿using LunchAndLearn.Data;
+﻿using System;
+using LunchAndLearn.Data;
 using LunchAndLearn.Model;
 using System.Collections.Generic;
 using System.Linq;
+using LunchAndLearn.Data.Interfaces;
+using LunchAndLearn.Data.Repositories;
+using LunchAndLearn.Management.Interfaces;
+using LunchAndLearn.Model.DB_Models;
 
 namespace LunchAndLearn.Management
 {
-  public class ScheduleManager : BaseManager, ILunchAndLearnRepository<Schedule, int>
+  public class ScheduleManager : IManagerClass<Schedule>
   {
-    public ScheduleManager() { }
+    private readonly IScheduleRepository _scheduleRepository;
 
-    public ScheduleManager(LunchAndLearnContext context)
-        : base(context)
+    public ScheduleManager(IScheduleRepository scheduleRepository)
     {
+      _scheduleRepository = scheduleRepository;
     }
 
-
-    // CRUD
-
-    /// <summary>Create a new schedule</summary>
-    public virtual Schedule Create(Schedule schedule)
+    public Schedule Get(int id)
     {
-      ValidateModel(schedule);
-
-      AddEntity(schedule);
-
-      return schedule;
+      return _scheduleRepository.Get(id);
     }
 
-
-    /// <summary>Get a schedule</summary>
-    public virtual Schedule Get(int id)
+    public List<Schedule> GetAll()
     {
-      return Context.Schedules.Where(al => al.ScheduleId == id).First();
+      return _scheduleRepository.GetAll().ToList();
     }
 
-    public virtual List<Schedule> GetAll()
+    public int Create(Schedule entity)
     {
-      return Context.Schedules.ToList();
+      _scheduleRepository.Create(entity);
+      _scheduleRepository.SaveChanges();
+      return entity.ScheduleId;
     }
-    /// <summary>Update existing schedule</summary>
-    public virtual void Update(Schedule schedule)
+
+    public void Update(Schedule entity)
     {
-      ValidateModel(schedule);
-      UpdateEntity(schedule);
+      _scheduleRepository.Update(entity);
+      _scheduleRepository.SaveChanges();
     }
-    /// <summary>Delete schedule</summary>
-    public virtual void Delete(int id)
+
+    public void Delete(int id)
     {
-      DeleteEntity(new Schedule());
+      _scheduleRepository.Delete(id);
+      _scheduleRepository.SaveChanges();
     }
+
+    #region Disposal
+    private bool _disposed = false;
+
+    protected virtual void Dispose(bool disposing)
+    {
+      if (!this._disposed)
+      {
+        if (disposing)
+        {
+          _scheduleRepository.Dispose();
+        }
+      }
+      this._disposed = true;
+    }
+
+    public void Dispose()
+    {
+      Dispose(true);
+      GC.SuppressFinalize(this);
+    }
+    #endregion
   }
 }

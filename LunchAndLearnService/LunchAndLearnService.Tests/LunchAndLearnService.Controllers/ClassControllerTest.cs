@@ -2,10 +2,13 @@
 using System.Linq;
 using System.Web.Http.Results;
 using LunchAndLearn.Management;
+using LunchAndLearn.Management.Interfaces;
 using LunchAndLearn.Model;
+using LunchAndLearn.Model.DB_Models;
 using LunchAndLearnService.Controllers;
 using NUnit.Framework;
 using Telerik.JustMock;
+using Telerik.JustMock.AutoMock.Ninject.Infrastructure.Language;
 
 namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
 {
@@ -13,7 +16,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
   internal class ClassControllerTest
   {
     private List<Class> _mockClassList;
-    private ILunchAndLearnManager _lunchAndLearnManager;
+    private IManagerClass<Class> _classManager;
 
     [SetUp]
     public void Init()
@@ -24,23 +27,23 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
         new Class() {ClassDescription = "test class description 2", ClassId = 2, ClassName = "Test Class 2"}
       };
 
-      _lunchAndLearnManager = Mock.Create<ILunchAndLearnManager>();
+      _classManager = Mock.Create<IManagerClass<Class>>();
     }
 
     [TearDown]
     public void CleanUp()
     {
       _mockClassList = null;
-      _lunchAndLearnManager = null;
+      _classManager = null;
     }
 
     [Test]
     public void GetAll_UnderNormalConditions_DoesNotReturnNull()
     {
       // Arrange
-      var lunchAndLearnManager = Mock.Create<ILunchAndLearnManager>();
-      Mock.Arrange(() => lunchAndLearnManager.ClassManager.GetAll()).Returns(_mockClassList).OccursOnce();
-      var classController = new ClassController(lunchAndLearnManager);
+      var classManager = Mock.Create<IManagerClass<Class>>();
+      Mock.Arrange(() => classManager.GetAll()).Returns(_mockClassList).OccursOnce();
+      var classController = new ClassController(classManager);
 
       //// Act
       var result = (OkNegotiatedContentResult<List<Class>>)classController.GetAll();
@@ -50,19 +53,19 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
       //// Assert
       Assert.IsNotNull(actualResult);
       Assert.That(actualResult.Count, Is.GreaterThan(1));
-      Mock.Assert(lunchAndLearnManager);
+      Mock.Assert(classManager);
     }
 
     [Test]
     public void GetOneById_WhereIdExists_DoesNotReturnNull([Values(1, 2)]int idToRetrieve)
     {
       // Arrange
-      var lunchAndLearnManager = Mock.Create<ILunchAndLearnManager>();
+      var classManager = Mock.Create<IManagerClass<Class>>();
       var expected = _mockClassList.FirstOrDefault(x => x.ClassId == idToRetrieve);
-      Mock.Arrange(() => lunchAndLearnManager.ClassManager.Get(idToRetrieve))
+      Mock.Arrange(() => classManager.Get(idToRetrieve))
         .Returns(_mockClassList.FirstOrDefault(x => x.ClassId == idToRetrieve))
         .OccursOnce();
-      var classController = new ClassController(lunchAndLearnManager);
+      var classController = new ClassController(classManager);
 
       //// Act
       var result = (OkNegotiatedContentResult<Class>)classController.Get(idToRetrieve);
@@ -71,7 +74,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
 
 
       //Assert
-      Mock.Assert(lunchAndLearnManager);
+      Mock.Assert(classManager);
       Assert.That(actualResult, Is.EqualTo(expected));
     }
 
@@ -86,15 +89,15 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
         ClassName = "This is a test class name"
       };
 
-      Mock.Arrange(() => _lunchAndLearnManager.ClassManager.Create(classToCreate)).OccursOnce();
-      var classController = new ClassController(_lunchAndLearnManager);
+      Mock.Arrange(() => _classManager.Create(classToCreate)).OccursOnce();
+      var classController = new ClassController(_classManager);
 
       //Act
 
       var actual = classController.Post(classToCreate) as OkResult;
 
       //Assert
-      Mock.Assert(_lunchAndLearnManager);
+      Mock.Assert(_classManager);
       Assert.That(actual, Is.TypeOf<OkResult>());
     }
 
@@ -104,15 +107,15 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
       //Arrange
       var classToBeUpdated = _mockClassList.FirstOrDefault(x => x.ClassId == idOfClassToUpdate);
 
-      Mock.Arrange(() => _lunchAndLearnManager.ClassManager.Update(classToBeUpdated)).OccursOnce();
+      Mock.Arrange(() => _classManager.Update(classToBeUpdated)).OccursOnce();
 
-      var classController = new ClassController(_lunchAndLearnManager);
+      var classController = new ClassController(_classManager);
 
       //Act
       var actual = classController.Put(classToBeUpdated) as OkResult;
 
       //Assert
-      Mock.Assert(_lunchAndLearnManager);
+      Mock.Assert(_classManager);
       Assert.That(actual, Is.TypeOf<OkResult>());
     }
 
@@ -120,14 +123,14 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
     public void DeleteClass_WhereClassExists_ReturnsOkResponse([Values(1, 2, 3)] int idOfClassToBeDeleted)
     {
       //Arrange
-      Mock.Arrange(() => _lunchAndLearnManager.ClassManager.Delete(idOfClassToBeDeleted)).OccursOnce();
-      var classController = new ClassController(_lunchAndLearnManager);
+      Mock.Arrange(() => _classManager.Delete(idOfClassToBeDeleted)).OccursOnce();
+      var classController = new ClassController(_classManager);
 
       //Act
       var actual = classController.Delete(idOfClassToBeDeleted) as OkResult;
 
       //Assert
-      Mock.Assert(_lunchAndLearnManager);
+      Mock.Assert(_classManager);
       Assert.That(actual, Is.TypeOf<OkResult>());
     }
   }

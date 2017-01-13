@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace LunchAndLearn.Model
+namespace LunchAndLearn.Model.DB_Models
 {
   [DataContract]
   public class Rating
@@ -24,5 +19,8 @@ namespace LunchAndLearn.Model
     public int InstructorRating { get; set; }
     [DataMember]
     public string Comment { get; set; }
+
+    public virtual Class Class { get; set; }
+    public virtual Instructor Instructor { get; set; }
   }
 }
