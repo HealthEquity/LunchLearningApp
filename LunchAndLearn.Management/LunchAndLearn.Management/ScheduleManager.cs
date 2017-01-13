@@ -12,9 +12,9 @@ namespace LunchAndLearn.Management
 {
   public class ScheduleManager : IManagerClass<Schedule>
   {
-    private readonly ILunchAndLearnRepository<Schedule> _scheduleRepository;
+    private readonly IScheduleRepository _scheduleRepository;
 
-    public ScheduleManager(ILunchAndLearnRepository<Schedule> scheduleRepository)
+    public ScheduleManager(IScheduleRepository scheduleRepository)
     {
       _scheduleRepository = scheduleRepository;
     }

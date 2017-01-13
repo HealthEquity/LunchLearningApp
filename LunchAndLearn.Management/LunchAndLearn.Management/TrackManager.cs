@@ -14,9 +14,9 @@ namespace LunchAndLearn.Management
 {
   public class TrackManager : IManagerClass<Track>
   {
-    private readonly ILunchAndLearnRepository<Track> _trackRepository;
+    private readonly ITrackRepository _trackRepository;
 
-    public TrackManager(ILunchAndLearnRepository<Track> trackRepository)
+    public TrackManager(ITrackRepository trackRepository)
     {
       _trackRepository = trackRepository;
     }

@@ -64,7 +64,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
 
       var originalCountOfInstructors = _instructorList.Count;
 
-      var mockInstructorRepo = Mock.Create<ILunchAndLearnRepository<Instructor>>();
+      var mockInstructorRepo = Mock.Create<IInstructorRepository>();
       Mock.Arrange(() => mockInstructorRepo.Create(Arg.IsAny<Instructor>()))
         .DoInstead(() =>_instructorList.Add(instructorToBeCreated))
         .OccursOnce();

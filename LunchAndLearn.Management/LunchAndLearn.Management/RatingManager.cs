@@ -12,9 +12,9 @@ namespace LunchAndLearn.Management
 {
   public class RatingManager : IManagerClass<Rating>
   {
-    private readonly ILunchAndLearnRepository<Rating> _ratingRepository;
+    private readonly IRatingRepository _ratingRepository;
 
-    public RatingManager(ILunchAndLearnRepository<Rating> ratingRepository)
+    public RatingManager(IRatingRepository ratingRepository)
     {
       _ratingRepository = ratingRepository;
     }

@@ -77,7 +77,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
         InstructorRating = 6
       };
 
-      var mockRepo = Mock.Create<ILunchAndLearnRepository<Rating>>();
+      var mockRepo = Mock.Create<IRatingRepository>();
       Mock.Arrange(() => mockRepo.Create(Arg.IsAny<Rating>()))
         .DoInstead(() => _ratingList.Add(ratingToCreate))
         .OccursOnce();

@@ -12,9 +12,9 @@ namespace LunchAndLearn.Management
 {
   public class RoomManager : IManagerClass<Room>
   {
-    private readonly ILunchAndLearnRepository<Room> _roomRepository;
+    private readonly IRoomRepository _roomRepository;
 
-    public RoomManager(ILunchAndLearnRepository<Room> roomRepository)
+    public RoomManager(IRoomRepository roomRepository)
     {
       _roomRepository = roomRepository;
     }

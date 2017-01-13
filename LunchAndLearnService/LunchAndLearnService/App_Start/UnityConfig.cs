@@ -24,33 +24,32 @@ namespace LunchAndLearnService
       //Class
       container
         .RegisterType<IManagerClass<Class>, ClassManager>(new HierarchicalLifetimeManager())
-        .RegisterType<ILunchAndLearnRepository<Class>, LunchAndLearnRepository<Class>>(new HierarchicalLifetimeManager());
+        .RegisterType<IClassRepository, ClassRepository>(new HierarchicalLifetimeManager());
 
       //Instructor
       container
         .RegisterType<IManagerClass<Instructor>, InstructorManager>(new HierarchicalLifetimeManager())
-        .RegisterType<ILunchAndLearnRepository<Instructor>, LunchAndLearnRepository<Instructor>>(new HierarchicalLifetimeManager());
+        .RegisterType<IInstructorRepository, InstructorRepository>(new HierarchicalLifetimeManager());
 
       //Rating
       container
         .RegisterType<IManagerClass<Rating>, RatingManager>(new HierarchicalLifetimeManager())
-        .RegisterType<ILunchAndLearnRepository<Rating>, LunchAndLearnRepository<Rating>>(new HierarchicalLifetimeManager());
+        .RegisterType<IRatingRepository, RatingRepository>(new HierarchicalLifetimeManager());
 
       //Room
       container
         .RegisterType<IManagerClass<Room>, RoomManager>(new HierarchicalLifetimeManager())
-        .RegisterType<ILunchAndLearnRepository<Room>, LunchAndLearnRepository<Room>>(new HierarchicalLifetimeManager());
+        .RegisterType<IRoomRepository, RoomRepository>(new HierarchicalLifetimeManager());
 
       //Schedule
       container
         .RegisterType<IManagerClass<Schedule>, ScheduleManager>(new HierarchicalLifetimeManager())
-        .RegisterType<ILunchAndLearnRepository<Schedule>, LunchAndLearnRepository<Schedule>>(
-          new HierarchicalLifetimeManager());
+        .RegisterType<IScheduleRepository, ScheduleRepository>(new HierarchicalLifetimeManager());
 
       //Track
       container
         .RegisterType<IManagerClass<Track>, TrackManager>(new HierarchicalLifetimeManager())
-        .RegisterType<ILunchAndLearnRepository<Track>, LunchAndLearnRepository<Track>>(new HierarchicalLifetimeManager());
+        .RegisterType<ITrackRepository, TrackRepository>(new HierarchicalLifetimeManager());
 
       GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
     }

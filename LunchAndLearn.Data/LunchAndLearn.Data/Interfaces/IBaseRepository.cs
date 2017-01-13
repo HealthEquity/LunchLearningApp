@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace LunchAndLearn.Data.Interfaces
 {
-  public interface ILunchAndLearnRepository<TEntity> : IDisposable
+  public interface IBaseRepository<TEntity> : IDisposable
   {
     void Create(TEntity entity);
     TEntity Get(int id);

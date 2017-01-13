@@ -63,7 +63,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
         ClassName = "test class name"
       };
 
-      var mockRepo = Mock.Create<ILunchAndLearnRepository<Class>>();
+      var mockRepo = Mock.Create<IClassRepository>();
       Mock.Arrange(() => mockRepo.Create(Arg.IsAny<Class>()))
         .DoInstead(() => _classList.Add(classToBeCreated))
         .OccursOnce();

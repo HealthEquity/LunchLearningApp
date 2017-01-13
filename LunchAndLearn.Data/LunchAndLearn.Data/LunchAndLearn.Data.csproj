@@ -49,10 +49,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\ILunchAndLearnRepository.cs" />
+    <Compile Include="Interfaces\IClassRepository.cs" />
+    <Compile Include="Interfaces\IInstructorRepository.cs" />
+    <Compile Include="Interfaces\IBaseRepository.cs" />
+    <Compile Include="Interfaces\IRatingRepository.cs" />
+    <Compile Include="Interfaces\IRoomRepository.cs" />
+    <Compile Include="Interfaces\IScheduleRepository.cs" />
+    <Compile Include="Interfaces\ITrackRepository.cs" />
     <Compile Include="LunchAndLearnContext.cs" />
-    <Compile Include="Repositories\LunchAndLearnRepository.cs" />
+    <Compile Include="Repositories\ClassRepository.cs" />
+    <Compile Include="Repositories\InstructorRepository.cs" />
+    <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\RatingRepository.cs" />
+    <Compile Include="Repositories\RoomRepository.cs" />
+    <Compile Include="Repositories\ScheduleRepository.cs" />
+    <Compile Include="Repositories\TrackRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

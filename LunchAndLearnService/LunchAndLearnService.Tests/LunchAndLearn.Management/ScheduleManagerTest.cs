@@ -76,7 +76,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
         ClassDate = DateTime.Now
       };
 
-      var mockRepo = Mock.Create<ILunchAndLearnRepository<Schedule>>();
+      var mockRepo = Mock.Create<IScheduleRepository>();
       Mock.Arrange(() => mockRepo.Create(Arg.IsAny<Schedule>()))
         .DoInstead(() => _scheduleList.Add(scheduleToCreate))
         .OccursOnce();

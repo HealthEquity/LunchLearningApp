@@ -67,7 +67,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
         IsActive = true
       };
 
-      var mockRepo = Mock.Create<ILunchAndLearnRepository<Track>>();
+      var mockRepo = Mock.Create<ITrackRepository>();
       Mock.Arrange(() => mockRepo.Create(Arg.IsAny<Track>()))
         .DoInstead(() => _trackList.Add(trackToCreate))
         .OccursOnce();

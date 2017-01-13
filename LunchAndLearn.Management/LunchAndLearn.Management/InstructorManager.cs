@@ -12,9 +12,9 @@ namespace LunchAndLearn.Management
 {
   public class InstructorManager : IManagerClass<Instructor>
   {
-    private readonly ILunchAndLearnRepository<Instructor> _instructorRepository;
+    private readonly IInstructorRepository _instructorRepository;
 
-    public InstructorManager(ILunchAndLearnRepository<Instructor> instructorRepository)
+    public InstructorManager(IInstructorRepository instructorRepository)
     {
       _instructorRepository = instructorRepository;
     }
