@@ -12,40 +12,40 @@ namespace LunchAndLearn.Management
 {
   public class ScheduleManager : IManagerClass<Schedule>
   {
-    private readonly ILunchAndLearnRepository<Schedule> _lunchAndLearnRepository;
+    private readonly ILunchAndLearnRepository<Schedule> _scheduleRepository;
 
-    public ScheduleManager(ILunchAndLearnRepository<Schedule> lunchAndLearnRepository)
+    public ScheduleManager(ILunchAndLearnRepository<Schedule> scheduleRepository)
     {
-      _lunchAndLearnRepository = lunchAndLearnRepository;
+      _scheduleRepository = scheduleRepository;
     }
 
     public Schedule Get(int id)
     {
-      return _lunchAndLearnRepository.Get(id);
+      return _scheduleRepository.Get(id);
     }
 
     public List<Schedule> GetAll()
     {
-      return _lunchAndLearnRepository.GetAll().ToList();
+      return _scheduleRepository.GetAll().ToList();
     }
 
     public int Create(Schedule entity)
     {
-      _lunchAndLearnRepository.Create(entity);
-      _lunchAndLearnRepository.SaveChanges();
+      _scheduleRepository.Create(entity);
+      _scheduleRepository.SaveChanges();
       return entity.ScheduleId;
     }
 
     public void Update(Schedule entity)
     {
-      _lunchAndLearnRepository.Update(entity);
-      _lunchAndLearnRepository.SaveChanges();
+      _scheduleRepository.Update(entity);
+      _scheduleRepository.SaveChanges();
     }
 
     public void Delete(int id)
     {
-      _lunchAndLearnRepository.Delete(id);
-      _lunchAndLearnRepository.SaveChanges();
+      _scheduleRepository.Delete(id);
+      _scheduleRepository.SaveChanges();
     }
 
     #region Disposal
@@ -57,7 +57,7 @@ namespace LunchAndLearn.Management
       {
         if (disposing)
         {
-          _lunchAndLearnRepository.Dispose();
+          _scheduleRepository.Dispose();
         }
       }
       this._disposed = true;

@@ -15,40 +15,40 @@ namespace LunchAndLearn.Management
 {
   public class ClassManager : IManagerClass<Class>
   {
-    private readonly ILunchAndLearnRepository<Class> _lunchAndLearnRepository;
+    private readonly ILunchAndLearnRepository<Class> _classRepository;
 
-    public ClassManager(ILunchAndLearnRepository<Class> lunchAndLearnRepository)
+    public ClassManager(ILunchAndLearnRepository<Class> classRepository)
     {
-      _lunchAndLearnRepository = lunchAndLearnRepository;
+      _classRepository = classRepository;
     }
 
     public Class Get(int id)
     {
-      return _lunchAndLearnRepository.Get(id);
+      return _classRepository.Get(id);
     }
 
     public List<Class> GetAll()
     {
-      return _lunchAndLearnRepository.GetAll().ToList();
+      return _classRepository.GetAll().ToList();
     }
 
     public int Create(Class entity)
     {
-      _lunchAndLearnRepository.Create(entity);
-      _lunchAndLearnRepository.SaveChanges();
+      _classRepository.Create(entity);
+      _classRepository.SaveChanges();
       return entity.ClassId;
     }
 
     public void Update(Class entity)
     {
-      _lunchAndLearnRepository.Update(entity);
-      _lunchAndLearnRepository.SaveChanges();
+      _classRepository.Update(entity);
+      _classRepository.SaveChanges();
     }
 
     public void Delete(int id)
     {
-      _lunchAndLearnRepository.Delete(id);
-      _lunchAndLearnRepository.SaveChanges();
+      _classRepository.Delete(id);
+      _classRepository.SaveChanges();
     }
 
     #region Disposal
@@ -61,7 +61,7 @@ namespace LunchAndLearn.Management
         if (disposing)
         {
           //Dispose of all repos used in this class here Example: _productRepository, _personRepository
-          _lunchAndLearnRepository.Dispose();
+          _classRepository.Dispose();
         }
       }
       this._disposed = true;

@@ -12,40 +12,40 @@ namespace LunchAndLearn.Management
 {
   public class RoomManager : IManagerClass<Room>
   {
-    private readonly ILunchAndLearnRepository<Room> _lunchAndLearnRepository;
+    private readonly ILunchAndLearnRepository<Room> _roomRepository;
 
-    public RoomManager(ILunchAndLearnRepository<Room> lunchAndLearnRepository)
+    public RoomManager(ILunchAndLearnRepository<Room> roomRepository)
     {
-      _lunchAndLearnRepository = lunchAndLearnRepository;
+      _roomRepository = roomRepository;
     }
 
     public Room Get(int id)
     {
-      return _lunchAndLearnRepository.Get(id);
+      return _roomRepository.Get(id);
     }
 
     public List<Room> GetAll()
     {
-      return _lunchAndLearnRepository.GetAll().ToList();
+      return _roomRepository.GetAll().ToList();
     }
 
     public int Create(Room entity)
     {
-      _lunchAndLearnRepository.Create(entity);
-      _lunchAndLearnRepository.SaveChanges();
+      _roomRepository.Create(entity);
+      _roomRepository.SaveChanges();
       return entity.RoomId;
     }
 
     public void Update(Room entity)
     {
-      _lunchAndLearnRepository.Update(entity);
-      _lunchAndLearnRepository.SaveChanges();
+      _roomRepository.Update(entity);
+      _roomRepository.SaveChanges();
     }
 
     public void Delete(int id)
     {
-      _lunchAndLearnRepository.Delete(id);
-      _lunchAndLearnRepository.SaveChanges();
+      _roomRepository.Delete(id);
+      _roomRepository.SaveChanges();
     }
 
     #region Disposal
@@ -57,7 +57,7 @@ namespace LunchAndLearn.Management
       {
         if (disposing)
         {
-          _lunchAndLearnRepository.Dispose();
+          _roomRepository.Dispose();
         }
       }
       this._disposed = true;

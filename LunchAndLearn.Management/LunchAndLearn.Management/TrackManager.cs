@@ -14,40 +14,40 @@ namespace LunchAndLearn.Management
 {
   public class TrackManager : IManagerClass<Track>
   {
-    private readonly ILunchAndLearnRepository<Track> _lunchAndLearnRepository;
+    private readonly ILunchAndLearnRepository<Track> _trackRepository;
 
-    public TrackManager(ILunchAndLearnRepository<Track> lunchAndLearnRepository)
+    public TrackManager(ILunchAndLearnRepository<Track> trackRepository)
     {
-      _lunchAndLearnRepository = lunchAndLearnRepository;
+      _trackRepository = trackRepository;
     }
 
     public Track Get(int id)
     {
-      return _lunchAndLearnRepository.Get(id);
+      return _trackRepository.Get(id);
     }
 
     public List<Track> GetAll()
     {
-      return _lunchAndLearnRepository.GetAll().ToList();
+      return _trackRepository.GetAll().ToList();
     }
 
     public int Create(Track entity)
     {
-      _lunchAndLearnRepository.Create(entity);
-      _lunchAndLearnRepository.SaveChanges();
+      _trackRepository.Create(entity);
+      _trackRepository.SaveChanges();
       return entity.TrackId;
     }
 
     public void Update(Track entity)
     {
-      _lunchAndLearnRepository.Update(entity);
-      _lunchAndLearnRepository.SaveChanges();
+      _trackRepository.Update(entity);
+      _trackRepository.SaveChanges();
     }
 
     public void Delete(int id)
     {
-      _lunchAndLearnRepository.Delete(id);
-      _lunchAndLearnRepository.SaveChanges();
+      _trackRepository.Delete(id);
+      _trackRepository.SaveChanges();
     }
 
     #region Disposal
@@ -59,7 +59,7 @@ namespace LunchAndLearn.Management
       {
         if (disposing)
         {
-          _lunchAndLearnRepository.Dispose();
+          _trackRepository.Dispose();
         }
       }
       this._disposed = true;
