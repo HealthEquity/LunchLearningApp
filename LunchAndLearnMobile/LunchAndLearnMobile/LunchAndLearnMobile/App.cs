@@ -11,7 +11,7 @@ namespace LunchAndLearnMobile
   public class App : Xamarin.Forms.Application
   {
     private static ClassService _classService;
-
+    private static ScheduleService _scheduleService;
     public App()
     {
       MainPage = new ContentPage();
@@ -20,16 +20,17 @@ namespace LunchAndLearnMobile
     public void LoadMainPage()
     {
       MainPage = new NavigationPage(
-        new Classes());
+        new Schedules());
     }
 
     public static ClassService GetClassService()
     {
-      if (_classService == null)
-      {
-        _classService = new ClassService();
-      }
-      return _classService;
+      return _classService ?? (_classService = new ClassService());
+    }
+
+    public static ScheduleService GetScheduleService()
+    {
+      return _scheduleService ?? (_scheduleService = new ScheduleService());
     }
   }
 }

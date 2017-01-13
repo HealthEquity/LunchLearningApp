@@ -1,18 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <TabbedPage  xmlns="http://xamarin.com/schemas/2014/forms"
 					   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-					   x:Class="LunchAndLearnMobile.Classes">
+					   x:Class="LunchAndLearnMobile.Schedules">
 
   <TabbedPage.Children>
-    <ContentPage Title="Classes">
+    <ContentPage Title="Schedule">
 
       <StackLayout Orientation="Vertical" VerticalOptions="Start">
         <ActivityIndicator IsVisible="{Binding IsLoading}" IsRunning="{Binding IsLoading}" HorizontalOptions="CenterAndExpand" />
 
-        <ListView ItemsSource="{Binding Classes}">
+        <ListView ItemsSource="{Binding Schedules}">
           <ListView.ItemTemplate>
             <DataTemplate>
-              <TextCell Text="{Binding ClassName}" Detail="{Binding ClassDescription}" />
+              <TextCell Text="{Binding Title}" Detail="{Binding Description}" />
             </DataTemplate>
           </ListView.ItemTemplate>
         </ListView>

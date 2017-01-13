@@ -9,20 +9,21 @@ using System.Net.Http.Headers;
 
 namespace LunchAndLearnMobile.Services
 {
-  public class ClassService : BaseService
+  public class ScheduleService : BaseService
   {
     private static HttpClient _client;
 
-    public static async Task<IEnumerable<DbClass>> GetClasses()
-    {     
-      List<DbClass> classes = new List<DbClass>();
+    public static async Task<IEnumerable<Schedule>> GetSchedules()
+    {
+      List<Schedule> schedules = new List<Schedule>();
       _client = CreateHttpClient();
-      HttpResponseMessage response = await _client.GetAsync("api/class/all");
+
+      HttpResponseMessage response = await _client.GetAsync("api/schedule/all");
       if (response.IsSuccessStatusCode)
       {
-        classes = await response.Content.ReadAsAsync<List<DbClass>>();
+        schedules = await response.Content.ReadAsAsync<List<Schedule>>();
       }
-      return classes;
+      return schedules;
     }
   }
 }
