@@ -11,7 +11,7 @@ using LunchAndLearn.Model.DTOs;
 
 namespace LunchAndLearn.Management
 {
-  public class ScheduleManager : IManagerClass<ScheduleDto>
+  public class ScheduleManager : IScheduleService
   {
     private readonly IScheduleRepository _scheduleRepository;
 

@@ -11,7 +11,7 @@ using LunchAndLearn.Model.DTOs;
 
 namespace LunchAndLearn.Management
 {
-  public class InstructorManager : IManagerClass<InstructorDto>
+  public class InstructorManager : IInstructorService
   {
     private readonly IInstructorRepository _instructorRepository;
 

@@ -5,7 +5,7 @@ using LunchAndLearn.Data.Interfaces;
 
 namespace LunchAndLearn.Management.Interfaces
 {
-  public interface IManagerClass<TEntity> : IDisposable
+  public interface IBaseService<TEntity> : IDisposable
   {
     TEntity Get(int id);
     List<TEntity> GetAll();

@@ -17,11 +17,11 @@ namespace LunchAndLearnService.Controllers
   [RoutePrefix("api/class")]
   public class ClassController : ApiController
   {
-    private readonly IManagerClass<ClassDto> _classManager;
+    private readonly IClassService _classService;
 
-    public ClassController(IManagerClass<ClassDto> classManager)
+    public ClassController(IClassService classService)
     {
-      _classManager = classManager;
+      _classService = classService;
     }
 
     // GET api/class
@@ -31,9 +31,9 @@ namespace LunchAndLearnService.Controllers
     public IHttpActionResult GetAll()
     {
       List<ClassDto> allClasses;
-      using (_classManager)
+      using (_classService)
       {
-        allClasses = _classManager.GetAll();
+        allClasses = _classService.GetAll();
       }
       return this.Ok(allClasses);
     }
@@ -44,9 +44,9 @@ namespace LunchAndLearnService.Controllers
     public IHttpActionResult Get(int id)
     {
       ClassDto classToReturn;
-      using (_classManager)
+      using (_classService)
       {
-        classToReturn = _classManager.Get(id);
+        classToReturn = _classService.Get(id);
       }
       return this.Ok(classToReturn);
     }
@@ -56,9 +56,9 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Post(ClassDto classToCreate)
     {
-      using (_classManager)
+      using (_classService)
       {
-        _classManager.Create(classToCreate);
+        _classService.Create(classToCreate);
       }
       return Ok();
     }
@@ -68,9 +68,9 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Put(ClassDto classToBeUpdated)
     {
-      using (_classManager)
+      using (_classService)
       {
-        _classManager.Update(classToBeUpdated);
+        _classService.Update(classToBeUpdated);
       }
       return Ok();
     }
@@ -80,9 +80,9 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Delete(int id)
     {
-      using (_classManager)
+      using (_classService)
       {
-        _classManager.Delete(id); 
+        _classService.Delete(id); 
       }
       return Ok();
     }

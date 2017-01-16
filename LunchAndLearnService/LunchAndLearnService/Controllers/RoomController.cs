@@ -13,11 +13,11 @@ namespace LunchAndLearnService.Controllers
   [RoutePrefix("api/room")]
   public class RoomController : ApiController
   {
-    private readonly IManagerClass<RoomDto> _roomManager;
+    private readonly IRoomService _roomService;
 
-    public RoomController(IManagerClass<RoomDto> roomManager)
+    public RoomController(IRoomService roomService)
     {
-      this._roomManager = roomManager;
+      this._roomService = roomService;
     }
 
     [HttpGet]
@@ -26,9 +26,9 @@ namespace LunchAndLearnService.Controllers
     public IHttpActionResult GetAll()
     {
       List<RoomDto> rooms;
-      using (_roomManager)
+      using (_roomService)
       {
-        rooms = _roomManager.GetAll(); 
+        rooms = _roomService.GetAll(); 
       }
       return Ok(rooms);
     }
@@ -39,9 +39,9 @@ namespace LunchAndLearnService.Controllers
     public IHttpActionResult Get(int id)
     {
       RoomDto room;
-      using (_roomManager)
+      using (_roomService)
       {
-        room = _roomManager.Get(id); 
+        room = _roomService.Get(id); 
       }
       return Ok(room);
     }
@@ -51,9 +51,9 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Post(RoomDto room)
     {
-      using (_roomManager)
+      using (_roomService)
       {
-        _roomManager.Create(room);
+        _roomService.Create(room);
       }
       return Ok();
     }
@@ -63,9 +63,9 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Put(RoomDto room)
     {
-      using (_roomManager)
+      using (_roomService)
       {
-        _roomManager.Update(room); 
+        _roomService.Update(room); 
       }
       return Ok();
     }
@@ -75,9 +75,9 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Delete(int id)
     {
-      using (_roomManager)
+      using (_roomService)
       {
-        _roomManager.Delete(id); 
+        _roomService.Delete(id); 
       }
       return Ok();
     }

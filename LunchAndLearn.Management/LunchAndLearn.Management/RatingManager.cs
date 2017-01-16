@@ -11,7 +11,7 @@ using LunchAndLearn.Model.DTOs;
 
 namespace LunchAndLearn.Management
 {
-  public class RatingManager : IManagerClass<RatingDto>
+  public class RatingManager : IRatingService
   {
     private readonly IRatingRepository _ratingRepository;
 

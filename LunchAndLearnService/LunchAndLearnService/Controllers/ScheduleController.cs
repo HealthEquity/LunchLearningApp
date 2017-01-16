@@ -13,11 +13,11 @@ namespace LunchAndLearnService.Controllers
   [RoutePrefix("api/schedule")]
   public class ScheduleController : ApiController
   {
-    private IManagerClass<ScheduleDto> _scheduleManager;
+    private readonly IScheduleService _scheduleService;
 
-    public ScheduleController(IManagerClass<ScheduleDto> scheduleManager)
+    public ScheduleController(IScheduleService scheduleService)
     {
-      _scheduleManager = scheduleManager;
+      _scheduleService = scheduleService;
     }
 
     [HttpGet]
@@ -26,9 +26,9 @@ namespace LunchAndLearnService.Controllers
     public IHttpActionResult GetAll()
     {
       List<ScheduleDto> schedules;
-      using (_scheduleManager)
+      using (_scheduleService)
       {
-        schedules = _scheduleManager.GetAll();
+        schedules = _scheduleService.GetAll();
       }
       return Ok(schedules);
     }
@@ -39,9 +39,9 @@ namespace LunchAndLearnService.Controllers
     public IHttpActionResult Get(int id)
     {
       ScheduleDto schedule;
-      using (_scheduleManager)
+      using (_scheduleService)
       {
-        schedule = _scheduleManager.Get(id); 
+        schedule = _scheduleService.Get(id); 
       }
       return Ok(schedule);
     }
@@ -51,9 +51,9 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Post(ScheduleDto schedule)
     {
-      using (_scheduleManager)
+      using (_scheduleService)
       {
-        _scheduleManager.Create(schedule); 
+        _scheduleService.Create(schedule); 
       }
       return Ok();
     }
@@ -63,9 +63,9 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Put(ScheduleDto schedule)
     {
-      using (_scheduleManager)
+      using (_scheduleService)
       {
-        _scheduleManager.Update(schedule); 
+        _scheduleService.Update(schedule); 
       }
       return Ok();
     }
@@ -75,9 +75,9 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public OkResult Delete(int id)
     {
-      using (_scheduleManager)
+      using (_scheduleService)
       {
-        _scheduleManager.Delete(id); 
+        _scheduleService.Delete(id); 
       }
       return Ok();
     }

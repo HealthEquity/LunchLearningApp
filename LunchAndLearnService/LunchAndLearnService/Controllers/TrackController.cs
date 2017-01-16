@@ -17,11 +17,11 @@ namespace LunchAndLearnService.Controllers
   [RoutePrefix("api/track")]
   public class TrackController : ApiController
   {
-    private readonly IManagerClass<TrackDto> _trackManager;
+    private readonly ITrackService _trackService;
 
-    public TrackController(IManagerClass<TrackDto> trackManager)
+    public TrackController(ITrackService trackService)
     {
-      _trackManager = trackManager;
+      _trackService = trackService;
     }
 
     [HttpGet]
@@ -30,9 +30,9 @@ namespace LunchAndLearnService.Controllers
     public IHttpActionResult GetAll()
     {
       List<TrackDto> tracks;
-      using (_trackManager)
+      using (_trackService)
       {
-        tracks = _trackManager.GetAll(); 
+        tracks = _trackService.GetAll(); 
       }
       return Ok(tracks);
     }
@@ -43,9 +43,9 @@ namespace LunchAndLearnService.Controllers
     public IHttpActionResult Get(int id)
     {
       TrackDto track;
-      using (_trackManager)
+      using (_trackService)
       {
-        track = _trackManager.Get(id); 
+        track = _trackService.Get(id); 
       }
       return Ok(track);
     }
@@ -55,9 +55,9 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Create(TrackDto track)
     {
-      using (_trackManager)
+      using (_trackService)
       {
-        _trackManager.Create(track); 
+        _trackService.Create(track); 
       }
       return Ok();
     }
@@ -67,9 +67,9 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Put(TrackDto track)
     {
-      using (_trackManager)
+      using (_trackService)
       {
-        _trackManager.Update(track); 
+        _trackService.Update(track); 
       }
       return Ok();
     }
@@ -79,9 +79,9 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Delete(int id)
     {
-      using (_trackManager)
+      using (_trackService)
       {
-        _trackManager.Delete(id); 
+        _trackService.Delete(id); 
       }
       return Ok();
     }

@@ -11,7 +11,7 @@ using LunchAndLearn.Model.DTOs;
 
 namespace LunchAndLearn.Management
 {
-  public class RoomManager : IManagerClass<RoomDto>
+  public class RoomManager : IRoomService
   {
     private readonly IRoomRepository _roomRepository;
 

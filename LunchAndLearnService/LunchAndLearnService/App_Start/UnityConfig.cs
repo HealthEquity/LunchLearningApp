@@ -24,32 +24,32 @@ namespace LunchAndLearnService
 
       //Class
       container
-        .RegisterType<IManagerClass<ClassDto>, ClassManager>(new HierarchicalLifetimeManager())
+        .RegisterType<IClassService, ClassManager>(new HierarchicalLifetimeManager())
         .RegisterType<IClassRepository, ClassRepository>(new HierarchicalLifetimeManager());
 
       //Instructor
       container
-        .RegisterType<IManagerClass<InstructorDto>, InstructorManager>(new HierarchicalLifetimeManager())
+        .RegisterType<IInstructorService, InstructorManager>(new HierarchicalLifetimeManager())
         .RegisterType<IInstructorRepository, InstructorRepository>(new HierarchicalLifetimeManager());
 
       //Rating
       container
-        .RegisterType<IManagerClass<RatingDto>, RatingManager>(new HierarchicalLifetimeManager())
+        .RegisterType<IRatingService, RatingManager>(new HierarchicalLifetimeManager())
         .RegisterType<IRatingRepository, RatingRepository>(new HierarchicalLifetimeManager());
 
       //Room
       container
-        .RegisterType<IManagerClass<RoomDto>, RoomManager>(new HierarchicalLifetimeManager())
+        .RegisterType<IRoomService, RoomManager>(new HierarchicalLifetimeManager())
         .RegisterType<IRoomRepository, RoomRepository>(new HierarchicalLifetimeManager());
 
       //Schedule
       container
-        .RegisterType<IManagerClass<ScheduleDto>, ScheduleManager>(new HierarchicalLifetimeManager())
+        .RegisterType<IScheduleService, ScheduleManager>(new HierarchicalLifetimeManager())
         .RegisterType<IScheduleRepository, ScheduleRepository>(new HierarchicalLifetimeManager());
 
       //Track
       container
-        .RegisterType<IManagerClass<TrackDto>, TrackManager>(new HierarchicalLifetimeManager())
+        .RegisterType<ITrackService, TrackManager>(new HierarchicalLifetimeManager())
         .RegisterType<ITrackRepository, TrackRepository>(new HierarchicalLifetimeManager());
 
       GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);

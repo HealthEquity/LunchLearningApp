@@ -14,11 +14,11 @@ namespace LunchAndLearnService.Controllers
   [RoutePrefix("api/instructor")]
   public class InstructorController : ApiController
   {
-    readonly IManagerClass<InstructorDto> _instructorManager;
+    readonly IInstructorService _instructorService;
 
-    public InstructorController(IManagerClass<InstructorDto> instructorManager)
+    public InstructorController(IInstructorService instructorService)
     {
-      _instructorManager = instructorManager;
+      _instructorService = instructorService;
     }
 
     [HttpGet]
@@ -27,9 +27,9 @@ namespace LunchAndLearnService.Controllers
     public IHttpActionResult GetAll()
     {
       List<InstructorDto> instructors;
-      using (_instructorManager)
+      using (_instructorService)
       {
-        instructors = _instructorManager.GetAll(); 
+        instructors = _instructorService.GetAll(); 
       }
       return Ok(instructors);
     }
@@ -40,9 +40,9 @@ namespace LunchAndLearnService.Controllers
     public IHttpActionResult Get(int id)
     {
       InstructorDto instructor;
-      using (_instructorManager)
+      using (_instructorService)
       {
-        instructor = _instructorManager.Get(id); 
+        instructor = _instructorService.Get(id); 
       }
       return Ok(instructor);
     }
@@ -52,9 +52,9 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Put(InstructorDto instructor)
     {
-      using (_instructorManager)
+      using (_instructorService)
       {
-        _instructorManager.Update(instructor); 
+        _instructorService.Update(instructor); 
       }
       return Ok();
     }
@@ -64,9 +64,9 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Delete(int id)
     {
-      using (_instructorManager)
+      using (_instructorService)
       {
-        _instructorManager.Delete(id); 
+        _instructorService.Delete(id); 
       }
       return Ok();
     }
@@ -76,9 +76,9 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Post(InstructorDto instructor)
     {
-      using (_instructorManager)
+      using (_instructorService)
       {
-        _instructorManager.Create(instructor); 
+        _instructorService.Create(instructor); 
       }
       return Ok();
     }

@@ -15,12 +15,14 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
   [TestFixture]
   internal class RoomControllerTest
   {
-    private IManagerClass<RoomDto> _roomManager;
+    private IRoomService _roomService;
     private List<RoomDto> _roomsList;
 
     [SetUp]
     public void Init()
     {
+      _roomService = Mock.Create<IRoomService>();
+
       _roomsList = new List<RoomDto>()
       {
         new RoomDto()
@@ -42,25 +44,23 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
           RoomName = "This is the name of room 3"
         }
       };
-
-      _roomManager = Mock.Create<IManagerClass<RoomDto>>();
     }
 
     [TearDown]
     public void CleanUp()
     {
       _roomsList = null;
-      _roomManager = null;
+      _roomService = null;
     }
 
     [Test]
     public void GetAllRooms_UnderNormalConditions_ReturnsCollectionOfRooms()
     {
       //Arrange
-      Mock.Arrange(() => _roomManager.GetAll()).Returns(_roomsList).OccursOnce();
+      Mock.Arrange(() => _roomService.GetAll()).Returns(_roomsList).OccursOnce();
       var expected = _roomsList;
 
-      var roomController = new RoomController(_roomManager);
+      var roomController = new RoomController(_roomService);
 
       //Act
       var actual = roomController.GetAll() as OkNegotiatedContentResult<List<RoomDto>>;
@@ -68,7 +68,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
 
 
       //Assert
-      Mock.Assert(_roomManager);
+      Mock.Assert(_roomService);
       Assert.That(actualContent, Is.EqualTo(expected));
     }
 
@@ -76,12 +76,12 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
     public void GetRoomById_WhereRoomExists_ReturnsRoom([Values(1,2,3)] int roomIdToRetrieve)
     {
       //Arrange
-      Mock.Arrange(() => _roomManager.Get(roomIdToRetrieve))
+      Mock.Arrange(() => _roomService.Get(roomIdToRetrieve))
         .Returns(_roomsList.FirstOrDefault(r => r.RoomId == roomIdToRetrieve)).OccursOnce();
 
       var expected = _roomsList.FirstOrDefault(r => r.RoomId == roomIdToRetrieve);
 
-      var roomController = new RoomController(_roomManager);
+      var roomController = new RoomController(_roomService);
 
       //Act
       var actual = roomController.Get(roomIdToRetrieve) as OkNegotiatedContentResult<RoomDto>;
@@ -89,7 +89,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
 
 
       //Assert
-      Mock.Assert(_roomManager);
+      Mock.Assert(_roomService);
       Assert.That(actualContent, Is.EqualTo(expected));
     }
 
@@ -104,15 +104,15 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
         RoomName = "Purple Popsicle"
       };
 
-      Mock.Arrange(() => _roomManager.Create(roomToBeCreated)).OccursOnce();
+      Mock.Arrange(() => _roomService.Create(roomToBeCreated)).OccursOnce();
 
-      var roomController = new RoomController(_roomManager);
+      var roomController = new RoomController(_roomService);
 
       //Act
       var actual = roomController.Post(roomToBeCreated) as OkResult;
 
       //Assert
-      Mock.Assert(_roomManager);
+      Mock.Assert(_roomService);
       Assert.That(actual, Is.TypeOf<OkResult>());
     }
 
@@ -122,15 +122,15 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
       //Arrange
       var roomToBeUpdated = _roomsList.FirstOrDefault(ro => ro.RoomId == roomIdToBeUpdated);
 
-      Mock.Arrange(() => _roomManager.Update(roomToBeUpdated)).OccursOnce();
+      Mock.Arrange(() => _roomService.Update(roomToBeUpdated)).OccursOnce();
 
-      var roomController = new RoomController(_roomManager);
+      var roomController = new RoomController(_roomService);
 
       //Act
       var actual = roomController.Put(roomToBeUpdated) as OkResult;
 
       //Assert
-      Mock.Assert(_roomManager);
+      Mock.Assert(_roomService);
       Assert.That(actual, Is.TypeOf<OkResult>());
     }
 
@@ -138,15 +138,15 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
     public void DeleteRoom_WhereRoomExists_ReturnsOkResponse([Values(1, 2, 3)] int roomIdToBeDeleted)
     {
       //Arrange
-      Mock.Arrange(() => _roomManager.Delete(roomIdToBeDeleted)).OccursOnce();
+      Mock.Arrange(() => _roomService.Delete(roomIdToBeDeleted)).OccursOnce();
 
-      var roomController = new RoomController(_roomManager);
+      var roomController = new RoomController(_roomService);
       //Act
 
       var actual = roomController.Delete(roomIdToBeDeleted) as OkResult;
 
       //Assert
-      Mock.Assert(_roomManager);
+      Mock.Assert(_roomService);
       Assert.That(actual, Is.TypeOf<OkResult>());
     }
   }

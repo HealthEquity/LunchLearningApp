@@ -17,11 +17,11 @@ namespace LunchAndLearnService.Controllers
   [RoutePrefix("api/rating")]
   public class RatingController : ApiController
   {
-    private readonly IManagerClass<RatingDto> _ratingManager;
+    private readonly IRatingService _ratingService;
 
-    public RatingController(IManagerClass<RatingDto> ratingManager)
+    public RatingController(IRatingService ratingService)
     {
-      _ratingManager = ratingManager;
+      _ratingService = ratingService;
     }
 
     [Route("all")]
@@ -30,9 +30,9 @@ namespace LunchAndLearnService.Controllers
     public IHttpActionResult GetAll()
     {
       List<RatingDto> ratings;
-      using (_ratingManager)
+      using (_ratingService)
       {
-        ratings = _ratingManager.GetAll(); 
+        ratings = _ratingService.GetAll(); 
       }
       return Ok(ratings);
     }
@@ -43,9 +43,9 @@ namespace LunchAndLearnService.Controllers
     public IHttpActionResult Get(int id)
     {
       RatingDto rating;
-      using (_ratingManager)
+      using (_ratingService)
       {
-        rating = _ratingManager.Get(id);
+        rating = _ratingService.Get(id);
       }
       return Ok(rating);
     }
@@ -55,9 +55,9 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Post(RatingDto rating)
     {
-      using (_ratingManager)
+      using (_ratingService)
       {
-        _ratingManager.Create(rating);
+        _ratingService.Create(rating);
       }
       return Ok();
     }
@@ -67,9 +67,9 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Put(RatingDto rating)
     {
-      using (_ratingManager)
+      using (_ratingService)
       {
-        _ratingManager.Update(rating); 
+        _ratingService.Update(rating); 
       }
       return Ok();
     }
@@ -79,9 +79,9 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Delete(int id)
     {
-      using (_ratingManager)
+      using (_ratingService)
       {
-        _ratingManager.Delete(id); 
+        _ratingService.Delete(id); 
       }
       return Ok();
     }
