@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LunchAndLearn.Model.DB_Models;
 
 namespace LunchAndLearn.Model.DTOs
 {
@@ -14,5 +15,17 @@ namespace LunchAndLearn.Model.DTOs
     public int TrackId { get; set; }
     public DateTime ClassDate { get; set; }
     public int RoomId { get; set; }
+
+    public Schedule ConvertToScheduleDbModel()
+    {
+      return new Schedule()
+      {
+        ScheduleId = this.ScheduleId,
+        InstructorId = this.InstructorId,
+        ClassId = this.ClassId,
+        RoomId = this.RoomId,
+        TrackId = this.TrackId
+      };
+    }
   }
 }
