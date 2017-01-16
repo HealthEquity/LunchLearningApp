@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage  xmlns="http://xamarin.com/schemas/2014/forms"
+					   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+					   xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+					   x:Class="LunchAndLearnMobile.Pages.Schedules">
+
+  <TabbedPage.Children>
+    <ContentPage Title="Schedule">
+
+      <StackLayout Orientation="Vertical" VerticalOptions="Start">
+        <ActivityIndicator IsVisible="{Binding IsLoading}" IsRunning="{Binding IsLoading}" HorizontalOptions="CenterAndExpand" />
+        <DatePicker x:Name="ScheduleDatePicker" VerticalOptions="CenterAndExpand" Date="{x:Static sys:DateTime.Now}" DateSelected="DatePicker_SelectedDateChanged">
+          <DatePicker.Format>MM-dd-yyyy</DatePicker.Format>
+          <DatePicker.MinimumDate>
+            <sys:DateTime x:FactoryMethod="Parse">
+              <x:Arguments>
+                <x:String>Jan 1 2000</x:String>
+              </x:Arguments>
+            </sys:DateTime>
+          </DatePicker.MinimumDate>
+          <DatePicker.MaximumDate>
+            <sys:DateTime x:FactoryMethod="Parse">
+              <x:Arguments>
+                <x:String>Dec 31 2050</x:String>
+              </x:Arguments>
+            </sys:DateTime>
+          </DatePicker.MaximumDate>
+        </DatePicker>
+        <ListView ItemsSource="{Binding Schedules}" ItemTapped="Schedule_Tapped">
+          <ListView.ItemTemplate>
+            <DataTemplate>
+              <TextCell Text="{Binding ClassName}" Detail="{Binding ClassDate}" />
+            </DataTemplate>
+          </ListView.ItemTemplate>
+        </ListView>
+      </StackLayout>
+    </ContentPage>
+  </TabbedPage.Children>
+
+</TabbedPage>

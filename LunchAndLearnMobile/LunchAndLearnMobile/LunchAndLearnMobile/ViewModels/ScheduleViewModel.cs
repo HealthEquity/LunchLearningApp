@@ -28,14 +28,10 @@ namespace LunchAndLearnMobile.ViewModels
         NotifyPropertyChanged("Schedules");
       }
     }
-    public void Load()
+    public void Load(DateTime date)
     {
-      if (Schedules != null)
-      {
-        return;
-      }
       IsLoading = true;
-      ScheduleService.GetSchedules().ContinueWith(c =>
+      ScheduleService.GetSchedulesByDate(date).ContinueWith(c =>
       {
         if (c.Exception == null)
         {

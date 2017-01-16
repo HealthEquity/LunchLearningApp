@@ -13,17 +13,29 @@ namespace LunchAndLearnMobile.Services
   {
     private static HttpClient _client;
 
-    public static async Task<IEnumerable<Schedule>> GetSchedules()
+    public static async Task<IEnumerable<Schedule>> GetSchedulesByDate(DateTime date)
     {
       List<Schedule> schedules = new List<Schedule>();
       _client = CreateHttpClient();
-
-      HttpResponseMessage response = await _client.GetAsync("api/schedule/all");
+      HttpResponseMessage response = await _client.GetAsync("api/schedule/mobile/scheduleDetailsByDate?date=" + date);
       if (response.IsSuccessStatusCode)
       {
         schedules = await response.Content.ReadAsAsync<List<Schedule>>();
       }
       return schedules;
+    }
+
+    public static async Task<Schedule> GetScheduleDetailsById(int scheduleId)
+    {
+      Schedule schedule = new Schedule();
+      _client = CreateHttpClient();
+
+      HttpResponseMessage response = await _client.GetAsync("api/mobile/scheduleDetailsByScheduleId?scheduleId=" + scheduleId);
+      if (response.IsSuccessStatusCode)
+      {
+        schedule = await response.Content.ReadAsAsync<Schedule>();
+      }
+      return schedule;
     }
   }
 }
