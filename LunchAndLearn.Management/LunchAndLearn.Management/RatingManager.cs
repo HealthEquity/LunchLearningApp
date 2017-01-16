@@ -7,10 +7,11 @@ using LunchAndLearn.Data.Interfaces;
 using LunchAndLearn.Data.Repositories;
 using LunchAndLearn.Management.Interfaces;
 using LunchAndLearn.Model.DB_Models;
+using LunchAndLearn.Model.DTOs;
 
 namespace LunchAndLearn.Management
 {
-  public class RatingManager : IManagerClass<Rating>
+  public class RatingManager : IManagerClass<RatingDto>
   {
     private readonly IRatingRepository _ratingRepository;
 
@@ -19,37 +20,40 @@ namespace LunchAndLearn.Management
       _ratingRepository = ratingRepository;
     }
 
-    public Rating Get(int id)
+    public RatingDto Get(int id)
     {
       using (_ratingRepository)
       {
-        return _ratingRepository.Get(id); 
+        return _ratingRepository.Get(id).ConvertToRatingDto();
       }
     }
 
-    public List<Rating> GetAll()
+    public List<RatingDto> GetAll()
     {
       using (_ratingRepository)
       {
-        return _ratingRepository.GetAll().ToList(); 
+        var ratingList =_ratingRepository.GetAll().ToList();
+        return ratingList.Select(x => x.ConvertToRatingDto()).ToList();
       }
     }
 
-    public int Create(Rating entity)
+    public int Create(RatingDto entity)
     {
       using (_ratingRepository)
       {
-        _ratingRepository.Create(entity);
+        var entityToCreate = entity.ConvertToRatingDbModel();
+        _ratingRepository.Create(entityToCreate);
         _ratingRepository.SaveChanges();
-        return entity.RatingId; 
+        return entityToCreate.RatingId; 
       }
     }
 
-    public void Update(Rating entity)
+    public void Update(RatingDto entity)
     {
       using (_ratingRepository)
       {
-        _ratingRepository.Update(entity);
+        var entityToUpdate = entity.ConvertToRatingDbModel();
+        _ratingRepository.Update(entityToUpdate);
         _ratingRepository.SaveChanges(); 
       }
     }

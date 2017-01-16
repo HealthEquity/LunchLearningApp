@@ -6,15 +6,16 @@ using LunchAndLearn.Management;
 using LunchAndLearn.Management.Interfaces;
 using LunchAndLearn.Model;
 using LunchAndLearn.Model.DB_Models;
+using LunchAndLearn.Model.DTOs;
 
 namespace LunchAndLearnService.Controllers
 {
   [RoutePrefix("api/room")]
   public class RoomController : ApiController
   {
-    private readonly IManagerClass<Room> _roomManager;
+    private readonly IManagerClass<RoomDto> _roomManager;
 
-    public RoomController(IManagerClass<Room> roomManager)
+    public RoomController(IManagerClass<RoomDto> roomManager)
     {
       this._roomManager = roomManager;
     }
@@ -24,7 +25,7 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(List<Room>))]
     public IHttpActionResult GetAll()
     {
-      List<Room> rooms;
+      List<RoomDto> rooms;
       using (_roomManager)
       {
         rooms = _roomManager.GetAll(); 
@@ -37,7 +38,7 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(Room))]
     public IHttpActionResult Get(int id)
     {
-      Room room;
+      RoomDto room;
       using (_roomManager)
       {
         room = _roomManager.Get(id); 
@@ -48,7 +49,7 @@ namespace LunchAndLearnService.Controllers
     [HttpPost]
     [Route("create")]
     [ResponseType(typeof(OkResult))]
-    public IHttpActionResult Post(Room room)
+    public IHttpActionResult Post(RoomDto room)
     {
       using (_roomManager)
       {
@@ -60,7 +61,7 @@ namespace LunchAndLearnService.Controllers
     [HttpPut]
     [Route("update")]
     [ResponseType(typeof(OkResult))]
-    public IHttpActionResult Put(Room room)
+    public IHttpActionResult Put(RoomDto room)
     {
       using (_roomManager)
       {

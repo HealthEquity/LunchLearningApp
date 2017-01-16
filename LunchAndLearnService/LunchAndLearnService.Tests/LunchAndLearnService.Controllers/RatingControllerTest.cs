@@ -5,6 +5,7 @@ using LunchAndLearn.Management;
 using LunchAndLearn.Management.Interfaces;
 using LunchAndLearn.Model;
 using LunchAndLearn.Model.DB_Models;
+using LunchAndLearn.Model.DTOs;
 using LunchAndLearnService.Controllers;
 using NUnit.Framework;
 using Telerik.JustMock;
@@ -14,16 +15,16 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
   [TestFixture]
   internal class RatingControllerTest
   {
-    private IManagerClass<Rating> _ratingManager;
-    private List<Rating> _ratingsList;
+    private IManagerClass<RatingDto> _ratingManager;
+    private List<RatingDto> _ratingsList;
 
     [SetUp]
     public void Init()
     {
-      _ratingManager = Mock.Create<IManagerClass<Rating>>();
-      _ratingsList = new List<Rating>()
+      _ratingManager = Mock.Create<IManagerClass<RatingDto>>();
+      _ratingsList = new List<RatingDto>()
       {
-        new Rating()
+        new RatingDto()
         {
           ClassId = 1,
           RatingId = 1,
@@ -32,7 +33,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
           InstructorId = 1,
           InstructorRating = 1
         },
-        new Rating()
+        new RatingDto()
         {
           ClassId = 2,
           RatingId = 2,
@@ -41,7 +42,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
           InstructorId = 2,
           InstructorRating = 2
         },
-        new Rating()
+        new RatingDto()
         {
           ClassId = 3,
           RatingId = 3,
@@ -71,7 +72,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
       var ratingController = new RatingController(_ratingManager);
 
       //Act
-      var actual = ratingController.GetAll() as OkNegotiatedContentResult<List<Rating>>;
+      var actual = ratingController.GetAll() as OkNegotiatedContentResult<List<RatingDto>>;
       var actualContent = actual.Content;
 
 
@@ -93,7 +94,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
       var ratingController = new RatingController(_ratingManager);
 
       //Act
-      var actual = ratingController.Get(idOfRatingToBeFound) as OkNegotiatedContentResult<Rating>;
+      var actual = ratingController.Get(idOfRatingToBeFound) as OkNegotiatedContentResult<RatingDto>;
       var actualContent = actual.Content;
 
 
@@ -106,7 +107,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
     public void CreateRating_UnderNormalConditions_ReturnsOkResponse()
     {
       //Arrange
-      var rating = new Rating()
+      var rating = new RatingDto()
       {
         InstructorId = 5,
         ClassId = 5,

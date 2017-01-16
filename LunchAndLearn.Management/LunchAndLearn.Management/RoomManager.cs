@@ -7,10 +7,11 @@ using LunchAndLearn.Data.Interfaces;
 using LunchAndLearn.Data.Repositories;
 using LunchAndLearn.Management.Interfaces;
 using LunchAndLearn.Model.DB_Models;
+using LunchAndLearn.Model.DTOs;
 
 namespace LunchAndLearn.Management
 {
-  public class RoomManager : IManagerClass<Room>
+  public class RoomManager : IManagerClass<RoomDto>
   {
     private readonly IRoomRepository _roomRepository;
 
@@ -19,38 +20,41 @@ namespace LunchAndLearn.Management
       _roomRepository = roomRepository;
     }
 
-    public Room Get(int id)
+    public RoomDto Get(int id)
     {
       using (_roomRepository)
       {
-        return _roomRepository.Get(id); 
+        return _roomRepository.Get(id).ConvertToRoomDto();
       }
     }
 
-    public List<Room> GetAll()
+    public List<RoomDto> GetAll()
     {
       using (_roomRepository)
       {
-        return _roomRepository.GetAll().ToList(); 
+        var roomList = _roomRepository.GetAll().ToList();
+        return roomList.Select(x => x.ConvertToRoomDto()).ToList();
       }
     }
 
-    public int Create(Room entity)
+    public int Create(RoomDto entity)
     {
       using (_roomRepository)
       {
-        _roomRepository.Create(entity);
+        var entityToCreate = entity.ConvertToRoomDbModel();
+        _roomRepository.Create(entityToCreate);
         _roomRepository.SaveChanges();
-        return entity.RoomId; 
+        return entityToCreate.RoomId;
       }
     }
 
-    public void Update(Room entity)
+    public void Update(RoomDto entity)
     {
       using (_roomRepository)
       {
-        _roomRepository.Update(entity);
-        _roomRepository.SaveChanges(); 
+        var entityToUpdate = entity.ConvertToRoomDbModel();
+        _roomRepository.Update(entityToUpdate);
+        _roomRepository.SaveChanges();
       }
     }
 
@@ -59,7 +63,7 @@ namespace LunchAndLearn.Management
       using (_roomRepository)
       {
         _roomRepository.Delete(id);
-        _roomRepository.SaveChanges(); 
+        _roomRepository.SaveChanges();
       }
     }
 

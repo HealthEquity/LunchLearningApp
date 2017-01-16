@@ -6,25 +6,26 @@ using LunchAndLearn.Management;
 using LunchAndLearn.Management.Interfaces;
 using LunchAndLearn.Model;
 using LunchAndLearn.Model.DB_Models;
+using LunchAndLearn.Model.DTOs;
 
 namespace LunchAndLearnService.Controllers
 {
   [RoutePrefix("api/schedule")]
   public class ScheduleController : ApiController
   {
-    private IManagerClass<Schedule> _scheduleManager;
+    private IManagerClass<ScheduleDto> _scheduleManager;
 
-    public ScheduleController(IManagerClass<Schedule> scheduleManager)
+    public ScheduleController(IManagerClass<ScheduleDto> scheduleManager)
     {
       _scheduleManager = scheduleManager;
     }
 
     [HttpGet]
     [Route("all")]
-    [ResponseType(typeof(List<Schedule>))]
+    [ResponseType(typeof(List<ScheduleDto>))]
     public IHttpActionResult GetAll()
     {
-      List<Schedule> schedules;
+      List<ScheduleDto> schedules;
       using (_scheduleManager)
       {
         schedules = _scheduleManager.GetAll();
@@ -34,10 +35,10 @@ namespace LunchAndLearnService.Controllers
 
     [HttpGet]
     [Route("{id}")]
-    [ResponseType(typeof(Schedule))]
+    [ResponseType(typeof(ScheduleDto))]
     public IHttpActionResult Get(int id)
     {
-      Schedule schedule;
+      ScheduleDto schedule;
       using (_scheduleManager)
       {
         schedule = _scheduleManager.Get(id); 
@@ -48,7 +49,7 @@ namespace LunchAndLearnService.Controllers
     [HttpPost]
     [Route("create")]
     [ResponseType(typeof(OkResult))]
-    public IHttpActionResult Post(Schedule schedule)
+    public IHttpActionResult Post(ScheduleDto schedule)
     {
       using (_scheduleManager)
       {
@@ -60,7 +61,7 @@ namespace LunchAndLearnService.Controllers
     [HttpPut]
     [Route("update")]
     [ResponseType(typeof(OkResult))]
-    public IHttpActionResult Put(Schedule schedule)
+    public IHttpActionResult Put(ScheduleDto schedule)
     {
       using (_scheduleManager)
       {

@@ -8,6 +8,7 @@ using LunchAndLearn.Management;
 using LunchAndLearn.Management.Interfaces;
 using LunchAndLearn.Model;
 using LunchAndLearn.Model.DB_Models;
+using LunchAndLearn.Model.DTOs;
 using NUnit.Framework;
 using Telerik.JustMock;
 
@@ -17,14 +18,14 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
   public class RatingManagerTest
   {
     private RatingManager _ratingManager;
-    private List<Rating> _ratingList;
+    private List<RatingDto> _ratingList;
 
     [SetUp]
     public void Init()
     {
-      _ratingList = new List<Rating>()
+      _ratingList = new List<RatingDto>()
       {
-        new Rating()
+        new RatingDto()
         {
           RatingId = 1,
           InstructorId = 1,
@@ -33,7 +34,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
           InstructorRating = 1,
           Comment = "test comment"
         },
-        new Rating()
+        new RatingDto()
         {
           RatingId = 2,
           InstructorId = 2,
@@ -42,7 +43,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
           InstructorRating = 2,
           Comment = "test comment 2"
         },
-        new Rating()
+        new RatingDto()
         {
           RatingId = 3,
           InstructorId = 3,
@@ -67,7 +68,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
     {
       //arrange
       var originalCountOfRatings = _ratingList.Count;
-      var ratingToCreate = new Rating()
+      var ratingToCreate = new RatingDto()
       {
         InstructorId = 6,
         ClassId = 6,

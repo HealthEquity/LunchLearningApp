@@ -7,10 +7,11 @@ using LunchAndLearn.Data.Interfaces;
 using LunchAndLearn.Data.Repositories;
 using LunchAndLearn.Management.Interfaces;
 using LunchAndLearn.Model.DB_Models;
+using LunchAndLearn.Model.DTOs;
 
 namespace LunchAndLearn.Management
 {
-  public class ScheduleManager : IManagerClass<Schedule>
+  public class ScheduleManager : IManagerClass<ScheduleDto>
   {
     private readonly IScheduleRepository _scheduleRepository;
 
@@ -19,37 +20,40 @@ namespace LunchAndLearn.Management
       _scheduleRepository = scheduleRepository;
     }
 
-    public Schedule Get(int id)
+    public ScheduleDto Get(int id)
     {
       using (_scheduleRepository)
       {
-        return _scheduleRepository.Get(id); 
+        return _scheduleRepository.Get(id).ConvertToScheduleDto(); 
       }
     }
 
-    public List<Schedule> GetAll()
+    public List<ScheduleDto> GetAll()
     {
       using (_scheduleRepository)
       {
-        return _scheduleRepository.GetAll().ToList(); 
+        var scheduleList = _scheduleRepository.GetAll().ToList();
+        return scheduleList.Select(x => x.ConvertToScheduleDto()).ToList();
       }
     }
 
-    public int Create(Schedule entity)
+    public int Create(ScheduleDto entity)
     {
       using (_scheduleRepository)
       {
-        _scheduleRepository.Create(entity);
+        var entityToBeCreated = entity.ConvertToScheduleDbModel();
+        _scheduleRepository.Create(entityToBeCreated);
         _scheduleRepository.SaveChanges();
-        return entity.ScheduleId; 
+        return entityToBeCreated.ScheduleId; 
       }
     }
 
-    public void Update(Schedule entity)
+    public void Update(ScheduleDto entity)
     {
       using (_scheduleRepository)
       {
-        _scheduleRepository.Update(entity);
+        var entityToBeUpdated = entity.ConvertToScheduleDbModel();
+        _scheduleRepository.Update(entityToBeUpdated);
         _scheduleRepository.SaveChanges(); 
       }
     }

@@ -7,25 +7,26 @@ using LunchAndLearn.Model;
 using LunchAndLearn.Management;
 using LunchAndLearn.Management.Interfaces;
 using LunchAndLearn.Model.DB_Models;
+using LunchAndLearn.Model.DTOs;
 
 namespace LunchAndLearnService.Controllers
 {
   [RoutePrefix("api/instructor")]
   public class InstructorController : ApiController
   {
-    readonly IManagerClass<Instructor> _instructorManager;
+    readonly IManagerClass<InstructorDto> _instructorManager;
 
-    public InstructorController(IManagerClass<Instructor> instructorManager)
+    public InstructorController(IManagerClass<InstructorDto> instructorManager)
     {
       _instructorManager = instructorManager;
     }
 
     [HttpGet]
     [Route("all")]
-    [ResponseType(typeof(List<Instructor>))]
+    [ResponseType(typeof(List<InstructorDto>))]
     public IHttpActionResult GetAll()
     {
-      List<Instructor> instructors;
+      List<InstructorDto> instructors;
       using (_instructorManager)
       {
         instructors = _instructorManager.GetAll(); 
@@ -35,10 +36,10 @@ namespace LunchAndLearnService.Controllers
 
     [HttpGet]
     [Route("{id}")]
-    [ResponseType(typeof(Instructor))]
+    [ResponseType(typeof(InstructorDto))]
     public IHttpActionResult Get(int id)
     {
-      Instructor instructor;
+      InstructorDto instructor;
       using (_instructorManager)
       {
         instructor = _instructorManager.Get(id); 
@@ -49,7 +50,7 @@ namespace LunchAndLearnService.Controllers
     [HttpPut]
     [Route("update")]
     [ResponseType(typeof(OkResult))]
-    public IHttpActionResult Put(Instructor instructor)
+    public IHttpActionResult Put(InstructorDto instructor)
     {
       using (_instructorManager)
       {
@@ -73,7 +74,7 @@ namespace LunchAndLearnService.Controllers
     [HttpPost]
     [Route("create")]
     [ResponseType(typeof(OkResult))]
-    public IHttpActionResult Post(Instructor instructor)
+    public IHttpActionResult Post(InstructorDto instructor)
     {
       using (_instructorManager)
       {

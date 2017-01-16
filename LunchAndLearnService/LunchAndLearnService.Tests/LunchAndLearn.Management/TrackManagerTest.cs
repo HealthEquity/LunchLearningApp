@@ -7,6 +7,7 @@ using LunchAndLearn.Data.Interfaces;
 using LunchAndLearn.Management;
 using LunchAndLearn.Model;
 using LunchAndLearn.Model.DB_Models;
+using LunchAndLearn.Model.DTOs;
 using NUnit.Framework;
 using Telerik.JustMock;
 
@@ -16,28 +17,28 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
   class TrackManagerTest
   {
     private TrackManager _trackManager;
-    private List<Track> _trackList;
+    private List<TrackDto> _trackList;
 
     [SetUp]
     public void Init()
     {
-      _trackList = new List<Track>()
+      _trackList = new List<TrackDto>()
       {
-        new Track()
+        new TrackDto()
         {
           TrackId = 1,
           TrackName = "track 1",
           TrackDescription = "track description 1",
           IsActive = true
         },
-        new Track()
+        new TrackDto()
         {
           TrackId = 2,
           TrackName = "track 2",
           TrackDescription = "track description 2",
           IsActive = true
         },
-        new Track()
+        new TrackDto()
         {
           TrackId = 3,
           TrackName = "track 3",
@@ -59,7 +60,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
     {
       //arrange
       var originalCountOfTracks = _trackList.Count;
-      var trackToCreate = new Track()
+      var trackToCreate = new TrackDto()
       {
         TrackId = 6,
         TrackName = "track 6",

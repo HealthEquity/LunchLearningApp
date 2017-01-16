@@ -6,6 +6,7 @@ using LunchAndLearn.Management;
 using LunchAndLearn.Management.Interfaces;
 using LunchAndLearn.Model;
 using LunchAndLearn.Model.DB_Models;
+using LunchAndLearn.Model.DTOs;
 using LunchAndLearnService.Controllers;
 using NUnit.Framework;
 using Telerik.JustMock;
@@ -15,16 +16,16 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
   [TestFixture]
   internal class ScheduleControllerTest
   {
-    private IManagerClass<Schedule> _scheduleManager;
-    private List<Schedule> _scheduleList;
+    private IManagerClass<ScheduleDto> _scheduleManager;
+    private List<ScheduleDto> _scheduleList;
 
     [SetUp]
     public void Init()
     {
-      _scheduleManager = Mock.Create<IManagerClass<Schedule>>();
-      _scheduleList = new List<Schedule>()
+      _scheduleManager = Mock.Create<IManagerClass<ScheduleDto>>();
+      _scheduleList = new List<ScheduleDto>()
       {
-        new Schedule()
+        new ScheduleDto()
         {
           ScheduleId = 1,
           InstructorId = 1,
@@ -33,7 +34,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
           TrackId = 1,
           ClassDate = DateTime.Now.Date
         },
-        new Schedule()
+        new ScheduleDto()
         {
           ScheduleId = 2,
           InstructorId = 2,
@@ -42,7 +43,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
           TrackId = 2,
           ClassDate = DateTime.Now.AddDays(1).Date
         },
-        new Schedule()
+        new ScheduleDto()
         {
           ScheduleId = 3,
           InstructorId = 3,
@@ -71,7 +72,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
       var scheduleController = new ScheduleController(_scheduleManager);
 
       //Act
-      var actual = scheduleController.GetAll() as OkNegotiatedContentResult<List<Schedule>>;
+      var actual = scheduleController.GetAll() as OkNegotiatedContentResult<List<ScheduleDto>>;
       var actualContent = actual.Content;
 
 
@@ -93,7 +94,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
       var scheduleController = new ScheduleController(_scheduleManager);
 
       //Act
-      var actual = scheduleController.Get(idOfScheduleToGet) as OkNegotiatedContentResult<Schedule>;
+      var actual = scheduleController.Get(idOfScheduleToGet) as OkNegotiatedContentResult<ScheduleDto>;
       var actualContent = actual.Content;
 
 
@@ -106,7 +107,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
     public void CreateSchedule_UnderNormalConditions_ReturnsOkResponse()
     {
       //Arrange
-      var scheduleToBeCreated = new Schedule()
+      var scheduleToBeCreated = new ScheduleDto()
       {
         ScheduleId = 6,
         InstructorId = 6,

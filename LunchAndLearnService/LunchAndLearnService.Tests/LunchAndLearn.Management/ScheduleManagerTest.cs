@@ -7,6 +7,7 @@ using LunchAndLearn.Data.Interfaces;
 using LunchAndLearn.Management;
 using LunchAndLearn.Model;
 using LunchAndLearn.Model.DB_Models;
+using LunchAndLearn.Model.DTOs;
 using NUnit.Framework;
 using Telerik.JustMock;
 
@@ -16,14 +17,14 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
   public class ScheduleManagerTest
   {
     private ScheduleManager _scheduleManager;
-    private List<Schedule> _scheduleList;
+    private List<ScheduleDto> _scheduleList;
 
     [SetUp]
     public void Init()
     {
-      _scheduleList = new List<Schedule>()
+      _scheduleList = new List<ScheduleDto>()
       {
-        new Schedule()
+        new ScheduleDto()
         {
           ScheduleId = 1,
           InstructorId = 1,
@@ -32,7 +33,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
           TrackId = 1,
           ClassDate = DateTime.Now.Date
         },
-        new Schedule()
+        new ScheduleDto()
         {
           ScheduleId = 2,
           InstructorId = 2,
@@ -41,7 +42,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
           TrackId = 2,
           ClassDate = DateTime.Now.AddDays(1).Date
         },
-        new Schedule()
+        new ScheduleDto()
         {
           ScheduleId = 3,
           InstructorId = 3,
@@ -66,7 +67,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
       //arrange
       var originalCountOfSchedules = _scheduleList.Count;
 
-      var scheduleToCreate = new Schedule()
+      var scheduleToCreate = new ScheduleDto()
       {
         InstructorId = 6,
         ClassId = 6,

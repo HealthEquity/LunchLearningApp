@@ -7,6 +7,7 @@ using LunchAndLearn.Data.Interfaces;
 using LunchAndLearn.Management;
 using LunchAndLearn.Model;
 using LunchAndLearn.Model.DB_Models;
+using LunchAndLearn.Model.DTOs;
 using NUnit.Framework;
 using Telerik.JustMock;
 
@@ -16,26 +17,26 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
   public class RoomManagerTest
   {
     private RoomManager _roomManager;
-    private List<Room> _roomList;
+    private List<RoomDto> _roomList;
 
     [SetUp]
     public void Init()
     {
-      _roomList = new List<Room>()
+      _roomList = new List<RoomDto>()
       {
-        new Room()
+        new RoomDto()
         {
           RoomId = 1,
           RoomDescription = "room description 1",
           RoomName = "room name 1"
         },
-        new Room()
+        new RoomDto()
         {
           RoomId = 2,
           RoomDescription = "room description 2",
           RoomName = "room name 2"
         },
-        new Room()
+        new RoomDto()
         {
           RoomId = 3,
           RoomDescription = "room description 3",
@@ -56,7 +57,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
     {
       //arrange
       var originalCountOfRooms = _roomList.Count;
-      var roomToCreate = new Room()
+      var roomToCreate = new RoomDto()
       {
         RoomId = 5,
         RoomDescription = "room description 5",

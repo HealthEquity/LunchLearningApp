@@ -5,6 +5,7 @@ using LunchAndLearn.Management;
 using LunchAndLearn.Management.Interfaces;
 using LunchAndLearn.Model;
 using LunchAndLearn.Model.DB_Models;
+using LunchAndLearn.Model.DTOs;
 using LunchAndLearnService.Controllers;
 using NUnit.Framework;
 using Telerik.JustMock;
@@ -14,27 +15,27 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
   [TestFixture]
   internal class RoomControllerTest
   {
-    private IManagerClass<Room> _roomManager;
-    private List<Room> _roomsList;
+    private IManagerClass<RoomDto> _roomManager;
+    private List<RoomDto> _roomsList;
 
     [SetUp]
     public void Init()
     {
-      _roomsList = new List<Room>()
+      _roomsList = new List<RoomDto>()
       {
-        new Room()
+        new RoomDto()
         {
           RoomId = 1,
           RoomDescription = "This is a description of room 1",
           RoomName = "This is the name of room 1"
         },
-        new Room()
+        new RoomDto()
         {
           RoomId = 2,
           RoomDescription = "This is a description of room 2",
           RoomName = "This is the name of room 2"
         },
-        new Room()
+        new RoomDto()
         {
           RoomId = 3,
           RoomDescription = "This is a description of room 3",
@@ -42,7 +43,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
         }
       };
 
-      _roomManager = Mock.Create<IManagerClass<Room>>();
+      _roomManager = Mock.Create<IManagerClass<RoomDto>>();
     }
 
     [TearDown]
@@ -62,7 +63,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
       var roomController = new RoomController(_roomManager);
 
       //Act
-      var actual = roomController.GetAll() as OkNegotiatedContentResult<List<Room>>;
+      var actual = roomController.GetAll() as OkNegotiatedContentResult<List<RoomDto>>;
       var actualContent = actual.Content;
 
 
@@ -83,7 +84,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
       var roomController = new RoomController(_roomManager);
 
       //Act
-      var actual = roomController.Get(roomIdToRetrieve) as OkNegotiatedContentResult<Room>;
+      var actual = roomController.Get(roomIdToRetrieve) as OkNegotiatedContentResult<RoomDto>;
       var actualContent = actual.Content;
 
 
@@ -96,7 +97,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
     public void CreateRoom_UnderNormalConditions_ReturnsOkResponse()
     {
       //Arrange
-      var roomToBeCreated = new Room()
+      var roomToBeCreated = new RoomDto()
       {
         RoomId = 5,
         RoomDescription = "Test description of room",

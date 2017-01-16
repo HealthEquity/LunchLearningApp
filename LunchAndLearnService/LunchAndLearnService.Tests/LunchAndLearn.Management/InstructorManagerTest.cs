@@ -8,6 +8,7 @@ using LunchAndLearn.Management;
 using LunchAndLearn.Management.Interfaces;
 using LunchAndLearn.Model;
 using LunchAndLearn.Model.DB_Models;
+using LunchAndLearn.Model.DTOs;
 using NUnit.Framework.Internal;
 using NUnit.Framework;
 using Telerik.JustMock;
@@ -17,26 +18,26 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
   [TestFixture]
   public class InstructorManagerTest
   {
-    private List<Instructor> _instructorList;
+    private List<InstructorDto> _instructorList;
     private InstructorManager _instructorManager;
     [SetUp]
     public void Init()
     {
-      _instructorList = new List<Instructor>()
+      _instructorList = new List<InstructorDto>()
       {
-        new Instructor()
+        new InstructorDto()
         {
           InstructorId = 1,
           InstructorName = "test instructor 1",
           IsActive = true
         },
-        new Instructor()
+        new InstructorDto()
         {
           InstructorId = 2,
           InstructorName = "test instructor 2",
           IsActive = true
         },
-        new Instructor()
+        new InstructorDto()
         {
           InstructorId = 3,
           InstructorName = "test instructor 3",
@@ -56,7 +57,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
     public void CreateInstructor_UnderNormalConditions_AddsInstructorToInstructorList()
     {
       //arrange
-      var instructorToBeCreated = new Instructor()
+      var instructorToBeCreated = new InstructorDto()
       {
         InstructorName = "test instructor name",
         IsActive = true

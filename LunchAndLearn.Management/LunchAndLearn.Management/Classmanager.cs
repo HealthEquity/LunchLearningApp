@@ -48,7 +48,7 @@ namespace LunchAndLearn.Management
         var entityToCreate = entity.ConvertToClassDbModel();
         _classRepository.Create(entityToCreate);
         _classRepository.SaveChanges();
-        return entity.ClassId;
+        return entityToCreate.ClassId;
       }
     }
 

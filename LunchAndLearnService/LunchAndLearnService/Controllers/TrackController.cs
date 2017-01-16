@@ -10,25 +10,26 @@ using LunchAndLearn.Management;
 using LunchAndLearn.Management.Interfaces;
 using LunchAndLearn.Model;
 using LunchAndLearn.Model.DB_Models;
+using LunchAndLearn.Model.DTOs;
 
 namespace LunchAndLearnService.Controllers
 {
   [RoutePrefix("api/track")]
   public class TrackController : ApiController
   {
-    private readonly IManagerClass<Track> _trackManager;
+    private readonly IManagerClass<TrackDto> _trackManager;
 
-    public TrackController(IManagerClass<Track> trackManager)
+    public TrackController(IManagerClass<TrackDto> trackManager)
     {
       _trackManager = trackManager;
     }
 
     [HttpGet]
     [Route("all")]
-    [ResponseType(typeof(List<Track>))]
+    [ResponseType(typeof(List<TrackDto>))]
     public IHttpActionResult GetAll()
     {
-      List<Track> tracks;
+      List<TrackDto> tracks;
       using (_trackManager)
       {
         tracks = _trackManager.GetAll(); 
@@ -38,10 +39,10 @@ namespace LunchAndLearnService.Controllers
 
     [HttpGet]
     [Route("{id}")]
-    [ResponseType(typeof(Track))]
+    [ResponseType(typeof(TrackDto))]
     public IHttpActionResult Get(int id)
     {
-      Track track;
+      TrackDto track;
       using (_trackManager)
       {
         track = _trackManager.Get(id); 
@@ -52,7 +53,7 @@ namespace LunchAndLearnService.Controllers
     [HttpPost]
     [Route("create")]
     [ResponseType(typeof(OkResult))]
-    public IHttpActionResult Create(Track track)
+    public IHttpActionResult Create(TrackDto track)
     {
       using (_trackManager)
       {
@@ -64,7 +65,7 @@ namespace LunchAndLearnService.Controllers
     [HttpPut]
     [Route("update")]
     [ResponseType(typeof(OkResult))]
-    public IHttpActionResult Put(Track track)
+    public IHttpActionResult Put(TrackDto track)
     {
       using (_trackManager)
       {

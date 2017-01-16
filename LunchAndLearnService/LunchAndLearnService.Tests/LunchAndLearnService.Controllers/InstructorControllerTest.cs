@@ -5,6 +5,7 @@ using LunchAndLearn.Management;
 using LunchAndLearn.Management.Interfaces;
 using LunchAndLearn.Model;
 using LunchAndLearn.Model.DB_Models;
+using LunchAndLearn.Model.DTOs;
 using LunchAndLearnService.Controllers;
 using NUnit.Framework;
 using Telerik.JustMock;
@@ -14,20 +15,20 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
   [TestFixture]
   internal class InstructorControllerTest
   {
-    private List<Instructor> _mockInstructorList;
-    private IManagerClass<Instructor> _instructorManager;
+    private List<InstructorDto> _mockInstructorList;
+    private IManagerClass<InstructorDto> _instructorManager;
 
     [SetUp]
     public void Init()
     {
-      _mockInstructorList = new List<Instructor>()
+      _mockInstructorList = new List<InstructorDto>()
       {
-        new Instructor() {InstructorId = 1, InstructorName = "John Jacob", IsActive = true},
-        new Instructor() {InstructorId = 2, InstructorName = "Bruce Wayne", IsActive = true},
-        new Instructor() {InstructorId = 3, InstructorName = "Clark Kent", IsActive = true}
+        new InstructorDto() {InstructorId = 1, InstructorName = "John Jacob", IsActive = true},
+        new InstructorDto() {InstructorId = 2, InstructorName = "Bruce Wayne", IsActive = true},
+        new InstructorDto() {InstructorId = 3, InstructorName = "Clark Kent", IsActive = true}
       };
 
-      _instructorManager = Mock.Create<IManagerClass<Instructor>>();
+      _instructorManager = Mock.Create<IManagerClass<InstructorDto>>();
     }
 
     [TearDown]
@@ -48,7 +49,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
       var instructorController = new InstructorController(_instructorManager);
 
       ////Act
-      var actual = instructorController.GetAll() as OkNegotiatedContentResult<List<Instructor>>;
+      var actual = instructorController.GetAll() as OkNegotiatedContentResult<List<InstructorDto>>;
       var actualContent = actual.Content;
 
       //Assert
@@ -67,7 +68,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
       var instructorController = new InstructorController(_instructorManager);
 
       ////Act
-      var actual = instructorController.Get(idToRetrieve) as OkNegotiatedContentResult<Instructor>;
+      var actual = instructorController.Get(idToRetrieve) as OkNegotiatedContentResult<InstructorDto>;
       var actualContent = actual.Content;
 
       //Assert
@@ -86,7 +87,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
       var instructorController = new InstructorController(_instructorManager);
 
       ////Act
-      var actual = instructorController.Get(idToRetrieve) as OkNegotiatedContentResult<Instructor>;
+      var actual = instructorController.Get(idToRetrieve) as OkNegotiatedContentResult<InstructorDto>;
       var actualContent = actual.Content;
 
       //Assert
@@ -99,7 +100,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
     public void CreateInstructor_UnderNormalConditions_ReturnsOkResponse()
     {
       //Arrange
-      var instructorToBeCreated = new Instructor()
+      var instructorToBeCreated = new InstructorDto()
       {
         InstructorId = 10,
         InstructorName = "Wayne Gretzky",

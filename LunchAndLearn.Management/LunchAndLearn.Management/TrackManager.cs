@@ -9,10 +9,11 @@ using LunchAndLearn.Data.Interfaces;
 using LunchAndLearn.Data.Repositories;
 using LunchAndLearn.Management.Interfaces;
 using LunchAndLearn.Model.DB_Models;
+using LunchAndLearn.Model.DTOs;
 
 namespace LunchAndLearn.Management
 {
-  public class TrackManager : IManagerClass<Track>
+  public class TrackManager : IManagerClass<TrackDto>
   {
     private readonly ITrackRepository _trackRepository;
 
@@ -21,37 +22,40 @@ namespace LunchAndLearn.Management
       _trackRepository = trackRepository;
     }
 
-    public Track Get(int id)
+    public TrackDto Get(int id)
     {
       using (_trackRepository)
       {
-        return _trackRepository.Get(id); 
+        return _trackRepository.Get(id).ConvertToTrackDto(); 
       }
     }
 
-    public List<Track> GetAll()
+    public List<TrackDto> GetAll()
     {
       using (_trackRepository)
       {
-        return _trackRepository.GetAll().ToList(); 
+        var trackList =_trackRepository.GetAll().ToList();
+        return trackList.Select(x => x.ConvertToTrackDto()).ToList();
       }
     }
 
-    public int Create(Track entity)
+    public int Create(TrackDto entity)
     {
       using (_trackRepository)
       {
-        _trackRepository.Create(entity);
+        var entityToCreate = entity.ConvertToTrackDbModel();
+        _trackRepository.Create(entityToCreate);
         _trackRepository.SaveChanges();
-        return entity.TrackId; 
+        return entityToCreate.TrackId;
       }
     }
 
-    public void Update(Track entity)
+    public void Update(TrackDto entity)
     {
       using (_trackRepository)
       {
-        _trackRepository.Update(entity);
+        var entityToUpdated = entity.ConvertToTrackDbModel();
+        _trackRepository.Update(entityToUpdated);
         _trackRepository.SaveChanges(); 
       }
     }

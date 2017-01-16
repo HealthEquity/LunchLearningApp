@@ -5,39 +5,41 @@ using LunchAndLearn.Management;
 using LunchAndLearn.Management.Interfaces;
 using LunchAndLearn.Model;
 using LunchAndLearn.Model.DB_Models;
+using LunchAndLearn.Model.DTOs;
 using LunchAndLearnService.Controllers;
 using NUnit.Framework;
 using Telerik.JustMock;
+using Telerik.JustMock.Helpers;
 
 namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
 {
   [TestFixture]
   internal class TrackControllerTest
   {
-    private IManagerClass<Track> _trackManager;
-    private List<Track> _trackList;
+    private IManagerClass<TrackDto> _trackManager;
+    private List<TrackDto> _trackList;
 
     [SetUp]
     public void Init()
     {
-      _trackManager = Mock.Create<IManagerClass<Track>>();
-      _trackList = new List<Track>()
+      _trackManager = Mock.Create<IManagerClass<TrackDto>>();
+      _trackList = new List<TrackDto>()
       {
-        new Track()
+        new TrackDto()
         {
           TrackId = 1,
           IsActive = true,
           TrackDescription = "track description 1",
           TrackName = "track name 1"
         },
-        new Track()
+        new TrackDto()
         {
           TrackId = 2,
           IsActive = true,
           TrackDescription = "track description 2",
           TrackName = "track name 2"
         },
-        new Track()
+        new TrackDto()
         {
           TrackId = 3,
           IsActive = true,
@@ -66,7 +68,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
       var expected = _trackList;
 
       //Act
-      var actual = trackController.GetAll() as OkNegotiatedContentResult<List<Track>>;
+      var actual = trackController.GetAll() as OkNegotiatedContentResult<List<TrackDto>>;
       var actualContent = actual.Content;
 
 
@@ -88,7 +90,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
       var trackController = new TrackController(_trackManager);
 
       //Act
-      var actual = trackController.Get(idOfTrackToRetrieve) as OkNegotiatedContentResult<Track>;
+      var actual = trackController.Get(idOfTrackToRetrieve) as OkNegotiatedContentResult<TrackDto>;
       var actualContent = actual.Content;
 
       //Assert
@@ -100,7 +102,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
     public void CreateTrack_UnderNormalConditions_ReturnsOkResponse()
     {
       //arrange
-      var trackToCreate = new Track()
+      var trackToCreate = new TrackDto()
       {
         TrackId = 7,
         IsActive = true,
