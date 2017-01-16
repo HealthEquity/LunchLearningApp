@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+					   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+					   x:Class="LunchAndLearnMobile.Pages.ScheduleDetail">
+  <StackLayout Orientation="Vertical">
+    <ActivityIndicator IsVisible="{Binding IsLoading}" IsRunning="{Binding IsLoading}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></ActivityIndicator>
+    <TableView Intent="Form">
+      <TableView.Root>
+        <TableRoot Title="Schedule Detail">
+          <TableSection Title="Schedule">
+            <TextCell Text="Schedule Id:" Detail="{Binding Schedule.ScheduleId}"></TextCell>
+            <TextCell Text="Class Date:" Detail="{Binding Schedule.ClassDate}"></TextCell>
+          </TableSection>
+        </TableRoot>
+      </TableView.Root>
+    </TableView>
+    <Button Text="RateClass" Clicked="RateClass_Clicked"></Button>
+  </StackLayout>
+</ContentPage>

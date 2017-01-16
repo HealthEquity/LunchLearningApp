@@ -15,7 +15,7 @@ namespace LunchAndLearnMobile.Services
 
     public static HttpClient CreateHttpClient()
     {
-      _client = new HttpClient { BaseAddress = new Uri("http:/lunchandlearnapi-healthequity.com/") };
+      _client = new HttpClient { BaseAddress = new Uri("http://lunchandlearn-api.healthequity.com/") };
       _client.DefaultRequestHeaders.Accept.Clear();
       _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
       return _client;

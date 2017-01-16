@@ -10,7 +10,8 @@ namespace LunchAndLearnMobile.Models
   {
     public int ScheduleId { get; set; }
     public string ClassName { get; set; }
-    public string ClassDescription { get; set; }
+    public DateTime ClassDate { get; set; }
+    public string TrackName { get; set; }
     public string InstructorName { get; set; }
     public string RoomName { get; set; }
   }

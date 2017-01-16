@@ -11,36 +11,39 @@ using Xamarin.Forms;
 
 namespace LunchAndLearnMobile.ViewModels
 {
-  public class ClassesViewModel : ViewModelBase, INotifyPropertyChanged
+  public class ScheduleDetailViewModel : ViewModelBase, INotifyPropertyChanged
   {
-    public ClassesViewModel(INavigation navigation) : base(navigation)
+    private Schedule schedule;
+    public ScheduleDetailViewModel(Schedule selectedSchedule, INavigation navigation) : base(navigation)
     {
+      schedule = selectedSchedule;
     }
 
-    private ObservableCollection<DbClass> _classes;
+    private Schedule _schedule;
 
-    public ObservableCollection<DbClass> Classes
+    public Schedule Schedule
     {
-      get { return _classes; }
+      get { return _schedule; }
       set
       {
-        _classes = value;
-        NotifyPropertyChanged("Classes");
+        _schedule = value;
+        NotifyPropertyChanged("Schedule");
       }
     }
+
     public void Load()
     {
-      if (Classes != null)
+      if (Schedule != null)
       {
         return;
       }
       IsLoading = true;
-      ClassService.GetClasses().ContinueWith(c =>
+      ScheduleService.GetScheduleDetailsById(schedule.ScheduleId).ContinueWith(c =>
       {
         if (c.Exception == null)
         {
-          var classResults = c.Result;
-          Classes = new ObservableCollection<DbClass>(classResults);
+          var scheduleResult = c.Result;
+          Schedule = scheduleResult;
         }
         else
         {
