@@ -52,8 +52,12 @@
   <ItemGroup>
     <Compile Include="DB_Models\Class.cs" />
     <Compile Include="DB_Models\Instructor.cs" />
-    <Compile Include="DTOs\ScheduleDetailDto.cs" />
-    <Compile Include="DTOs\ScheduleDetailSummaryDto.cs" />
+    <Compile Include="DTOs\ClassDto.cs" />
+    <Compile Include="DTOs\InstructorDto.cs" />
+    <Compile Include="DTOs\RatingDto.cs" />
+    <Compile Include="DTOs\RoomDto.cs" />
+    <Compile Include="DTOs\ScheduleDto.cs" />
+    <Compile Include="DTOs\TrackDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DB_Models\Rating.cs" />
     <Compile Include="DB_Models\Room.cs" />

@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace LunchAndLearn.Model.DTOs
 {
-  public class ScheduleDetailSummaryDto
+  public class ClassDto
   {
-    public ICollection<ScheduleDetailDto> ScheduleDetailCollection { get; set; } = new List<ScheduleDetailDto>();
+    public int ClassId { get; set; }
+    public string ClassName { get; set; }
+    public string ClassDescription { get; set; }
   }
 }
