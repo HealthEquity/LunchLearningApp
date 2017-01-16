@@ -73,7 +73,7 @@ namespace LunchAndLearn.Management
       {
         var searchEndDate = searchStartDate.Date.AddDays(1);
         var scheduleCollection = _scheduleRepository.GetAll()
-          .Where(x => x.ClassDate >= searchStartDate && x.ClassDate <= searchEndDate)
+          .Where(x => x.ClassDate >= searchStartDate && x.ClassDate < searchEndDate)
           .ToList();
 
         return scheduleCollection.Select(x => x.ConvertToScheduleDetailDto()).ToList();
