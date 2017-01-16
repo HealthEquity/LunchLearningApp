@@ -16,7 +16,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
   [TestFixture]
   class TrackManagerTest
   {
-    private TrackManager _trackManager;
+    private TrackService _trackService;
     private List<TrackDto> _trackList;
 
     [SetUp]
@@ -52,7 +52,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
     public void CleanUp()
     {
       _trackList = null;
-      _trackManager = null;
+      _trackService = null;
     }
 
     [Test]
@@ -73,10 +73,10 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
         .DoInstead(() => _trackList.Add(trackToCreate))
         .OccursOnce();
 
-      _trackManager = new TrackManager(mockRepo);
+      _trackService = new TrackService(mockRepo);
 
       //act
-      _trackManager.Create(trackToCreate);
+      _trackService.Create(trackToCreate);
       var actualCount = _trackList.Count;
 
       //assert

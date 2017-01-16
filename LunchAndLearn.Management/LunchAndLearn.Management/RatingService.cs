@@ -11,11 +11,11 @@ using LunchAndLearn.Model.DTOs;
 
 namespace LunchAndLearn.Management
 {
-  public class RatingManager : IRatingService
+  public class RatingService : IRatingService
   {
     private readonly IRatingRepository _ratingRepository;
 
-    public RatingManager(IRatingRepository ratingRepository)
+    public RatingService(IRatingRepository ratingRepository)
     {
       _ratingRepository = ratingRepository;
     }

@@ -16,7 +16,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
   [TestFixture]
   public class ScheduleManagerTest
   {
-    private ScheduleManager _scheduleManager;
+    private ScheduleService _scheduleService;
     private List<ScheduleDto> _scheduleList;
 
     [SetUp]
@@ -58,7 +58,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
     public void CleanUp()
     {
       _scheduleList = null;
-      _scheduleManager = null;
+      _scheduleService = null;
     }
 
     [Test]
@@ -82,10 +82,10 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
         .DoInstead(() => _scheduleList.Add(scheduleToCreate))
         .OccursOnce();
 
-      _scheduleManager = new ScheduleManager(mockRepo);
+      _scheduleService = new ScheduleService(mockRepo);
       
       //act
-      _scheduleManager.Create(scheduleToCreate);
+      _scheduleService.Create(scheduleToCreate);
       var actualCountOfSchedules = _scheduleList.Count;
 
       //assert

@@ -13,11 +13,11 @@ using LunchAndLearn.Model.DTOs;
 
 namespace LunchAndLearn.Management
 {
-  public class TrackManager : ITrackService
+  public class TrackService : ITrackService
   {
     private readonly ITrackRepository _trackRepository;
 
-    public TrackManager(ITrackRepository trackRepository)
+    public TrackService(ITrackRepository trackRepository)
     {
       _trackRepository = trackRepository;
     }

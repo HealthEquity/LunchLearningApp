@@ -11,11 +11,11 @@ using LunchAndLearn.Model.DTOs;
 
 namespace LunchAndLearn.Management
 {
-  public class InstructorManager : IInstructorService
+  public class InstructorService : IInstructorService
   {
     private readonly IInstructorRepository _instructorRepository;
 
-    public InstructorManager(IInstructorRepository instructorRepository)
+    public InstructorService(IInstructorRepository instructorRepository)
     {
       _instructorRepository = instructorRepository;
     }

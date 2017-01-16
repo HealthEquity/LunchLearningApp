@@ -11,11 +11,11 @@ using LunchAndLearn.Model.DTOs;
 
 namespace LunchAndLearn.Management
 {
-  public class ScheduleManager : IScheduleService
+  public class ScheduleService : IScheduleService
   {
     private readonly IScheduleRepository _scheduleRepository;
 
-    public ScheduleManager(IScheduleRepository scheduleRepository)
+    public ScheduleService(IScheduleRepository scheduleRepository)
     {
       _scheduleRepository = scheduleRepository;
     }

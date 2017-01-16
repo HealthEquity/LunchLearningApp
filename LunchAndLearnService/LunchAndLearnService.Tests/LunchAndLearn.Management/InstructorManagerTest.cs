@@ -19,7 +19,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
   public class InstructorManagerTest
   {
     private List<InstructorDto> _instructorList;
-    private InstructorManager _instructorManager;
+    private InstructorService _instructorService;
     [SetUp]
     public void Init()
     {
@@ -50,7 +50,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
     public void CleanUp()
     {
       _instructorList = null;
-      _instructorManager = null;
+      _instructorService = null;
     }
 
     [Test]
@@ -70,11 +70,11 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
         .DoInstead(() =>_instructorList.Add(instructorToBeCreated))
         .OccursOnce();
 
-      _instructorManager = new InstructorManager(mockInstructorRepo);
+      _instructorService = new InstructorService(mockInstructorRepo);
 
       //act
 
-      _instructorManager.Create(instructorToBeCreated);
+      _instructorService.Create(instructorToBeCreated);
       var actualCount = _instructorList.Count;
 
       //assert

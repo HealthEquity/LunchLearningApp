@@ -16,7 +16,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
   [TestFixture]
   public class RoomManagerTest
   {
-    private RoomManager _roomManager;
+    private RoomService _roomService;
     private List<RoomDto> _roomList;
 
     [SetUp]
@@ -49,7 +49,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
     public void CleanUp()
     {
       _roomList = null;
-      _roomManager = null;
+      _roomService = null;
     }
 
     [Test]
@@ -67,10 +67,10 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
       var mockRepo = Mock.Create<IRoomRepository>();
       Mock.Arrange(() => mockRepo.Create(Arg.IsAny<Room>())).DoInstead(() => _roomList.Add(roomToCreate)).OccursOnce();
 
-      _roomManager = new RoomManager(mockRepo);
+      _roomService = new RoomService(mockRepo);
 
       //act
-      _roomManager.Create(roomToCreate);
+      _roomService.Create(roomToCreate);
       var actualCountOfRooms = _roomList.Count;
 
       //assert

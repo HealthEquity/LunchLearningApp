@@ -24,32 +24,32 @@ namespace LunchAndLearnService
 
       //Class
       container
-        .RegisterType<IClassService, ClassManager>(new HierarchicalLifetimeManager())
+        .RegisterType<IClassService, ClassService>(new HierarchicalLifetimeManager())
         .RegisterType<IClassRepository, ClassRepository>(new HierarchicalLifetimeManager());
 
       //Instructor
       container
-        .RegisterType<IInstructorService, InstructorManager>(new HierarchicalLifetimeManager())
+        .RegisterType<IInstructorService, InstructorService>(new HierarchicalLifetimeManager())
         .RegisterType<IInstructorRepository, InstructorRepository>(new HierarchicalLifetimeManager());
 
       //Rating
       container
-        .RegisterType<IRatingService, RatingManager>(new HierarchicalLifetimeManager())
+        .RegisterType<IRatingService, RatingService>(new HierarchicalLifetimeManager())
         .RegisterType<IRatingRepository, RatingRepository>(new HierarchicalLifetimeManager());
 
       //Room
       container
-        .RegisterType<IRoomService, RoomManager>(new HierarchicalLifetimeManager())
+        .RegisterType<IRoomService, RoomService>(new HierarchicalLifetimeManager())
         .RegisterType<IRoomRepository, RoomRepository>(new HierarchicalLifetimeManager());
 
       //Schedule
       container
-        .RegisterType<IScheduleService, ScheduleManager>(new HierarchicalLifetimeManager())
+        .RegisterType<IScheduleService, ScheduleService>(new HierarchicalLifetimeManager())
         .RegisterType<IScheduleRepository, ScheduleRepository>(new HierarchicalLifetimeManager());
 
       //Track
       container
-        .RegisterType<ITrackService, TrackManager>(new HierarchicalLifetimeManager())
+        .RegisterType<ITrackService, TrackService>(new HierarchicalLifetimeManager())
         .RegisterType<ITrackRepository, TrackRepository>(new HierarchicalLifetimeManager());
 
       GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);

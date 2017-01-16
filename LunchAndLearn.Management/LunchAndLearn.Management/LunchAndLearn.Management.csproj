@@ -49,8 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClassManager.cs" />
-    <Compile Include="InstructorManager.cs" />
+    <Compile Include="ClassService.cs" />
+    <Compile Include="InstructorService.cs" />
     <Compile Include="Interfaces\IBaseService.cs" />
     <Compile Include="Interfaces\IClassService.cs" />
     <Compile Include="Interfaces\IInstructorService.cs" />
@@ -59,10 +59,10 @@
     <Compile Include="Interfaces\IScheduleService.cs" />
     <Compile Include="Interfaces\ITrackService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RatingManager.cs" />
-    <Compile Include="RoomManager.cs" />
-    <Compile Include="ScheduleManager.cs" />
-    <Compile Include="TrackManager.cs" />
+    <Compile Include="RatingService.cs" />
+    <Compile Include="RoomService.cs" />
+    <Compile Include="ScheduleService.cs" />
+    <Compile Include="TrackService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

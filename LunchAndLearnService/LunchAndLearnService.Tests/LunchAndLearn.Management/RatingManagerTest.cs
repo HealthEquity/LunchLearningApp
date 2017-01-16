@@ -17,7 +17,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
   [TestFixture]
   public class RatingManagerTest
   {
-    private RatingManager _ratingManager;
+    private RatingService _ratingService;
     private List<RatingDto> _ratingList;
 
     [SetUp]
@@ -58,7 +58,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
     [TearDown]
     public void CleanUp()
     {
-      _ratingManager = null;
+      _ratingService = null;
       _ratingList = null;
     }
 
@@ -83,9 +83,9 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
         .DoInstead(() => _ratingList.Add(ratingToCreate))
         .OccursOnce();
 
-      _ratingManager = new RatingManager(mockRepo);
+      _ratingService = new RatingService(mockRepo);
       //act
-      _ratingManager.Create(ratingToCreate);
+      _ratingService.Create(ratingToCreate);
       var actualCount = _ratingList.Count;
 
       //assert

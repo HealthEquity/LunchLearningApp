@@ -17,7 +17,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
   internal class ClassManagerTest
   {
     private List<ClassDto> _classList;
-    private ClassManager _classManager;
+    private ClassService _classService;
 
 
     [SetUp]
@@ -49,7 +49,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
     [TearDown]
     public void CleanUp()
     {
-      _classManager = null;
+      _classService = null;
       _classList = null;
     }
 
@@ -69,10 +69,10 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
         .DoInstead(() => _classList.Add(classToBeCreated))
         .OccursOnce();
 
-      _classManager = new ClassManager(mockRepo);
+      _classService = new ClassService(mockRepo);
 
       //Act
-      _classManager.Create(classToBeCreated);
+      _classService.Create(classToBeCreated);
       var actualCount = _classList.Count;
 
 

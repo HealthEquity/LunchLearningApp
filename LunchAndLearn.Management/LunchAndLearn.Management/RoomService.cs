@@ -11,11 +11,11 @@ using LunchAndLearn.Model.DTOs;
 
 namespace LunchAndLearn.Management
 {
-  public class RoomManager : IRoomService
+  public class RoomService : IRoomService
   {
     private readonly IRoomRepository _roomRepository;
 
-    public RoomManager(IRoomRepository roomRepository)
+    public RoomService(IRoomRepository roomRepository)
     {
       _roomRepository = roomRepository;
     }
