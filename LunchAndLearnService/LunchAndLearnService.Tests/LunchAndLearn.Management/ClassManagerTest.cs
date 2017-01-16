@@ -6,6 +6,7 @@ using LunchAndLearn.Data.Repositories;
 using LunchAndLearn.Management;
 using LunchAndLearn.Model;
 using LunchAndLearn.Model.DB_Models;
+using LunchAndLearn.Model.DTOs;
 using NUnit.Framework;
 using Telerik.JustMock;
 using Telerik.JustMock.Helpers;
@@ -15,28 +16,28 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
   [TestFixture]
   internal class ClassManagerTest
   {
-    private List<Class> _classList;
+    private List<ClassDto> _classList;
     private ClassManager _classManager;
 
 
     [SetUp]
     public void Init()
     {
-      _classList = new List<Class>()
+      _classList = new List<ClassDto>()
       {
-        new Class()
+        new ClassDto()
         {
           ClassId = 1,
           ClassName = "test class 1",
           ClassDescription = "test class description 1"
         },
-        new Class()
+        new ClassDto()
         {
           ClassId = 2,
           ClassName = "test class 2",
           ClassDescription = "test class description 2"
         },
-        new Class()
+        new ClassDto()
         {
           ClassId = 3,
           ClassName = "test class 3",
@@ -57,7 +58,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
     {
       //Arrange
       var originalCountOfClasses = _classList.Count;
-      var classToBeCreated = new Class()
+      var classToBeCreated = new ClassDto()
       {
         ClassDescription = "test class description",
         ClassName = "test class name"

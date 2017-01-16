@@ -10,15 +10,16 @@ using System.Web.Http.Description;
 using System.Web.Http.Results;
 using LunchAndLearn.Management.Interfaces;
 using LunchAndLearn.Model.DB_Models;
+using LunchAndLearn.Model.DTOs;
 
 namespace LunchAndLearnService.Controllers
 {
   [RoutePrefix("api/class")]
   public class ClassController : ApiController
   {
-    private readonly IManagerClass<Class> _classManager;
+    private readonly IManagerClass<ClassDto> _classManager;
 
-    public ClassController(IManagerClass<Class> classManager)
+    public ClassController(IManagerClass<ClassDto> classManager)
     {
       _classManager = classManager;
     }
@@ -26,10 +27,10 @@ namespace LunchAndLearnService.Controllers
     // GET api/class
     [HttpGet]
     [Route("all")]
-    [ResponseType(typeof(List<Class>))]
+    [ResponseType(typeof(List<ClassDto>))]
     public IHttpActionResult GetAll()
     {
-      List<Class> allClasses;
+      List<ClassDto> allClasses;
       using (_classManager)
       {
         allClasses = _classManager.GetAll();
@@ -39,10 +40,10 @@ namespace LunchAndLearnService.Controllers
 
     [HttpGet]
     [Route("{id}")]
-    [ResponseType(typeof(Class))]
+    [ResponseType(typeof(ClassDto))]
     public IHttpActionResult Get(int id)
     {
-      Class classToReturn;
+      ClassDto classToReturn;
       using (_classManager)
       {
         classToReturn = _classManager.Get(id);
@@ -53,7 +54,7 @@ namespace LunchAndLearnService.Controllers
     [HttpPost]
     [Route("create")]
     [ResponseType(typeof(OkResult))]
-    public IHttpActionResult Post(Class classToCreate)
+    public IHttpActionResult Post(ClassDto classToCreate)
     {
       using (_classManager)
       {
@@ -65,7 +66,7 @@ namespace LunchAndLearnService.Controllers
     [HttpPut]
     [Route("update")]
     [ResponseType(typeof(OkResult))]
-    public IHttpActionResult Put(Class classToBeUpdated)
+    public IHttpActionResult Put(ClassDto classToBeUpdated)
     {
       using (_classManager)
       {

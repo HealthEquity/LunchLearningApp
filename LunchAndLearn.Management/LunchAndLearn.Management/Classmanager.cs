@@ -10,10 +10,11 @@ using LunchAndLearn.Data.Interfaces;
 using LunchAndLearn.Data.Repositories;
 using LunchAndLearn.Management.Interfaces;
 using LunchAndLearn.Model.DB_Models;
+using LunchAndLearn.Model.DTOs;
 
 namespace LunchAndLearn.Management
 {
-  public class ClassManager : IManagerClass<Class>
+  public class ClassManager : IManagerClass<ClassDto>
   {
     private readonly IClassRepository _classRepository;
 
@@ -22,37 +23,41 @@ namespace LunchAndLearn.Management
       _classRepository = classRepository;
     }
 
-    public Class Get(int id)
+    public ClassDto Get(int id)
     {
       using (_classRepository)
       {
-        return _classRepository.Get(id);
+        var retrievedClass = _classRepository.Get(id);
+        return retrievedClass.ConvertToClassDto();
       }
     }
 
-    public List<Class> GetAll()
+    public List<ClassDto> GetAll()
     {
       using (_classRepository)
       {
-        return _classRepository.GetAll().ToList();
+        var classes = _classRepository.GetAll().ToList();
+        return classes.Select(x => x.ConvertToClassDto()).ToList();
       }
     }
 
-    public int Create(Class entity)
+    public int Create(ClassDto entity)
     {
       using (_classRepository)
       {
-        _classRepository.Create(entity);
+        var entityToCreate = entity.ConvertToClassDbModel();
+        _classRepository.Create(entityToCreate);
         _classRepository.SaveChanges();
         return entity.ClassId;
       }
     }
 
-    public void Update(Class entity)
+    public void Update(ClassDto entity)
     {
       using (_classRepository)
       {
-        _classRepository.Update(entity);
+        var entityToUpdate = entity.ConvertToClassDbModel();
+        _classRepository.Update(entityToUpdate);
         _classRepository.SaveChanges();
       }
     }

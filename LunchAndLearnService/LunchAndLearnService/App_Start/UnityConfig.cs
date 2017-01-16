@@ -6,6 +6,7 @@ using LunchAndLearn.Management;
 using LunchAndLearn.Management.Interfaces;
 using LunchAndLearn.Model;
 using LunchAndLearn.Model.DB_Models;
+using LunchAndLearn.Model.DTOs;
 using Unity.WebApi;
 
 namespace LunchAndLearnService
@@ -23,7 +24,7 @@ namespace LunchAndLearnService
 
       //Class
       container
-        .RegisterType<IManagerClass<Class>, ClassManager>(new HierarchicalLifetimeManager())
+        .RegisterType<IManagerClass<ClassDto>, ClassManager>(new HierarchicalLifetimeManager())
         .RegisterType<IClassRepository, ClassRepository>(new HierarchicalLifetimeManager());
 
       //Instructor
