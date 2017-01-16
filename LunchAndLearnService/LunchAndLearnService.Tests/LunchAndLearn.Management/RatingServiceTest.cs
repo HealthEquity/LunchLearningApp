@@ -15,7 +15,7 @@ using Telerik.JustMock;
 namespace LunchAndLearnService.Tests.LunchAndLearn.Management
 {
   [TestFixture]
-  public class RatingManagerTest
+  public class RatingServiceTest
   {
     private RatingService _ratingService;
     private List<RatingDto> _ratingList;

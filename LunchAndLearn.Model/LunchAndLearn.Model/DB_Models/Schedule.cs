@@ -38,5 +38,23 @@ namespace LunchAndLearn.Model.DB_Models
         TrackId = this.TrackId
       };
     }
+
+    /// <summary>
+    /// Converts a database model to a ScheduleDetailDTO which includes related entities. 
+    /// Needs to be used when within scope of a DB context, otherwise related entities will not be loaded and properties will be empty.
+    /// </summary>
+    /// <returns></returns>
+    public ScheduleDetailDto ConvertToScheduleDetailDto()
+    {
+      return new ScheduleDetailDto()
+      {
+        ScheduleId = this.ScheduleId,
+        ClassDate = this.ClassDate,
+        ClassName = this.Class?.ClassName ?? "",
+        TrackName = this.Track?.TrackName ?? "",
+        InstructorName = this.Instructor?.InstructorName ?? "",
+        RoomName = this.Room?.RoomName
+      };
+    }
   }
 }

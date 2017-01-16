@@ -10,19 +10,21 @@ using LunchAndLearn.Model.DTOs;
 using LunchAndLearnService.Controllers;
 using NUnit.Framework;
 using Telerik.JustMock;
+using Telerik.JustMock.Helpers;
 
 namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
 {
   [TestFixture]
   internal class ScheduleControllerTest
   {
-    private IScheduleService _scheduleService;
+    private IScheduleService _mockScheduleService;
     private List<ScheduleDto> _scheduleList;
+    private List<ScheduleDetailDto> _scheduleDetailList;
 
     [SetUp]
     public void Init()
     {
-      _scheduleService = Mock.Create<IScheduleService>();
+      _mockScheduleService = Mock.Create<IScheduleService>();
 
       _scheduleList = new List<ScheduleDto>()
       {
@@ -54,12 +56,34 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
           ClassDate = DateTime.Now.AddDays(2).Date
         },
       };
+
+      _scheduleDetailList = new List<ScheduleDetailDto>()
+      {
+        new ScheduleDetailDto()
+        {
+          ScheduleId = 1,
+          ClassDate = DateTime.Now.Date,
+          ClassName = "test class name 1",
+          TrackName = "test track name 1",
+          InstructorName = "test instructor name 1",
+          RoomName = "test room name 1"
+        },
+        new ScheduleDetailDto()
+        {
+          ScheduleId = 2,
+          ClassDate = DateTime.Now.Date.AddDays(1),
+          ClassName = "test class name 2",
+          TrackName = "test track name 2",
+          InstructorName = "test instructor name 2",
+          RoomName = "test room name 2"
+        }
+      };
     }
 
     [TearDown]
     public void CleanUp()
     {
-      _scheduleService = null;
+      _mockScheduleService = null;
       _scheduleList = null;
     }
 
@@ -67,10 +91,10 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
     public void GetAllSchedules_UnderNormalConditions_ReturnsListOfSchedules()
     {
       //Arrange
-      Mock.Arrange(() => _scheduleService.GetAll()).Returns(_scheduleList).OccursOnce();
+      Mock.Arrange(() => _mockScheduleService.GetAll()).Returns(_scheduleList).OccursOnce();
       var expected = _scheduleList;
 
-      var scheduleController = new ScheduleController(_scheduleService);
+      var scheduleController = new ScheduleController(_mockScheduleService);
 
       //Act
       var actual = scheduleController.GetAll() as OkNegotiatedContentResult<List<ScheduleDto>>;
@@ -78,7 +102,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
 
 
       //Assert
-      Mock.Assert(_scheduleService);
+      Mock.Assert(_mockScheduleService);
       Assert.That(actualContent, Is.EqualTo(expected));
     }
 
@@ -86,13 +110,13 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
     public void GetScheduleById_WhereScheduleExists_ReturnsSchedule([Values(1,2,3)] int idOfScheduleToGet)
     {
       //Arrange
-      Mock.Arrange(() => _scheduleService.Get(idOfScheduleToGet))
+      Mock.Arrange(() => _mockScheduleService.Get(idOfScheduleToGet))
         .Returns(_scheduleList.FirstOrDefault(s => s.ScheduleId == idOfScheduleToGet))
         .OccursOnce();
 
       var expected = _scheduleList.FirstOrDefault(s => s.ScheduleId == idOfScheduleToGet);
 
-      var scheduleController = new ScheduleController(_scheduleService);
+      var scheduleController = new ScheduleController(_mockScheduleService);
 
       //Act
       var actual = scheduleController.Get(idOfScheduleToGet) as OkNegotiatedContentResult<ScheduleDto>;
@@ -100,7 +124,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
 
 
       //Assert
-      Mock.Assert(_scheduleService);
+      Mock.Assert(_mockScheduleService);
       Assert.That(actualContent, Is.EqualTo(expected));
     }
 
@@ -118,14 +142,14 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
         ClassDate = DateTime.Now.AddDays(5).Date
       };
 
-      Mock.Arrange(() => _scheduleService.Create(scheduleToBeCreated)).OccursOnce();
-      var scheduleController = new ScheduleController(_scheduleService);
+      Mock.Arrange(() => _mockScheduleService.Create(scheduleToBeCreated)).OccursOnce();
+      var scheduleController = new ScheduleController(_mockScheduleService);
 
       //Act
       var actual = scheduleController.Post(scheduleToBeCreated) as OkResult;
 
       //Assert
-      Mock.Assert(_scheduleService);
+      Mock.Assert(_mockScheduleService);
       Assert.That(actual, Is.TypeOf<OkResult>());
     }
 
@@ -134,14 +158,14 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
     {
       //Arrange
       var scheduleToBeUpdated = _scheduleList.FirstOrDefault(s => s.ScheduleId == idOfScheduleToBeUpdated);
-      Mock.Arrange(() => _scheduleService.Update(scheduleToBeUpdated)).OccursOnce();
-      var scheduleController = new ScheduleController(_scheduleService);
+      Mock.Arrange(() => _mockScheduleService.Update(scheduleToBeUpdated)).OccursOnce();
+      var scheduleController = new ScheduleController(_mockScheduleService);
       
       //Act
       var actual = scheduleController.Put(scheduleToBeUpdated) as OkResult;
 
       //Assert    
-      Mock.Assert(_scheduleService);
+      Mock.Assert(_mockScheduleService);
       Assert.That(actual, Is.TypeOf<OkResult>());
     }
 
@@ -149,15 +173,55 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
     public void DeleteSchedule_WhereScheduleExists_ReturnsOkResponse([Values(1, 2, 3)] int idOfScheduleToBeDeleted)
     {
       //arrange
-      Mock.Arrange(() => _scheduleService.Delete(idOfScheduleToBeDeleted)).OccursOnce();
-      var scheduleController = new ScheduleController(_scheduleService);
+      Mock.Arrange(() => _mockScheduleService.Delete(idOfScheduleToBeDeleted)).OccursOnce();
+      var scheduleController = new ScheduleController(_mockScheduleService);
 
       //act
       var actual = scheduleController.Delete(idOfScheduleToBeDeleted) as OkResult;
 
       //assert
-      Mock.Assert(_scheduleService);
+      Mock.Assert(_mockScheduleService);
       Assert.That(actual, Is.TypeOf<OkResult>());
+    }
+
+    public void GetScheduleDetailsByDate_UnderNormalConditions_ReturnsListOfScheduleDetailDtos()
+    {
+      //arrange
+      Mock.Arrange(() => _mockScheduleService.GetScheduleDetailsForSpecificDate(Arg.IsAny<DateTime>()))
+        .Returns(_scheduleDetailList)
+        .OccursOnce();
+
+      var scheduleController = new ScheduleController(_mockScheduleService);
+      
+      //act
+      var actual = scheduleController.GetScheduleDetailsForSpecificDate(DateTime.Now.Date) as OkNegotiatedContentResult<List<ScheduleDetailDto>>;
+      var actualContent = actual.Content;
+
+      //assert
+      Mock.Assert(_mockScheduleService);
+      Assert.That(actual, Is.Not.Null);
+      Assert.That(actual, Is.TypeOf(typeof(OkNegotiatedContentResult<List<ScheduleDto>>)));
+      Assert.That(_scheduleDetailList, Is.EqualTo(actualContent));
+    }
+
+    public void GetScheduleDetailsByScheduleId_WhereScheduleExists_ReturnsScheduleDetailDto([Values(1,2)]int id)
+    {
+      //arrange
+      Mock.Arrange(() => _mockScheduleService.GetScheduleDetailsById(id))
+        .Returns(() => _scheduleDetailList.FirstOrDefault(x => x.ScheduleId == id))
+        .OccursOnce();
+
+      var scheduleController = new ScheduleController(_mockScheduleService);
+      var expected = _scheduleDetailList.FirstOrDefault(x => x.ScheduleId == id);
+      //act
+      var actual = scheduleController.GetScheduleDetailsById(id) as OkNegotiatedContentResult<ScheduleDetailDto>;
+      var actualContent = actual.Content;
+
+      //assert
+      Mock.Assert(_mockScheduleService);
+      Assert.That(actual, Is.Not.Null);
+      Assert.That(actual, Is.TypeOf(typeof(OkNegotiatedContentResult<ScheduleDetailDto>)));
+      Assert.That(actualContent, Is.EqualTo(expected));
     }
   }
 

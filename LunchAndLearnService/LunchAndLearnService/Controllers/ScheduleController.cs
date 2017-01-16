@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Http.Results;
@@ -80,6 +81,32 @@ namespace LunchAndLearnService.Controllers
         _scheduleService.Delete(id); 
       }
       return Ok();
+    }
+
+    [HttpGet]
+    [Route("mobile/scheduleDetailsByDate")]
+    [ResponseType(typeof(List<ScheduleDetailDto>))]
+    public IHttpActionResult GetScheduleDetailsForSpecificDate(DateTime date)
+    {
+      List<ScheduleDetailDto> scheduleDetailList;
+      using (_scheduleService)
+      {
+        scheduleDetailList = _scheduleService.GetScheduleDetailsForSpecificDate(date);
+      }
+      return Ok(scheduleDetailList);
+    }
+
+    [HttpGet]
+    [Route("mobile/scheduleDetailsByScheduleId")]
+    [ResponseType(typeof(ScheduleDetailDto))]
+    public IHttpActionResult GetScheduleDetailsById(int scheduleId)
+    {
+      ScheduleDetailDto scheduleDetail;
+      using (_scheduleService)
+      {
+        scheduleDetail = _scheduleService.GetScheduleDetailsById(scheduleId);
+      }
+      return Ok(scheduleDetail);
     }
   }
 }

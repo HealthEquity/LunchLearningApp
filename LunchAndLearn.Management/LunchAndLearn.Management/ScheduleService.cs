@@ -24,7 +24,7 @@ namespace LunchAndLearn.Management
     {
       using (_scheduleRepository)
       {
-        return _scheduleRepository.Get(id).ConvertToScheduleDto(); 
+        return _scheduleRepository.Get(id).ConvertToScheduleDto();
       }
     }
 
@@ -44,7 +44,7 @@ namespace LunchAndLearn.Management
         var entityToBeCreated = entity.ConvertToScheduleDbModel();
         _scheduleRepository.Create(entityToBeCreated);
         _scheduleRepository.SaveChanges();
-        return entityToBeCreated.ScheduleId; 
+        return entityToBeCreated.ScheduleId;
       }
     }
 
@@ -54,7 +54,7 @@ namespace LunchAndLearn.Management
       {
         var entityToBeUpdated = entity.ConvertToScheduleDbModel();
         _scheduleRepository.Update(entityToBeUpdated);
-        _scheduleRepository.SaveChanges(); 
+        _scheduleRepository.SaveChanges();
       }
     }
 
@@ -63,9 +63,31 @@ namespace LunchAndLearn.Management
       using (_scheduleRepository)
       {
         _scheduleRepository.Delete(id);
-        _scheduleRepository.SaveChanges(); 
+        _scheduleRepository.SaveChanges();
       }
     }
+
+    public List<ScheduleDetailDto> GetScheduleDetailsForSpecificDate(DateTime searchStartDate)
+    {
+      using (_scheduleRepository)
+      {
+        var searchEndDate = searchStartDate.Date.AddDays(1);
+        var scheduleCollection = _scheduleRepository.GetAll()
+          .Where(x => x.ClassDate >= searchStartDate && x.ClassDate <= searchEndDate)
+          .ToList();
+
+        return scheduleCollection.Select(x => x.ConvertToScheduleDetailDto()).ToList();
+      }
+    }
+
+    public ScheduleDetailDto GetScheduleDetailsById(int scheduleId)
+    {
+      using (_scheduleRepository)
+      {
+        return _scheduleRepository.Get(scheduleId).ConvertToScheduleDetailDto();
+      }
+    }
+
 
     #region Disposal
     private bool _disposed = false;

@@ -14,7 +14,7 @@ using Telerik.JustMock;
 namespace LunchAndLearnService.Tests.LunchAndLearn.Management
 {
   [TestFixture]
-  public class ScheduleManagerTest
+  public class ScheduleServiceTest
   {
     private ScheduleService _scheduleService;
     private List<ScheduleDto> _scheduleList;

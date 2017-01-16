@@ -14,7 +14,7 @@ using Telerik.JustMock;
 namespace LunchAndLearnService.Tests.LunchAndLearn.Management
 {
   [TestFixture]
-  class TrackManagerTest
+  class TrackServiceTest
   {
     private TrackService _trackService;
     private List<TrackDto> _trackList;

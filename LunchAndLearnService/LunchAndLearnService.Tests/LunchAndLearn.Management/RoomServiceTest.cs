@@ -14,7 +14,7 @@ using Telerik.JustMock;
 namespace LunchAndLearnService.Tests.LunchAndLearn.Management
 {
   [TestFixture]
-  public class RoomManagerTest
+  public class RoomServiceTest
   {
     private RoomService _roomService;
     private List<RoomDto> _roomList;

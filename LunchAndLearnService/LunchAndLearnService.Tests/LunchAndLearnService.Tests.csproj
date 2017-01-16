@@ -103,12 +103,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LunchAndLearn.Management\ClassManagerTest.cs" />
-    <Compile Include="LunchAndLearn.Management\InstructorManagerTest.cs" />
-    <Compile Include="LunchAndLearn.Management\RatingManagerTest.cs" />
-    <Compile Include="LunchAndLearn.Management\RoomManagerTest.cs" />
-    <Compile Include="LunchAndLearn.Management\ScheduleManagerTest.cs" />
-    <Compile Include="LunchAndLearn.Management\TrackManagerTest.cs" />
+    <Compile Include="LunchAndLearn.Management\ClassServiceTest.cs" />
+    <Compile Include="LunchAndLearn.Management\InstructorServiceTest.cs" />
+    <Compile Include="LunchAndLearn.Management\RatingServiceTest.cs" />
+    <Compile Include="LunchAndLearn.Management\RoomServiceTest.cs" />
+    <Compile Include="LunchAndLearn.Management\ScheduleServiceTest.cs" />
+    <Compile Include="LunchAndLearn.Management\TrackServiceTest.cs" />
     <Compile Include="LunchAndLearnService.Controllers\ClassControllerTest.cs" />
     <Compile Include="LunchAndLearnService.Controllers\InstructorControllerTest.cs" />
     <Compile Include="LunchAndLearnService.Controllers\RatingControllerTest.cs" />
