@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web.Http.Results;
 using LunchAndLearn.Management;
 using LunchAndLearn.Management.Interfaces;
@@ -107,7 +109,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
     public void CreateRating_UnderNormalConditions_ReturnsOkResponse()
     {
       //Arrange
-      var rating = new RatingDto()
+      var ratingToCreate = new RatingDto()
       {
         InstructorId = 5,
         ClassId = 5,
@@ -116,32 +118,54 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
         InstructorRating = 5,
         RatingId = 5
       };
-      Mock.Arrange(() => _ratingService.Create(rating)).OccursOnce();
-      var ratingController = new RatingController(_ratingService);
+      Mock.Arrange(() => _ratingService.Create(ratingToCreate))
+        .Returns(ratingToCreate)
+        .OccursOnce();
+
+      var ratingController = new RatingController(_ratingService)
+      {
+        Request = new HttpRequestMessage()
+        {
+          RequestUri = new Uri("http://localhost/api/rating")
+        }
+      };
 
       //Act
-      var actual = ratingController.Post(rating) as OkResult;
+      var actual = ratingController.Post(ratingToCreate) as CreatedNegotiatedContentResult<RatingDto>;
+      var actualContent = actual.Content;
+
       //Assert
       Mock.Assert(_ratingService);
       Assert.IsNotNull(actual);
-      Assert.That(actual, Is.TypeOf<OkResult>());
+      Assert.That(actual, Is.TypeOf<CreatedNegotiatedContentResult<RatingDto>>());
+      Assert.That(actualContent, Is.EqualTo(ratingToCreate));
     }
 
     [Test]
     public void UpdateRating_WhereRatingExists_ReturnsOkResponse([Values(1,2,3)] int ratingIdToUpdate)
     {
       //arrange
-      var rating = _ratingsList.FirstOrDefault(x => x.RatingId == ratingIdToUpdate);
+      var ratingToUpdate = _ratingsList.FirstOrDefault(x => x.RatingId == ratingIdToUpdate);
 
-      Mock.Arrange(() => _ratingService.Update(rating)).OccursOnce();
-      var ratingController = new RatingController(_ratingService);
+      Mock.Arrange(() => _ratingService.Update(ratingToUpdate)).Returns(ratingToUpdate).OccursOnce();
+
+      var ratingController = new RatingController(_ratingService)
+      {
+        Request = new HttpRequestMessage()
+        {
+          RequestUri = new Uri("http://localhost/api/rating")
+        }
+      };
 
       //act
-      var actual = ratingController.Put(rating) as OkResult;
+      var actual = ratingController.Put(ratingToUpdate) as OkNegotiatedContentResult<RatingDto>;
+      var actualContent = actual.Content;
 
       //assert
       Mock.Assert(_ratingService);
-      Assert.That(actual, Is.TypeOf<OkResult>());
+      Assert.That(actual, Is.Not.Null);
+      Assert.That(actual, Is.TypeOf<OkNegotiatedContentResult<RatingDto>>());
+      Assert.That(actualContent, Is.EqualTo(ratingToUpdate));
     }
 
     [Test]

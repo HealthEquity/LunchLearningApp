@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web.Http.Results;
 using LunchAndLearn.Management;
 using LunchAndLearn.Management.Interfaces;
@@ -107,16 +109,28 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
         IsActive = true
       };
 
-      Mock.Arrange(() => _instructorService.Create(instructorToBeCreated)).OccursOnce();
+      Mock.Arrange(() => _instructorService.Create(instructorToBeCreated))
+        .Returns(instructorToBeCreated)
+        .OccursOnce();
 
-      var instructorController = new InstructorController(_instructorService);
+      var instructorController = new InstructorController(_instructorService)
+      {
+        Request = new HttpRequestMessage()
+        {
+          RequestUri = new Uri("http://localhost/api/instructor/create")
+        }
+      };
+
 
       //Act
-      var actual = instructorController.Post(instructorToBeCreated) as OkResult;
+      var actual = instructorController.Post(instructorToBeCreated) as CreatedNegotiatedContentResult<InstructorDto>;
+      var actualContent = actual.Content;
 
       //Assert
       Mock.Assert(_instructorService);
-      Assert.That(actual, Is.TypeOf<OkResult>());
+      Assert.That(actual, Is.Not.Null);
+      Assert.That(actualContent, Is.EqualTo(instructorToBeCreated));
+      Assert.That(actual, Is.TypeOf<CreatedNegotiatedContentResult<InstructorDto>>());
     }
 
     [Test]
@@ -126,16 +140,26 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
       var expected = _mockInstructorList.First(x => x.InstructorId == idOfInstructorToUpdate);
       expected.InstructorName = "UPDATED";
 
-      Mock.Arrange(() => _instructorService.Update(expected)).OccursOnce();
+      Mock.Arrange(() => _instructorService.Update(expected)).Returns(expected).OccursOnce();
+      var instructorController = new InstructorController(_instructorService)
+      {
+        Request = new HttpRequestMessage()
+        {
+          RequestUri = new Uri("http://localhost/api/instructor/create")
+        }
+      };
 
-      var instructorController = new InstructorController(_instructorService);
+
 
       ////Act
-      var actual = instructorController.Put(expected) as OkResult;
+      var actual = instructorController.Put(expected) as OkNegotiatedContentResult<InstructorDto>;
+      var actualContent = actual.Content;
 
       //Assert
       Mock.Assert(_instructorService);
-      Assert.That(actual, Is.TypeOf<OkResult>());
+      Assert.That(actual, Is.Not.Null);
+      Assert.That(actual, Is.TypeOf<OkNegotiatedContentResult<InstructorDto>>());
+      Assert.That(actualContent, Is.EqualTo(expected));
     }
 
     [Test]

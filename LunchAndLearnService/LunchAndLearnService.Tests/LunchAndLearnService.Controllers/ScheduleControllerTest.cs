@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web.Http.Results;
 using LunchAndLearn.Management;
 using LunchAndLearn.Management.Interfaces;
@@ -142,15 +143,27 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
         ClassDate = DateTime.Now.AddDays(5).Date
       };
 
-      Mock.Arrange(() => _mockScheduleService.Create(scheduleToBeCreated)).OccursOnce();
-      var scheduleController = new ScheduleController(_mockScheduleService);
+      Mock.Arrange(() => _mockScheduleService.Create(scheduleToBeCreated))
+        .Returns(scheduleToBeCreated)
+        .OccursOnce();
+
+      var scheduleController = new ScheduleController(_mockScheduleService)
+      {
+        Request = new HttpRequestMessage()
+        {
+          RequestUri = new Uri("http://localhost/api/schedule")
+        }
+      };
 
       //Act
-      var actual = scheduleController.Post(scheduleToBeCreated) as OkResult;
+      var actual = scheduleController.Post(scheduleToBeCreated) as CreatedNegotiatedContentResult<ScheduleDto>;
+      var actualContent = actual.Content;
 
       //Assert
       Mock.Assert(_mockScheduleService);
-      Assert.That(actual, Is.TypeOf<OkResult>());
+      Assert.That(actual, Is.Not.Null);
+      Assert.That(actual, Is.TypeOf<CreatedNegotiatedContentResult<ScheduleDto>>());
+      Assert.That(actualContent, Is.EqualTo(scheduleToBeCreated));
     }
 
     [Test]
@@ -158,15 +171,27 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
     {
       //Arrange
       var scheduleToBeUpdated = _scheduleList.FirstOrDefault(s => s.ScheduleId == idOfScheduleToBeUpdated);
-      Mock.Arrange(() => _mockScheduleService.Update(scheduleToBeUpdated)).OccursOnce();
-      var scheduleController = new ScheduleController(_mockScheduleService);
-      
+      Mock.Arrange(() => _mockScheduleService.Update(scheduleToBeUpdated))
+        .Returns(scheduleToBeUpdated)
+        .OccursOnce();
+
+      var scheduleController = new ScheduleController(_mockScheduleService)
+      {
+        Request = new HttpRequestMessage()
+        {
+          RequestUri = new Uri("http://localhost/api/schedule")
+        }
+      };
+
       //Act
-      var actual = scheduleController.Put(scheduleToBeUpdated) as OkResult;
+      var actual = scheduleController.Put(scheduleToBeUpdated) as OkNegotiatedContentResult<ScheduleDto>;
+      var actualContent = actual.Content;
 
       //Assert    
       Mock.Assert(_mockScheduleService);
-      Assert.That(actual, Is.TypeOf<OkResult>());
+      Assert.That(actual, Is.Not.Null);
+      Assert.That(actual, Is.TypeOf<OkNegotiatedContentResult<ScheduleDto>>());
+      Assert.That(actualContent, Is.EqualTo(scheduleToBeUpdated));
     }
 
     [Test]

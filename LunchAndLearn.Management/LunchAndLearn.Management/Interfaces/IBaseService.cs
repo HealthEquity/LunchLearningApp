@@ -9,8 +9,8 @@ namespace LunchAndLearn.Management.Interfaces
   {
     TEntity Get(int id);
     List<TEntity> GetAll();
-    int Create(TEntity entity);
-    void Update(TEntity entity);
+    TEntity Create(TEntity entity);
+    TEntity Update(TEntity entity);
     void Delete(int id);
   }
 }

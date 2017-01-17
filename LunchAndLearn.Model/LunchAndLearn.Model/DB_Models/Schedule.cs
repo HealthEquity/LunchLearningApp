@@ -35,7 +35,8 @@ namespace LunchAndLearn.Model.DB_Models
         InstructorId = this.InstructorId,
         ClassId = this.ClassId,
         RoomId = this.RoomId,
-        TrackId = this.TrackId
+        TrackId = this.TrackId,
+        ClassDate = this.ClassDate
       };
     }
 

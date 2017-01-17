@@ -47,16 +47,28 @@ namespace LunchAndLearnService.Controllers
       return Ok(instructor);
     }
 
+    [HttpPost]
+    [Route("create")]
+    [ResponseType(typeof(InstructorDto))]
+    public IHttpActionResult Post(InstructorDto instructor)
+    {
+      using (_instructorService)
+      {
+        var response = _instructorService.Create(instructor);
+        return Created(new Uri(Request.RequestUri, $"{response.InstructorId}"), response);
+      }
+    }
+
     [HttpPut]
     [Route("update")]
-    [ResponseType(typeof(OkResult))]
+    [ResponseType(typeof(InstructorDto))]
     public IHttpActionResult Put(InstructorDto instructor)
     {
       using (_instructorService)
       {
-        _instructorService.Update(instructor); 
+        var response = _instructorService.Update(instructor); 
+        return Ok(response);
       }
-      return Ok();
     }
 
     [HttpDelete]
@@ -67,18 +79,6 @@ namespace LunchAndLearnService.Controllers
       using (_instructorService)
       {
         _instructorService.Delete(id); 
-      }
-      return Ok();
-    }
-
-    [HttpPost]
-    [Route("create")]
-    [ResponseType(typeof(OkResult))]
-    public IHttpActionResult Post(InstructorDto instructor)
-    {
-      using (_instructorService)
-      {
-        _instructorService.Create(instructor); 
       }
       return Ok();
     }

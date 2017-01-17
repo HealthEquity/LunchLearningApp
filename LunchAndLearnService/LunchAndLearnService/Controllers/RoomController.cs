@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Http.Results;
@@ -48,26 +49,26 @@ namespace LunchAndLearnService.Controllers
 
     [HttpPost]
     [Route("create")]
-    [ResponseType(typeof(OkResult))]
+    [ResponseType(typeof(RoomDto))]
     public IHttpActionResult Post(RoomDto room)
     {
       using (_roomService)
       {
-        _roomService.Create(room);
+        var response = _roomService.Create(room);
+        return Created(new Uri(Request.RequestUri, $"{response.RoomId}"), response);
       }
-      return Ok();
     }
 
     [HttpPut]
     [Route("update")]
-    [ResponseType(typeof(OkResult))]
+    [ResponseType(typeof(RoomDto))]
     public IHttpActionResult Put(RoomDto room)
     {
       using (_roomService)
       {
-        _roomService.Update(room); 
+        var response = _roomService.Update(room);
+        return Ok(response);
       }
-      return Ok();
     }
     
     [HttpDelete]

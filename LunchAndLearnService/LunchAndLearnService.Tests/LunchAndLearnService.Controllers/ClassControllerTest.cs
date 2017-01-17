@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Web.Http;
 using System.Web.Http.Results;
 using LunchAndLearn.Management;
 using LunchAndLearn.Management.Interfaces;
@@ -19,17 +22,27 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
   {
     private List<ClassDto> _mockClassList;
     private IClassService _classService;
+    private ClassController _classController;
 
     [SetUp]
     public void Init()
     {
+      _classService = Mock.Create<IClassService>();
+
+      _classController = new ClassController(_classService)
+      {
+        Request = new HttpRequestMessage()
+        {
+          RequestUri = new Uri("http://localhost/api/class")
+        }
+      };
+
       _mockClassList = new List<ClassDto>()
       {
         new ClassDto() {ClassDescription = "test class description 1", ClassId = 1, ClassName = "Test Class 1"},
         new ClassDto() {ClassDescription = "test class description 2", ClassId = 2, ClassName = "Test Class 2"}
       };
 
-      _classService = Mock.Create<IClassService>();
     }
 
     [TearDown]
@@ -37,6 +50,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
     {
       _mockClassList = null;
       _classService = null;
+      _classController = null;
     }
 
     [Test]
@@ -79,7 +93,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
     }
 
     [Test]
-    public void CreateClass_UnderNormalConditions_ReturnsOkResponse()
+    public void CreateClass_UnderNormalConditions_ReturnsCreatedResponse()
     {
       //Arrange
       var classToCreate = new ClassDto()
@@ -89,16 +103,22 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
         ClassName = "This is a test class name"
       };
 
-      Mock.Arrange(() => _classService.Create(classToCreate)).OccursOnce();
-      var classController = new ClassController(_classService);
+      Mock.Arrange(() => _classService.Create(classToCreate))
+        .Returns(classToCreate)
+        .OccursOnce();
+
+      _classController.Request.RequestUri = new Uri("http://localhost/api/class/create");
 
       //Act
 
-      var actual = classController.Post(classToCreate) as OkResult;
+      var actual = _classController.Post(classToCreate) as CreatedNegotiatedContentResult<ClassDto>;
+      var actualContent = actual.Content;
+      //var actualContent = actual.Content;
 
       //Assert
       Mock.Assert(_classService);
-      Assert.That(actual, Is.TypeOf<OkResult>());
+      Assert.That(actual, Is.TypeOf<CreatedNegotiatedContentResult<ClassDto>>());
+      Assert.That(actualContent, Is.EqualTo(classToCreate));
     }
 
     [Test]
@@ -107,16 +127,19 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
       //Arrange
       var classToBeUpdated = _mockClassList.FirstOrDefault(x => x.ClassId == idOfClassToUpdate);
 
-      Mock.Arrange(() => _classService.Update(classToBeUpdated)).OccursOnce();
-
-      var classController = new ClassController(_classService);
+      Mock.Arrange(() => _classService.Update(classToBeUpdated))
+        .Returns(classToBeUpdated)
+        .OccursOnce();
 
       //Act
-      var actual = classController.Put(classToBeUpdated) as OkResult;
+      var actual = _classController.Put(classToBeUpdated) as OkNegotiatedContentResult<ClassDto>;
+      var actualContent = actual.Content;
 
       //Assert
       Mock.Assert(_classService);
-      Assert.That(actual, Is.TypeOf<OkResult>());
+      Assert.That(actual, Is.Not.Null);
+      Assert.That(actualContent, Is.EqualTo(classToBeUpdated));
+      Assert.That(actual, Is.TypeOf<OkNegotiatedContentResult<ClassDto>>());
     }
 
     [Test]
