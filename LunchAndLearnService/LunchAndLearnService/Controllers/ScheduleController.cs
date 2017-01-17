@@ -54,7 +54,8 @@ namespace LunchAndLearnService.Controllers
     {
       using (_scheduleService)
       {
-        _scheduleService.Create(schedule); 
+        var idOfCreatedSchedule = _scheduleService.Create(schedule);
+        //return Created($"api/schedule/{idOfCreatedSchedule}", idOfCreatedSchedule);
       }
       return Ok();
     }

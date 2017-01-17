@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +25,8 @@ namespace LunchAndLearn.Model.DTOs
         InstructorId = this.InstructorId,
         ClassId = this.ClassId,
         RoomId = this.RoomId,
-        TrackId = this.TrackId
+        TrackId = this.TrackId,
+        ClassDate = this.ClassDate
       };
     }
   }
