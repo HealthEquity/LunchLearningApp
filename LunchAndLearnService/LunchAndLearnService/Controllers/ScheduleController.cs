@@ -49,26 +49,26 @@ namespace LunchAndLearnService.Controllers
 
     [HttpPost]
     [Route("create")]
-    [ResponseType(typeof(OkResult))]
+    [ResponseType(typeof(ScheduleDto))]
     public IHttpActionResult Post(ScheduleDto schedule)
     {
       using (_scheduleService)
       {
-        _scheduleService.Create(schedule); 
+        var response = _scheduleService.Create(schedule);
+        return Created(new Uri(Request.RequestUri, $"{response.ScheduleId}"), response);
       }
-      return Ok();
     }
 
     [HttpPut]
     [Route("update")]
-    [ResponseType(typeof(OkResult))]
+    [ResponseType(typeof(ScheduleDto))]
     public IHttpActionResult Put(ScheduleDto schedule)
     {
       using (_scheduleService)
       {
-        _scheduleService.Update(schedule); 
+        var response = _scheduleService.Update(schedule);
+        return Ok(response);
       }
-      return Ok();
     }
 
     [HttpDelete]

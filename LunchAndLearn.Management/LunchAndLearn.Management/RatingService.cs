@@ -37,24 +37,29 @@ namespace LunchAndLearn.Management
       }
     }
 
-    public int Create(RatingDto entity)
+    public RatingDto Create(RatingDto entity)
     {
       using (_ratingRepository)
       {
         var entityToCreate = entity.ConvertToRatingDbModel();
+
         _ratingRepository.Create(entityToCreate);
         _ratingRepository.SaveChanges();
-        return entityToCreate.RatingId; 
+
+        return entityToCreate.ConvertToRatingDto();
       }
     }
 
-    public void Update(RatingDto entity)
+    public RatingDto Update(RatingDto entity)
     {
       using (_ratingRepository)
       {
         var entityToUpdate = entity.ConvertToRatingDbModel();
+
         _ratingRepository.Update(entityToUpdate);
-        _ratingRepository.SaveChanges(); 
+        _ratingRepository.SaveChanges();
+
+        return entityToUpdate.ConvertToRatingDto();
       }
     }
 

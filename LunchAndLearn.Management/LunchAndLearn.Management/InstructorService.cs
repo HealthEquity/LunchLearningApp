@@ -37,24 +37,29 @@ namespace LunchAndLearn.Management
       }
     }
 
-    public int Create(InstructorDto entity)
+    public InstructorDto Create(InstructorDto entity)
     {
       using (_instructorRepository)
       {
         var entityToCreate = entity.ConvertToInstructorDbModel();
+
         _instructorRepository.Create(entityToCreate);
         _instructorRepository.SaveChanges();
-        return entityToCreate.InstructorId; 
+
+        return entityToCreate.ConvertToInstructorDto();
       }
     }
 
-    public void Update(InstructorDto entity)
+    public InstructorDto Update(InstructorDto entity)
     {
       using (_instructorRepository)
       {
         var entityToUpdate = entity.ConvertToInstructorDbModel();
+
         _instructorRepository.Update(entityToUpdate);
-        _instructorRepository.SaveChanges(); 
+        _instructorRepository.SaveChanges();
+
+        return entityToUpdate.ConvertToInstructorDto();
       }
     }
 

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -53,26 +54,30 @@ namespace LunchAndLearnService.Controllers
 
     [HttpPost]
     [Route("create")]
-    [ResponseType(typeof(OkResult))]
+    [ResponseType(typeof(ClassDto))]
     public IHttpActionResult Post(ClassDto classToCreate)
     {
       using (_classService)
       {
-        _classService.Create(classToCreate);
+        var response =_classService.Create(classToCreate);
+        if (response != null)
+        {
+          return Created(new Uri(Request.RequestUri, $"{response.ClassId}"), response);
+        }
+        return InternalServerError();
       }
-      return Ok();
     }
 
     [HttpPut]
     [Route("update")]
-    [ResponseType(typeof(OkResult))]
+    [ResponseType(typeof(ClassDto))]
     public IHttpActionResult Put(ClassDto classToBeUpdated)
     {
       using (_classService)
       {
-        _classService.Update(classToBeUpdated);
+        var response = _classService.Update(classToBeUpdated);
+        return Ok(response);
       }
-      return Ok();
     }
 
     [HttpDelete]

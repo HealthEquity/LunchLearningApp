@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web.Http.Results;
 using LunchAndLearn.Management;
 using LunchAndLearn.Management.Interfaces;
@@ -110,16 +112,27 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
         TrackName = "track name 7"
       };
 
-      Mock.Arrange(() => _trackService.Create(trackToCreate)).OccursOnce();
+      Mock.Arrange(() => _trackService.Create(trackToCreate))
+        .Returns(trackToCreate)
+        .OccursOnce();
 
-      var trackController= new  TrackController(_trackService);
+      var trackController= new TrackController(_trackService)
+      {
+        Request = new HttpRequestMessage()
+        {
+          RequestUri = new Uri("http://localhost/api/track")
+        }
+      };
 
       //act
-      var actual = trackController.Create(trackToCreate) as OkResult;
+      var actual = trackController.Post(trackToCreate) as CreatedNegotiatedContentResult<TrackDto>;
+      var actualContent = actual.Content;
 
       //assert
       Mock.Assert(_trackService);
-      Assert.That(actual, Is.TypeOf<OkResult>());
+      Assert.That(actual, Is.Not.Null);
+      Assert.That(actual, Is.TypeOf<CreatedNegotiatedContentResult<TrackDto>>());
+      Assert.That(actualContent, Is.EqualTo(trackToCreate));
     }
 
     [Test]
@@ -127,16 +140,28 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
     {
       //arrange
       var trackToUpdate = _trackList.FirstOrDefault(tr => tr.TrackId == idOfTrackToBeUpdated);
-      Mock.Arrange(() => _trackService.Update(trackToUpdate)).OccursOnce();
 
-      var trackController = new TrackController(_trackService);
+      Mock.Arrange(() => _trackService.Update(trackToUpdate))
+        .Returns(trackToUpdate)
+        .OccursOnce();
+
+      var trackController = new TrackController(_trackService)
+      {
+        Request = new HttpRequestMessage()
+        {
+          RequestUri = new Uri("http://localhost/api/track")
+        }
+      };
 
       //act
-      var actual = trackController.Put(trackToUpdate) as OkResult;
+      var actual = trackController.Put(trackToUpdate) as OkNegotiatedContentResult<TrackDto>;
+      var actualContent = actual.Content;
 
       //assert
       Mock.Assert(_trackService);
-      Assert.That(actual, Is.TypeOf<OkResult>());
+      Assert.That(actual, Is.Not.Null);
+      Assert.That(actual, Is.TypeOf<OkNegotiatedContentResult<TrackDto>>());
+      Assert.That(actualContent, Is.EqualTo(trackToUpdate));
     }
 
     [Test]

@@ -39,24 +39,29 @@ namespace LunchAndLearn.Management
       }
     }
 
-    public int Create(TrackDto entity)
+    public TrackDto Create(TrackDto entity)
     {
       using (_trackRepository)
       {
         var entityToCreate = entity.ConvertToTrackDbModel();
+
         _trackRepository.Create(entityToCreate);
         _trackRepository.SaveChanges();
-        return entityToCreate.TrackId;
+
+        return entityToCreate.ConvertToTrackDto();
       }
     }
 
-    public void Update(TrackDto entity)
+    public TrackDto Update(TrackDto entity)
     {
       using (_trackRepository)
       {
-        var entityToUpdated = entity.ConvertToTrackDbModel();
-        _trackRepository.Update(entityToUpdated);
-        _trackRepository.SaveChanges(); 
+        var entityToUpdate = entity.ConvertToTrackDbModel();
+
+        _trackRepository.Update(entityToUpdate);
+        _trackRepository.SaveChanges();
+
+        return entityToUpdate.ConvertToTrackDto();
       }
     }
 

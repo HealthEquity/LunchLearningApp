@@ -52,26 +52,26 @@ namespace LunchAndLearnService.Controllers
 
     [HttpPost]
     [Route("create")]
-    [ResponseType(typeof(OkResult))]
-    public IHttpActionResult Create(TrackDto track)
+    [ResponseType(typeof(TrackDto))]
+    public IHttpActionResult Post(TrackDto track)
     {
       using (_trackService)
       {
-        _trackService.Create(track); 
+        var response = _trackService.Create(track);
+        return Created(new Uri(Request.RequestUri, $"{response.TrackId}"), response);
       }
-      return Ok();
     }
 
     [HttpPut]
     [Route("update")]
-    [ResponseType(typeof(OkResult))]
+    [ResponseType(typeof(TrackDto))]
     public IHttpActionResult Put(TrackDto track)
     {
       using (_trackService)
       {
-        _trackService.Update(track); 
+        var response = _trackService.Update(track); 
+        return Ok(response);
       }
-      return Ok();
     }
 
     [HttpDelete]

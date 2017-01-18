@@ -17,14 +17,15 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
   public class ScheduleServiceTest
   {
     private ScheduleService _scheduleService;
-    private List<ScheduleDto> _scheduleList;
+    private List<Schedule> _scheduleList;
+    private List<ScheduleDetailDto> _scheduleDetailList;
 
     [SetUp]
     public void Init()
     {
-      _scheduleList = new List<ScheduleDto>()
+      _scheduleList = new List<Schedule>()
       {
-        new ScheduleDto()
+        new Schedule()
         {
           ScheduleId = 1,
           InstructorId = 1,
@@ -33,7 +34,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
           TrackId = 1,
           ClassDate = DateTime.Now.Date
         },
-        new ScheduleDto()
+        new Schedule()
         {
           ScheduleId = 2,
           InstructorId = 2,
@@ -42,7 +43,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
           TrackId = 2,
           ClassDate = DateTime.Now.AddDays(1).Date
         },
-        new ScheduleDto()
+        new Schedule()
         {
           ScheduleId = 3,
           InstructorId = 3,
@@ -51,6 +52,28 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
           TrackId = 3,
           ClassDate = DateTime.Now.AddDays(2).Date
         },
+      };
+
+      _scheduleDetailList = new List<ScheduleDetailDto>()
+      {
+        new ScheduleDetailDto()
+        {
+          ScheduleId = 1,
+          ClassDate = DateTime.Now.Date,
+          ClassName = "test class name 1",
+          TrackName = "test track name 1",
+          InstructorName = "test instructor name 1",
+          RoomName = "test room name 1"
+        },
+        new ScheduleDetailDto()
+        {
+          ScheduleId = 2,
+          ClassDate = DateTime.Now.Date.AddDays(1),
+          ClassName = "test class name 2",
+          TrackName = "test track name 2",
+          InstructorName = "test instructor name 2",
+          RoomName = "test room name 2"
+        }
       };
     }
 
@@ -67,7 +90,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
       //arrange
       var originalCountOfSchedules = _scheduleList.Count;
 
-      var scheduleToCreate = new ScheduleDto()
+      var scheduleToCreate = new Schedule()
       {
         InstructorId = 6,
         ClassId = 6,
@@ -85,12 +108,31 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
       _scheduleService = new ScheduleService(mockRepo);
       
       //act
-      _scheduleService.Create(scheduleToCreate);
+      _scheduleService.Create(scheduleToCreate.ConvertToScheduleDto());
       var actualCountOfSchedules = _scheduleList.Count;
 
       //assert
       Mock.Assert(mockRepo);
       Assert.That(actualCountOfSchedules, Is.EqualTo(originalCountOfSchedules + 1));
+    }
+
+    [Test]
+    public void GetScheduleDetailsByDate_WhereDateIsTodaysDate_ReturnsOnlySchedulesForThatDate()
+    {
+      //arrange
+      var expectedCount = 1;
+      var mockRepo = Mock.Create<IScheduleRepository>();
+      Mock.Arrange(() => mockRepo.GetAll()).Returns(() => _scheduleList.AsQueryable()).OccursOnce();
+
+      _scheduleService = new ScheduleService(mockRepo);
+
+      //act
+      var actual = _scheduleService.GetScheduleDetailsForSpecificDate(DateTime.Now.Date);
+
+      //assert
+      Mock.Assert(mockRepo);
+      Assert.That(actual, Is.Not.Null);
+      Assert.That(actual.Count, Is.EqualTo(expectedCount));
     }
   }
 }

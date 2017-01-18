@@ -55,11 +55,13 @@
     <Compile Include="Interfaces\IClassService.cs" />
     <Compile Include="Interfaces\IInstructorService.cs" />
     <Compile Include="Interfaces\IRatingService.cs" />
+    <Compile Include="Interfaces\Reporting\IReportingService.cs" />
     <Compile Include="Interfaces\IRoomService.cs" />
     <Compile Include="Interfaces\IScheduleService.cs" />
     <Compile Include="Interfaces\ITrackService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RatingService.cs" />
+    <Compile Include="Reporting\ReportingService.cs" />
     <Compile Include="RoomService.cs" />
     <Compile Include="ScheduleService.cs" />
     <Compile Include="TrackService.cs" />

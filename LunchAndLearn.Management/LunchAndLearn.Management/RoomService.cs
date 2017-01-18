@@ -37,24 +37,29 @@ namespace LunchAndLearn.Management
       }
     }
 
-    public int Create(RoomDto entity)
+    public RoomDto Create(RoomDto entity)
     {
       using (_roomRepository)
       {
         var entityToCreate = entity.ConvertToRoomDbModel();
+
         _roomRepository.Create(entityToCreate);
         _roomRepository.SaveChanges();
-        return entityToCreate.RoomId;
+
+        return entityToCreate.ConvertToRoomDto();
       }
     }
 
-    public void Update(RoomDto entity)
+    public RoomDto Update(RoomDto entity)
     {
       using (_roomRepository)
       {
         var entityToUpdate = entity.ConvertToRoomDbModel();
+
         _roomRepository.Update(entityToUpdate);
         _roomRepository.SaveChanges();
+
+        return entityToUpdate.ConvertToRoomDto();
       }
     }
 

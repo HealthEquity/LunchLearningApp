@@ -52,26 +52,26 @@ namespace LunchAndLearnService.Controllers
 
     [HttpPost]
     [Route("create")]
-    [ResponseType(typeof(OkResult))]
+    [ResponseType(typeof(RatingDto))]
     public IHttpActionResult Post(RatingDto rating)
     {
       using (_ratingService)
       {
-        _ratingService.Create(rating);
+        var response = _ratingService.Create(rating);
+        return Created(new Uri(Request.RequestUri, $"{response.RatingId}"), response);
       }
-      return Ok();
     }
 
     [HttpPut]
     [Route("update")]
-    [ResponseType(typeof(OkResult))]
+    [ResponseType(typeof(RatingDto))]
     public IHttpActionResult Put(RatingDto rating)
     {
       using (_ratingService)
       {
-        _ratingService.Update(rating); 
+        var response = _ratingService.Update(rating);
+        return Ok(response);
       }
-      return Ok();
     }
 
     [HttpDelete]

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web.Http.Results;
 using LunchAndLearn.Management;
 using LunchAndLearn.Management.Interfaces;
@@ -104,16 +106,27 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
         RoomName = "Purple Popsicle"
       };
 
-      Mock.Arrange(() => _roomService.Create(roomToBeCreated)).OccursOnce();
+      Mock.Arrange(() => _roomService.Create(roomToBeCreated))
+        .Returns(roomToBeCreated)
+        .OccursOnce();
 
-      var roomController = new RoomController(_roomService);
+      var roomController = new RoomController(_roomService)
+      {
+        Request = new HttpRequestMessage()
+        {
+          RequestUri = new Uri("http://localhost/api/room")
+        }
+      };
 
       //Act
-      var actual = roomController.Post(roomToBeCreated) as OkResult;
+      var actual = roomController.Post(roomToBeCreated) as CreatedNegotiatedContentResult<RoomDto>;
+      var actualContent = actual.Content;
 
       //Assert
       Mock.Assert(_roomService);
-      Assert.That(actual, Is.TypeOf<OkResult>());
+      Assert.That(actual, Is.Not.Null);
+      Assert.That(actual, Is.TypeOf<CreatedNegotiatedContentResult<RoomDto>>());
+      Assert.That(actualContent, Is.EqualTo(roomToBeCreated));
     }
 
     [Test]
@@ -122,16 +135,25 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
       //Arrange
       var roomToBeUpdated = _roomsList.FirstOrDefault(ro => ro.RoomId == roomIdToBeUpdated);
 
-      Mock.Arrange(() => _roomService.Update(roomToBeUpdated)).OccursOnce();
+      Mock.Arrange(() => _roomService.Update(roomToBeUpdated)).Returns(roomToBeUpdated).OccursOnce();
 
-      var roomController = new RoomController(_roomService);
+      var roomController = new RoomController(_roomService)
+      {
+        Request = new HttpRequestMessage()
+        {
+          RequestUri = new Uri("http://localhost/api/room")
+        }
+      };
 
       //Act
-      var actual = roomController.Put(roomToBeUpdated) as OkResult;
+      var actual = roomController.Put(roomToBeUpdated) as OkNegotiatedContentResult<RoomDto>;
+      var actualContent = actual.Content;
 
       //Assert
       Mock.Assert(_roomService);
-      Assert.That(actual, Is.TypeOf<OkResult>());
+      Assert.That(actual, Is.Not.Null);
+      Assert.That(actual, Is.TypeOf<OkNegotiatedContentResult<RoomDto>>());
+      Assert.That(actualContent, Is.EqualTo(roomToBeUpdated));
     }
 
     [Test]

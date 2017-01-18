@@ -55,6 +55,7 @@
     <Compile Include="DTOs\ClassDto.cs" />
     <Compile Include="DTOs\InstructorDto.cs" />
     <Compile Include="DTOs\RatingDto.cs" />
+    <Compile Include="DTOs\ReportingDTOs\OverallInstructorRatingDTO.cs" />
     <Compile Include="DTOs\RoomDto.cs" />
     <Compile Include="DTOs\ScheduleDetailDto.cs" />
     <Compile Include="DTOs\ScheduleDto.cs" />

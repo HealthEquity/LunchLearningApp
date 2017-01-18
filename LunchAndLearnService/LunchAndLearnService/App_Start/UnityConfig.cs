@@ -4,6 +4,8 @@ using LunchAndLearn.Data.Interfaces;
 using LunchAndLearn.Data.Repositories;
 using LunchAndLearn.Management;
 using LunchAndLearn.Management.Interfaces;
+using LunchAndLearn.Management.Interfaces.Reporting;
+using LunchAndLearn.Management.Reporting;
 using LunchAndLearn.Model;
 using LunchAndLearn.Model.DB_Models;
 using LunchAndLearn.Model.DTOs;
@@ -51,6 +53,10 @@ namespace LunchAndLearnService
       container
         .RegisterType<ITrackService, TrackService>(new HierarchicalLifetimeManager())
         .RegisterType<ITrackRepository, TrackRepository>(new HierarchicalLifetimeManager());
+
+      //Reporting
+      container
+        .RegisterType<IReportingService, ReportingService>(new HierarchicalLifetimeManager());
 
       GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
     }
