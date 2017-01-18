@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
-using LunchAndLearnService.CustomAttributes;
+using LunchAndLearnService.ActionFilters;
 using Microsoft.Owin.Security.OAuth;
-using Newtonsoft.Json.Serialization;
 
 namespace LunchAndLearnService
 {
@@ -18,8 +17,15 @@ namespace LunchAndLearnService
       config.SuppressDefaultHostAuthentication();
       config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
+      //comment or un-comment for logging
+      config.Filters.Add(new LoggingFilterAttribute());
+
+      //comment or un-comment for global exception handling
+      //config.Filters.Add(new GlobalExceptionAttribute());
+
       //Comment or un-comment to validate models that have data annotations or not. This will return an error response outlining the problems.
       config.Filters.Add(new ValidateModelAttribute());
+
 
       // Web API routes
       config.MapHttpAttributeRoutes();
