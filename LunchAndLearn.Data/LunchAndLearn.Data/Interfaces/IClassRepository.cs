@@ -5,6 +5,6 @@ namespace LunchAndLearn.Data.Interfaces
 {
   public interface IClassRepository : IBaseRepository<Class>
   {
-    new IQueryable<Class> GetAll();
+
   }
 }

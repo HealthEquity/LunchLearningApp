@@ -72,24 +72,25 @@ namespace LunchAndLearn.Management
       }
     }
 
-    public List<ScheduleDetailDto> GetScheduleDetailsForSpecificDate(DateTime searchStartDate)
+    public List<ScheduleDetailDto> GetDetailedSchedulesForSpecificDate(DateTime searchStartDate)
     {
       using (_scheduleRepository)
       {
         var searchEndDate = searchStartDate.Date.AddDays(1);
-        var scheduleCollection = _scheduleRepository.GetAllEagerLoaded()
-          .Where(x => x.ClassDate >= searchStartDate && x.ClassDate < searchEndDate)
+        var scheduleCollection = _scheduleRepository.GetSchedulesWithConditionEagerLoaded(x => x.ClassDate >= searchStartDate && x.ClassDate < searchEndDate)
           .ToList();
 
         return scheduleCollection.Select(x => x.ConvertToScheduleDetailDto()).ToList();
       }
     }
 
-    public ScheduleDetailDto GetScheduleDetailsById(int scheduleId)
+    public ScheduleDetailDto GetDetailedScheduleById(int scheduleId)
     {
       using (_scheduleRepository)
       {
-        return _scheduleRepository.GetByIdEagerLoaded(scheduleId).ConvertToScheduleDetailDto();
+        var schedule =
+          _scheduleRepository.GetSchedulesWithConditionEagerLoaded(x => x.ScheduleId == scheduleId).FirstOrDefault();
+        return schedule?.ConvertToScheduleDetailDto() ?? null;
       }
     }
 

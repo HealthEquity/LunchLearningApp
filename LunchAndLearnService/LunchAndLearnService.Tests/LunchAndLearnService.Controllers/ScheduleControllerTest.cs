@@ -212,7 +212,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
     public void GetScheduleDetailsByDate_UnderNormalConditions_ReturnsListOfScheduleDetailDtos()
     {
       //arrange
-      Mock.Arrange(() => _mockScheduleService.GetScheduleDetailsForSpecificDate(Arg.IsAny<DateTime>()))
+      Mock.Arrange(() => _mockScheduleService.GetDetailedSchedulesForSpecificDate(Arg.IsAny<DateTime>()))
         .Returns(_scheduleDetailList)
         .OccursOnce();
 
@@ -232,7 +232,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
     public void GetScheduleDetailsByScheduleId_WhereScheduleExists_ReturnsScheduleDetailDto([Values(1,2)]int id)
     {
       //arrange
-      Mock.Arrange(() => _mockScheduleService.GetScheduleDetailsById(id))
+      Mock.Arrange(() => _mockScheduleService.GetDetailedScheduleById(id))
         .Returns(() => _scheduleDetailList.FirstOrDefault(x => x.ScheduleId == id))
         .OccursOnce();
 

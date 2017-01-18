@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using LunchAndLearn.Data.Interfaces;
@@ -120,14 +121,23 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
     public void GetScheduleDetailsByDate_WhereDateIsTodaysDate_ReturnsOnlySchedulesForThatDate()
     {
       //arrange
-      var expectedCount = 1;
       var mockRepo = Mock.Create<IScheduleRepository>();
-      Mock.Arrange(() => mockRepo.GetAll()).Returns(() => _scheduleList.AsQueryable()).OccursOnce();
+      DateTime searchStartDate = DateTime.Now.Date;
+      DateTime searchEndDate = DateTime.Now.Date.AddDays(1);
+
+      Func<Schedule, bool> countFunc = (Schedule x) => x.ClassDate >= searchStartDate && x.ClassDate < searchEndDate;
+      Expression<Func<Schedule, bool>> whereExpression = (Schedule x) => x.ClassDate >= searchStartDate && x.ClassDate < searchEndDate;
+
+      var expectedCount = _scheduleList.Count(countFunc);
+
+      Mock.Arrange(() => mockRepo.GetSchedulesWithConditionEagerLoaded(whereExpression))
+        .Returns(() => _scheduleList.Where(countFunc).ToList())
+        .OccursOnce();
 
       _scheduleService = new ScheduleService(mockRepo);
 
       //act
-      var actual = _scheduleService.GetScheduleDetailsForSpecificDate(DateTime.Now.Date);
+      var actual = _scheduleService.GetDetailedSchedulesForSpecificDate(DateTime.Now.Date);
 
       //assert
       Mock.Assert(mockRepo);

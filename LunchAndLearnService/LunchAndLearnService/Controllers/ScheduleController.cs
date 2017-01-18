@@ -91,7 +91,7 @@ namespace LunchAndLearnService.Controllers
       List<ScheduleDetailDto> scheduleDetailList;
       using (_scheduleService)
       {
-        scheduleDetailList = _scheduleService.GetScheduleDetailsForSpecificDate(date);
+        scheduleDetailList = _scheduleService.GetDetailedSchedulesForSpecificDate(date);
       }
       return Ok(scheduleDetailList);
     }
@@ -104,9 +104,14 @@ namespace LunchAndLearnService.Controllers
       ScheduleDetailDto scheduleDetail;
       using (_scheduleService)
       {
-        scheduleDetail = _scheduleService.GetScheduleDetailsById(scheduleId);
+        scheduleDetail = _scheduleService.GetDetailedScheduleById(scheduleId);
       }
-      return Ok(scheduleDetail);
+      if (scheduleDetail != null)
+      {
+        return Ok(scheduleDetail);
+      }
+
+      return NotFound();
     }
   }
 }

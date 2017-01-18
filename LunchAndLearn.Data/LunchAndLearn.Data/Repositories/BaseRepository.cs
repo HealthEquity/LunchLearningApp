@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 using LunchAndLearn.Data.Interfaces;
 
 namespace LunchAndLearn.Data.Repositories
@@ -29,6 +30,21 @@ namespace LunchAndLearn.Data.Repositories
       return DbContext.Set<T>().Find(id);
     }
 
+    public List<T> GetAll()
+    {
+      return DbContext.Set<T>().ToList();
+    }
+
+    /// <summary>
+    /// Method to retrieve collection based on specific criteria
+    /// </summary>
+    /// <param name="whereExpression">Ex: GetWithConditions(x => x.property == someProperty && x.anotherProperty == anotherProperty);</param>
+    /// <returns>return a list of TEntity based on the where statement passed in</returns>
+    public List<T> GetWithConditions(Expression<Func<T, bool>> whereExpression)
+    {
+      return DbContext.Set<T>().Where(whereExpression).ToList();
+    }
+
     public void Update(T entity)
     {
       DbContext.Set<T>().Attach(entity);
@@ -41,10 +57,6 @@ namespace LunchAndLearn.Data.Repositories
       DbContext.Entry(entityToDelete).State = EntityState.Deleted;
     }
 
-    public IQueryable<T> GetAll()
-    {
-      return DbContext.Set<T>();
-    }
 
     public void SaveChanges()
     {
