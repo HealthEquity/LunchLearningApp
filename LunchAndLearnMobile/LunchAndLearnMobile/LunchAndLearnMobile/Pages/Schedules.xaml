@@ -14,7 +14,7 @@
           <DatePicker.MinimumDate>
             <sys:DateTime x:FactoryMethod="Parse">
               <x:Arguments>
-                <x:String>Jan 1 2000</x:String>
+                <x:String>Jan 1 2017</x:String>
               </x:Arguments>
             </sys:DateTime>
           </DatePicker.MinimumDate>
@@ -29,7 +29,7 @@
         <ListView ItemsSource="{Binding Schedules}" ItemTapped="Schedule_Tapped">
           <ListView.ItemTemplate>
             <DataTemplate>
-              <TextCell Text="{Binding ClassName}" Detail="{Binding ClassDate}" />
+              <TextCell Text="{Binding ClassName}" Detail="{Binding ClassDate, StringFormat='{0:MM/dd/yyyy}'}" />
             </DataTemplate>
           </ListView.ItemTemplate>
         </ListView>

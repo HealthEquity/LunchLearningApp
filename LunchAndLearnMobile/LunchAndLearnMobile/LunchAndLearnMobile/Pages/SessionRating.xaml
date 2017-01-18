@@ -1,18 +1,53 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
 					   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+					   xmlns:behaviors="clr-namespace:LunchAndLearnMobile.Behaviors;assembly=LunchAndLearnMobile"
+					   xmlns:lunchAndLearnMobile="clr-namespace:LunchAndLearnMobile;assembly=LunchAndLearnMobile"
 					   x:Class="LunchAndLearnMobile.Pages.SessionRating">
   <StackLayout Orientation="Vertical">
     <ActivityIndicator IsVisible="{Binding IsLoading}" IsRunning="{Binding IsLoading}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></ActivityIndicator>
     <TableView Intent="Form">
       <TableView.Root>
-        <TableRoot Title="Schedule Detail">
-          <TableSection Title="Schedule">
-            <TextCell Text="Schedule Id:" Detail="{Binding Schedule.ScheduleId}"></TextCell>
-            <TextCell Text="Class Date:" Detail="{Binding Schedule.ClassDate}"></TextCell>
+        <TableRoot Title="Rate Session">
+          <TableSection>
+            <TextCell Text="Class Name:" Detail="{Binding Schedule.ClassName}"></TextCell>
+            <TextCell Text="Instructor Name:" Detail="{Binding Schedule.InstructorName}"></TextCell>
+          </TableSection>
+          <TableSection Title="Class Rating">
+            <ViewCell>
+            <Picker x:Name="ClassRating" SelectedIndex="{Binding Rating.ClassRating}" HorizontalOptions="FillAndExpand">
+              <Picker.Items>
+                <x:String>1</x:String>
+                <x:String>2</x:String>
+                <x:String>3</x:String>
+                <x:String>4</x:String>
+                <x:String>5</x:String>
+              </Picker.Items>
+            </Picker>
+            </ViewCell>
+          </TableSection>
+          <TableSection Title="Instructor Rating">
+            <ViewCell>
+              <Picker x:Name="InstructorRating" SelectedIndex="{Binding Rating.InstructorRating}" HorizontalOptions="FillAndExpand">
+                <Picker.Items>
+                  <x:String>1</x:String>
+                  <x:String>2</x:String>
+                  <x:String>3</x:String>
+                  <x:String>4</x:String>
+                  <x:String>5</x:String>
+                </Picker.Items>
+              </Picker>
+            </ViewCell>
+          </TableSection>
+          <TableSection Title="Comments">
+            <EntryCell>
+              <Editor x:Name="RatingComment" Text="{Binding Rating.Comment}">
+              </Editor>
+            </EntryCell>
           </TableSection>
         </TableRoot>
       </TableView.Root>
     </TableView>
+    <Button Text="Submit Rating" Command="{Binding SubmitRatingCommand}" CommandParameter="{Binding Rating}"></Button>
   </StackLayout>
 </ContentPage>

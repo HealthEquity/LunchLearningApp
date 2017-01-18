@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using LunchAndLearnMobile.Models;
 using LunchAndLearnMobile.Services;
 using Xamarin.Forms;
@@ -17,9 +18,26 @@ namespace LunchAndLearnMobile.ViewModels
     public SessionRatingViewModel(Schedule selectedSchedule, INavigation navigation) : base(navigation)
     {
       schedule = selectedSchedule;
+      SubmitRatingCommand = new DelegateCommand(ExecuteSubmitRating, CanExecuteSubmitRating);
     }
 
+    public bool CanExecuteSubmitRating(object parameter)
+    {
+      return true;
+    }
+
+    private Rating _rating;
     private Schedule _schedule;
+
+    public Rating Rating
+    {
+      get { return _rating; }
+      set
+      {
+        _rating = value;
+        NotifyPropertyChanged("Rating");
+      }
+    }
 
     public Schedule Schedule
     {
@@ -29,6 +47,16 @@ namespace LunchAndLearnMobile.ViewModels
         _schedule = value;
         NotifyPropertyChanged("Schedule");
       }
+    }
+
+    public ICommand SubmitRatingCommand { get; set; }
+    public async void ExecuteSubmitRating(object parameter)
+    {
+      var newRating = await RatingService.SubmitRating(Rating);
+      if (newRating != null && newRating.RatingId > 0)
+      {
+        await Navigation.PopAsync();
+      }     
     }
 
     public void Load()
@@ -44,6 +72,14 @@ namespace LunchAndLearnMobile.ViewModels
         {
           var scheduleResult = c.Result;
           Schedule = scheduleResult;
+          if (Schedule != null)
+          {
+            Rating = new Rating()
+            {
+              ClassId = 20,
+              InstructorId = 19
+            };
+          }
         }
         else
         {
