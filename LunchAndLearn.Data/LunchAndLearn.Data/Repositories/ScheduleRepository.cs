@@ -11,7 +11,7 @@ namespace LunchAndLearn.Data.Repositories
 {
   public class ScheduleRepository : BaseRepository<Schedule>, IScheduleRepository
   {
-    public new IQueryable<Schedule> GetAll()
+    public IQueryable<Schedule> GetAllEagerLoaded()
     {
       DbContext.Configuration.LazyLoadingEnabled = false;
 
@@ -22,7 +22,7 @@ namespace LunchAndLearn.Data.Repositories
           .Include(x => x.Room);
     }
 
-    public new Schedule Get(int id)
+    public Schedule GetByIdEagerLoaded(int id)
     {
       DbContext.Configuration.LazyLoadingEnabled = false;
 

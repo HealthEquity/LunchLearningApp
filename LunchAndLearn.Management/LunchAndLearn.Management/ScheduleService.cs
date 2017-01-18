@@ -77,7 +77,7 @@ namespace LunchAndLearn.Management
       using (_scheduleRepository)
       {
         var searchEndDate = searchStartDate.Date.AddDays(1);
-        var scheduleCollection = _scheduleRepository.GetAll()
+        var scheduleCollection = _scheduleRepository.GetAllEagerLoaded()
           .Where(x => x.ClassDate >= searchStartDate && x.ClassDate < searchEndDate)
           .ToList();
 
@@ -89,7 +89,7 @@ namespace LunchAndLearn.Management
     {
       using (_scheduleRepository)
       {
-        return _scheduleRepository.Get(scheduleId).ConvertToScheduleDetailDto();
+        return _scheduleRepository.GetByIdEagerLoaded(scheduleId).ConvertToScheduleDetailDto();
       }
     }
 

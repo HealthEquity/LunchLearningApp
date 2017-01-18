@@ -11,13 +11,13 @@ namespace LunchAndLearn.Data.Repositories
 {
   public class ClassRepository : BaseRepository<Class>, IClassRepository
   {
-    public new IQueryable<Class> GetAll()
-    {
-      DbContext.Configuration.LazyLoadingEnabled = false;
+    //public new IQueryable<Class> GetAll()
+    //{
+    //  DbContext.Configuration.LazyLoadingEnabled = false;
 
-      return DbContext.Classes
-        .Include(x => x.Schedules)
-        .Include(x => x.Ratings);
-    }
+    //  return DbContext.Classes
+    //    .Include(x => x.Schedules)
+    //    .Include(x => x.Ratings);
+    //}
   }
 }

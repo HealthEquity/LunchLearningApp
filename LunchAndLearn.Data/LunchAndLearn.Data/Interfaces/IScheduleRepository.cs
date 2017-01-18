@@ -7,7 +7,7 @@ namespace LunchAndLearn.Data.Interfaces
 {
   public interface IScheduleRepository : IBaseRepository<Schedule>
   {
-    new IQueryable<Schedule> GetAll();
-    new Schedule Get(int id);
+    IQueryable<Schedule> GetAllEagerLoaded();
+    Schedule GetByIdEagerLoaded(int id);
   }
 }
