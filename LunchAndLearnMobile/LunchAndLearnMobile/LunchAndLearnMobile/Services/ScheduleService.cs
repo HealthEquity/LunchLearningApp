@@ -30,7 +30,7 @@ namespace LunchAndLearnMobile.Services
       Schedule schedule = new Schedule();
       _client = CreateHttpClient();
 
-      HttpResponseMessage response = await _client.GetAsync("api/mobile/scheduleDetailsByScheduleId?scheduleId=" + scheduleId);
+      HttpResponseMessage response = await _client.GetAsync("api/schedule/mobile/scheduleDetailsByScheduleId?scheduleId=" + scheduleId);
       if (response.IsSuccessStatusCode)
       {
         schedule = await response.Content.ReadAsAsync<Schedule>();

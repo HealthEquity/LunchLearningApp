@@ -7,13 +7,16 @@
     <TableView Intent="Form">
       <TableView.Root>
         <TableRoot Title="Schedule Detail">
-          <TableSection Title="Schedule">
-            <TextCell Text="Schedule Id:" Detail="{Binding Schedule.ScheduleId}"></TextCell>
-            <TextCell Text="Class Date:" Detail="{Binding Schedule.ClassDate}"></TextCell>
+          <TableSection Title="Session Details">
+            <TextCell Text="Class Name:" Detail="{Binding Schedule.ClassName}"></TextCell>
+            <TextCell Text="Track Name:" Detail="{Binding Schedule.TrackName}"></TextCell>
+            <TextCell Text="Class Date:" Detail="{Binding Schedule.ClassDate, StringFormat='{0:MM/dd/yyyy}'}"></TextCell>
+            <TextCell Text="Instructor Name:" Detail="{Binding Schedule.InstructorName}"></TextCell>
+            <TextCell Text="Room Name:" Detail="{Binding Schedule.RoomName}"></TextCell>
           </TableSection>
         </TableRoot>
       </TableView.Root>
     </TableView>
-    <Button Text="RateClass" Clicked="RateClass_Clicked"></Button>
+    <Button Text="RateClass" Clicked="RateClass_Clicked" CommandParameter="{Binding Schedule}"></Button>
   </StackLayout>
 </ContentPage>

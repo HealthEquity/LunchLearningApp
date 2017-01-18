@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using LunchAndLearnMobile.Models;
 using LunchAndLearnMobile.ViewModels;
 using Xamarin.Forms;
@@ -32,11 +33,13 @@ namespace LunchAndLearnMobile.Pages
       //Navigation.PushAsync(
       //    new PlaceBid((AuctionItem)e.Item));
     }
-
+    
     protected void RateClass_Clicked(object sender, EventArgs e)
     {
+      Button myButton = (Button) sender;
+      var schedule = (Schedule)myButton.CommandParameter;
       Navigation.PushAsync(
-        new SessionRating());
+        new SessionRating(schedule));
     }
   }
 }
