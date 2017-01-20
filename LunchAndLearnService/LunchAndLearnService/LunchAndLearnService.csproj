@@ -262,7 +262,7 @@
     <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\TrackController.cs" />
-    <Compile Include="CustomAttributes\ValidateModelAttribute.cs" />
+    <Compile Include="Filters\ValidateModelAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

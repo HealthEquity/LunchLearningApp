@@ -22,10 +22,13 @@ namespace LunchAndLearn.Management
 
     public ScheduleDto Get(int id)
     {
+      Schedule schedule;
       using (_scheduleRepository)
       {
-        return _scheduleRepository.Get(id).ConvertToScheduleDto();
+        schedule = _scheduleRepository.Get(id);
       }
+
+      return schedule?.ConvertToScheduleDto();
     }
 
     public List<ScheduleDto> GetAll()
@@ -55,6 +58,10 @@ namespace LunchAndLearn.Management
       using (_scheduleRepository)
       {
         var entityToBeUpdated = entity.ConvertToScheduleDbModel();
+
+        bool entityExists = _scheduleRepository.Get(entityToBeUpdated.ScheduleId) != null;
+
+        if (!entityExists) return null;
 
         _scheduleRepository.Update(entityToBeUpdated);
         _scheduleRepository.SaveChanges();
@@ -90,7 +97,7 @@ namespace LunchAndLearn.Management
       {
         var schedule =
           _scheduleRepository.GetSchedulesWithConditionEagerLoaded(x => x.ScheduleId == scheduleId).FirstOrDefault();
-        return schedule?.ConvertToScheduleDetailDto() ?? null;
+        return schedule?.ConvertToScheduleDetailDto();
       }
     }
 

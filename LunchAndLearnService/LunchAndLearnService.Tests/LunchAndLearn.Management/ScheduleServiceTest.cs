@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using LunchAndLearn.Data.Interfaces;
 using LunchAndLearn.Management;
 using LunchAndLearn.Model;
@@ -83,6 +81,94 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
     {
       _scheduleList = null;
       _scheduleService = null;
+      _scheduleDetailList = null;
+    }
+
+    [Test]
+    public void GetSchedule_WhereScheduleExists_ReturnsScheduleDto([Values(1, 2, 3)] int idOfScheduleToRetrieve)
+    {
+      //arrange
+      var expected = _scheduleList.FirstOrDefault(x => x.ScheduleId == idOfScheduleToRetrieve);
+      var mockScheduleRepository = Mock.Create<IScheduleRepository>();
+      Mock.Arrange(() => mockScheduleRepository.Get(Arg.IsAny<int>()))
+        .Returns(expected)
+        .OccursOnce();
+
+      var scheduleService = new ScheduleService(mockScheduleRepository);
+
+      //act
+      var actual = scheduleService.Get(idOfScheduleToRetrieve);
+
+      //assert
+      Mock.Assert(mockScheduleRepository);
+      Assert.That(actual, Is.Not.Null);
+      Assert.That(actual, Is.TypeOf(typeof(ScheduleDto)));
+    }
+
+    [Test]
+    public void GetSchedule_WhereScheduleDoesntExist_ReturnsNull([Values(8, 9, 10)] int idOfScheduleToRetrieve)
+    {
+      //arrange
+      var expected = _scheduleList.FirstOrDefault(x => x.ScheduleId == idOfScheduleToRetrieve);
+      var mockScheduleRepository = Mock.Create<IScheduleRepository>();
+      Mock.Arrange(() => mockScheduleRepository.Get(Arg.IsAny<int>()))
+        .Returns(expected)
+        .OccursOnce();
+
+      var scheduleService = new ScheduleService(mockScheduleRepository);
+
+      //act
+      var actual = scheduleService.Get(idOfScheduleToRetrieve);
+
+      //assert
+      Mock.Assert(mockScheduleRepository);
+      Assert.That(actual, Is.Null);
+    }
+
+    [Test]
+    public void UpdateSchedule_WhereScheduleExists_ReturnsScheduleDTO([Values(1, 2, 3)] int idOfScheduleToBeUpdated)
+    {
+      //arrange
+      Func<Schedule, bool> whereExpression = x => x.ScheduleId == idOfScheduleToBeUpdated;
+      var expected = _scheduleList.FirstOrDefault(whereExpression)?.ConvertToScheduleDto();
+      var scheduleToUpdate = _scheduleList.FirstOrDefault(whereExpression);
+
+      var mockScheduleRepository = Mock.Create<IScheduleRepository>();
+      Mock.Arrange(() => mockScheduleRepository.Get(Arg.IsAny<int>()))
+        .Returns(scheduleToUpdate)
+        .OccursOnce();
+
+      _scheduleService = new ScheduleService(mockScheduleRepository);
+
+      //act
+      var actual = _scheduleService.Update(expected);
+
+      //assert
+      Mock.Assert(mockScheduleRepository);
+      Assert.That(actual, Is.Not.Null);
+      Assert.That(actual.ScheduleId, Is.EqualTo(expected?.ScheduleId));
+    }
+
+    [Test]
+    public void UpdateSchedule_WhereScheduleDoesntExist_ReturnsNull([Values(8, 9, 10)] int idOfScheduleToBeUpdated)
+    {
+      //arrange
+      var scheduleDtoToUpdate = new ScheduleDto() {ScheduleId = idOfScheduleToBeUpdated};
+      var scheduleToUpdate = _scheduleList.FirstOrDefault(x => x.ScheduleId == idOfScheduleToBeUpdated);
+
+      var mockScheduleRepository = Mock.Create<IScheduleRepository>();
+      Mock.Arrange(() => mockScheduleRepository.Get(Arg.IsAny<int>()))
+        .Returns(scheduleToUpdate)
+        .OccursOnce();
+
+      _scheduleService = new ScheduleService(mockScheduleRepository);
+      
+      //act
+      var actual = _scheduleService.Update(scheduleDtoToUpdate);
+
+      //assert
+      Mock.Assert(mockScheduleRepository);
+      Assert.That(actual, Is.Null);
     }
 
     [Test]
@@ -143,6 +229,53 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
       Mock.Assert(mockRepo);
       Assert.That(actual, Is.Not.Null);
       Assert.That(actual.Count, Is.EqualTo(expectedCount));
+    }
+
+    [Test]
+    public void GetDetailedSchedule_WhereScheduleExists_ReturnsScheduleDetailDTO([Values(1,2,3)]int scheduleId)
+    {
+      //arrange
+      Expression<Func<Schedule, bool>> whereStatement = x => x.ScheduleId == scheduleId;
+      var mockResults = _scheduleList.Where(x => x.ScheduleId == scheduleId).ToList();
+      var expected = mockResults.FirstOrDefault();
+      var mockScheduleRepo = Mock.Create<IScheduleRepository>();
+      Mock.Arrange(() => mockScheduleRepo.GetSchedulesWithConditionEagerLoaded(whereStatement))
+        .Returns(mockResults)
+        .OccursOnce();
+
+      var scheduleService = new ScheduleService(mockScheduleRepo);
+
+      //act
+      var actual = scheduleService.GetDetailedScheduleById(scheduleId);
+
+      //assert
+      Mock.Assert(mockScheduleRepo);
+      Assert.That(actual, Is.Not.Null);
+      Assert.That(actual.ScheduleId, Is.EqualTo(expected.ScheduleId));
+    }
+
+    [Test]
+    public void GetDetailedSchedule_WhereScheduleDoesntExist_ReturnsNull([Values(8, 9, 10)] int scheduleId)
+    {
+      //arrange
+      List<Schedule> scheduleDbModels = new List<Schedule>();
+      var mockResults = _scheduleList.Where(x => x.ScheduleId == scheduleId).ToList();
+      var expected = mockResults?.FirstOrDefault()?.ConvertToScheduleDetailDto();
+
+      var mockScheduleRepo = Mock.Create<IScheduleRepository>();
+      Mock.Arrange(() => mockScheduleRepo.GetSchedulesWithConditionEagerLoaded(x => x.ScheduleId == scheduleId))
+        .Returns(mockResults)
+        .OccursOnce();
+
+      var scheduleService = new ScheduleService(mockScheduleRepo);
+
+      //act
+      var actual = scheduleService.GetDetailedScheduleById(scheduleId);
+
+      //assert
+      Mock.Assert(mockScheduleRepo);
+      Assert.That(actual, Is.Null);
+      Assert.That(actual, Is.EqualTo(expected));
     }
   }
 }
