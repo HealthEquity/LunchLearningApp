@@ -27,10 +27,16 @@ namespace LunchAndLearnMobile.Pages
       ((SessionRatingViewModel)BindingContext).Load();
     }
 
-    //protected void SubmitRating_Clicked(object sender, EventArgs e)
-    //{
-    //  Button myButton = (Button)sender;
-    //  var rating = (Rating)myButton.CommandParameter;
-    //}
+    private void Editor_OnCompleted(object sender, EventArgs e)
+    {
+      var text = ((Editor)sender).Text;
+      ((SessionRatingViewModel) BindingContext).SetComment(text);
+    }
+
+    private void Entry_OnCompleted(object sender, EventArgs e)
+    {
+      var text = ((Entry)sender).Text;
+      ((SessionRatingViewModel)BindingContext).SetComment(text);
+    }
   }
 }

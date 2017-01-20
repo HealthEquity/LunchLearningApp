@@ -6,7 +6,6 @@
 
   <TabbedPage.Children>
     <ContentPage Title="Schedule">
-
       <StackLayout Orientation="Vertical" VerticalOptions="Start">
         <ActivityIndicator IsVisible="{Binding IsLoading}" IsRunning="{Binding IsLoading}" HorizontalOptions="CenterAndExpand" />
         <DatePicker x:Name="ScheduleDatePicker" VerticalOptions="CenterAndExpand" Date="{x:Static sys:DateTime.Now}" DateSelected="DatePicker_SelectedDateChanged">
@@ -29,7 +28,14 @@
         <ListView ItemsSource="{Binding Schedules}" ItemTapped="Schedule_Tapped">
           <ListView.ItemTemplate>
             <DataTemplate>
-              <TextCell Text="{Binding ClassName}" Detail="{Binding ClassDate, StringFormat='{0:MM/dd/yyyy}'}" />
+              <ViewCell>
+                <Grid>
+                  <Label Text="{Binding ClassName}" FontAttributes="Bold" />
+                  <Label Grid.Column="1" Text="{Binding InstructorName}" />
+                  <Label Grid.Column="2" Text="{Binding ClassDate, StringFormat='{0:MM/dd/yyyy}'}"></Label>
+                </Grid>
+              </ViewCell>
+              <!--<TextCell Text="{Binding ClassName}" Detail="{Binding ClassDate, StringFormat='{0:MM/dd/yyyy}'}" />-->
             </DataTemplate>
           </ListView.ItemTemplate>
         </ListView>

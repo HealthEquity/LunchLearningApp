@@ -39,15 +39,11 @@
               </Picker>
             </ViewCell>
           </TableSection>
-          <TableSection Title="Comments">
-            <EntryCell>
-              <Editor x:Name="RatingComment" Text="{Binding Rating.Comment}">
-              </Editor>
-            </EntryCell>
-          </TableSection>
         </TableRoot>
       </TableView.Root>
     </TableView>
+    <Label Text="Comment"></Label>
+    <Editor Completed="Editor_OnCompleted"></Editor>
     <Button Text="Submit Rating" Command="{Binding SubmitRatingCommand}" CommandParameter="{Binding Rating}"></Button>
   </StackLayout>
 </ContentPage>

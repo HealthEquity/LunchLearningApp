@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using LunchAndLearnMobile.Models;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Runtime.Serialization.Json;
 using Newtonsoft.Json;
 
 namespace LunchAndLearnMobile.Services
@@ -20,18 +21,21 @@ namespace LunchAndLearnMobile.Services
       {
         var createdRating = new Rating();
         _client = CreateHttpClient();
-        HttpResponseMessage response = await _client.PostAsJsonAsync("api/rating/create", rating);
+        string ratingJson = JsonConvert.SerializeObject(rating);
+        var ratingData = new StringContent(ratingJson, Encoding.UTF8, "application/json");
+        HttpResponseMessage response = await _client.PostAsync("api/rating/create", ratingData);
         if (response.IsSuccessStatusCode)
         {
           createdRating = await response.Content.ReadAsAsync<Rating>();
         }
         return createdRating;
       }
-      catch (Exception)
+      catch (Exception ex)
       {
-
+        var message = ex.Message;
         throw;
       }
     }
-  }
+   }
+
 }

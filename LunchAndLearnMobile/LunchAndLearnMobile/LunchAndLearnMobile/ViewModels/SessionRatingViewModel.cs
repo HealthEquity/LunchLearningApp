@@ -59,6 +59,16 @@ namespace LunchAndLearnMobile.ViewModels
       }     
     }
 
+    public void SetComment(string text)
+    {
+      if (Rating == null)
+      {
+        return;
+      }
+
+      Rating.Comment = text;
+    }
+
     public void Load()
     {
       if (Schedule != null)
@@ -76,8 +86,8 @@ namespace LunchAndLearnMobile.ViewModels
           {
             Rating = new Rating()
             {
-              ClassId = 20,
-              InstructorId = 19
+              ClassId = Schedule.ClassId,
+              InstructorId = Schedule.InstructorId
             };
           }
         }

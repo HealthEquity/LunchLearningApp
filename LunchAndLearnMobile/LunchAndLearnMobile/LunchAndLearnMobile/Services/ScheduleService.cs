@@ -15,27 +15,43 @@ namespace LunchAndLearnMobile.Services
 
     public static async Task<IEnumerable<Schedule>> GetSchedulesByDate(DateTime date)
     {
-      List<Schedule> schedules = new List<Schedule>();
-      _client = CreateHttpClient();
-      HttpResponseMessage response = await _client.GetAsync("api/schedule/mobile/scheduleDetailsByDate?date=" + date);
-      if (response.IsSuccessStatusCode)
+      try
       {
-        schedules = await response.Content.ReadAsAsync<List<Schedule>>();
+        List<Schedule> schedules = new List<Schedule>();
+        _client = CreateHttpClient();
+        HttpResponseMessage response = await _client.GetAsync("api/schedule/mobile/scheduleDetailsByDate?date=" + date);
+        if (response.IsSuccessStatusCode)
+        {
+          schedules = await response.Content.ReadAsAsync<List<Schedule>>();
+        }
+        return schedules;
       }
-      return schedules;
+      catch (Exception ex)
+      {
+        var message = ex.Message;
+        throw;
+      }
     }
 
     public static async Task<Schedule> GetScheduleDetailsById(int scheduleId)
     {
-      Schedule schedule = new Schedule();
-      _client = CreateHttpClient();
-
-      HttpResponseMessage response = await _client.GetAsync("api/schedule/mobile/scheduleDetailsByScheduleId?scheduleId=" + scheduleId);
-      if (response.IsSuccessStatusCode)
+      try
       {
-        schedule = await response.Content.ReadAsAsync<Schedule>();
+        Schedule schedule = new Schedule();
+        _client = CreateHttpClient();
+
+        HttpResponseMessage response = await _client.GetAsync("api/schedule/mobile/scheduleDetailsByScheduleId?scheduleId=" + scheduleId);
+        if (response.IsSuccessStatusCode)
+        {
+          schedule = await response.Content.ReadAsAsync<Schedule>();
+        }
+        return schedule;
       }
-      return schedule;
+      catch (Exception ex)
+      {
+        var message = ex.Message;
+        throw;
+      }
     }
   }
 }

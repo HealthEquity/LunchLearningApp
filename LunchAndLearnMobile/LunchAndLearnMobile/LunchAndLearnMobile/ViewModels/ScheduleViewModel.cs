@@ -18,7 +18,6 @@ namespace LunchAndLearnMobile.ViewModels
     }
 
     private ObservableCollection<Schedule> _schedules;
-
     public ObservableCollection<Schedule> Schedules
     {
       get { return _schedules; }
