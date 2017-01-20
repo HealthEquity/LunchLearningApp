@@ -85,7 +85,7 @@ namespace LunchAndLearnService.Controllers
     }
 
     [HttpDelete]
-    [Route("delete")]
+    [Route("{id}")]
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Delete(int id)
     {
