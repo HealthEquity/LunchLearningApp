@@ -6,6 +6,6 @@ namespace LunchAndLearn.Data.Interfaces
 {
   public interface IRoomRepository : IBaseRepository<Room>
   {
-    new IQueryable<Room> GetAll();
+
   }
 }

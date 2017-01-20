@@ -11,12 +11,16 @@ namespace LunchAndLearn.Data.Repositories
 {
   public class TrackRepository : BaseRepository<Track>, ITrackRepository
   {
-    public new IQueryable<Track> GetAll()
-    {
-      DbContext.Configuration.LazyLoadingEnabled = false;
+    //public new IQueryable<Track> GetAll()
+    //{
+    //  DbContext.Configuration.LazyLoadingEnabled = false;
 
-      return DbContext.Tracks
-        .Include(x => x.Schedules);
+    //  return DbContext.Tracks
+    //    .Include(x => x.Schedules);
+    //}
+    public override bool Exists(int trackId)
+    {
+      return base.DbContext.Tracks.Any(x => x.TrackId == trackId);
     }
   }
 }

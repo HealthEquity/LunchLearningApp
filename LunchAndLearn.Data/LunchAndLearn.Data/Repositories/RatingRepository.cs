@@ -11,13 +11,17 @@ namespace LunchAndLearn.Data.Repositories
 {
   public class RatingRepository : BaseRepository<Rating>, IRatingRepository
   {
-    public new IQueryable<Rating> GetAll()
-    {
-      DbContext.Configuration.LazyLoadingEnabled = false;
+    //public new IQueryable<Rating> GetAll()
+    //{
+    //  DbContext.Configuration.LazyLoadingEnabled = false;
 
-      return DbContext.Ratings
-        .Include(x => x.Class)
-        .Include(x => x.Instructor);
+    //  return DbContext.Ratings
+    //    .Include(x => x.Class)
+    //    .Include(x => x.Instructor);
+    //}
+    public override bool Exists(int ratingId)
+    {
+      return base.DbContext.Ratings.Any(x => x.RatingId == ratingId);
     }
   }
 }

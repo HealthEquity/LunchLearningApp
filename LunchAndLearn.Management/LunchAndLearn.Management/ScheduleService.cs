@@ -22,10 +22,13 @@ namespace LunchAndLearn.Management
 
     public ScheduleDto Get(int id)
     {
+      Schedule schedule;
       using (_scheduleRepository)
       {
-        return _scheduleRepository.Get(id).ConvertToScheduleDto();
+        schedule = _scheduleRepository.Get(id);
       }
+
+      return schedule?.ConvertToScheduleDto();
     }
 
     public List<ScheduleDto> GetAll()
@@ -37,16 +40,16 @@ namespace LunchAndLearn.Management
       }
     }
 
-    public ScheduleDto Create(ScheduleDto entity)
+    public ScheduleDto Create(ScheduleDto scheduleDto)
     {
       using (_scheduleRepository)
       {
-        var entityToBeCreated = entity.ConvertToScheduleDbModel();
+        var scheduleDbModel = scheduleDto.ConvertToScheduleDbModel();
 
-        _scheduleRepository.Create(entityToBeCreated);
+        _scheduleRepository.Create(scheduleDbModel);
         _scheduleRepository.SaveChanges();
 
-        return entityToBeCreated.ConvertToScheduleDto();
+        return scheduleDbModel.ConvertToScheduleDto();
       }
     }
 
@@ -56,6 +59,8 @@ namespace LunchAndLearn.Management
       {
         var entityToBeUpdated = entity.ConvertToScheduleDbModel();
 
+        if (!_scheduleRepository.Exists(entity.ScheduleId)) return null;
+
         _scheduleRepository.Update(entityToBeUpdated);
         _scheduleRepository.SaveChanges();
 
@@ -63,33 +68,36 @@ namespace LunchAndLearn.Management
       }
     }
 
-    public void Delete(int id)
+    public void Delete(int scheduleId)
     {
       using (_scheduleRepository)
       {
-        _scheduleRepository.Delete(id);
+        if (!_scheduleRepository.Exists(scheduleId)) return;
+
+        _scheduleRepository.Delete(scheduleId);
         _scheduleRepository.SaveChanges();
       }
     }
 
-    public List<ScheduleDetailDto> GetScheduleDetailsForSpecificDate(DateTime searchStartDate)
+    public List<ScheduleDetailDto> GetDetailedSchedulesForSpecificDate(DateTime searchStartDate)
     {
       using (_scheduleRepository)
       {
         var searchEndDate = searchStartDate.Date.AddDays(1);
-        var scheduleCollection = _scheduleRepository.GetAll()
-          .Where(x => x.ClassDate >= searchStartDate && x.ClassDate < searchEndDate)
+        var scheduleCollection = _scheduleRepository.GetSchedulesWithConditionEagerLoaded(x => x.ClassDate >= searchStartDate && x.ClassDate < searchEndDate)
           .ToList();
 
         return scheduleCollection.Select(x => x.ConvertToScheduleDetailDto()).ToList();
       }
     }
 
-    public ScheduleDetailDto GetScheduleDetailsById(int scheduleId)
+    public ScheduleDetailDto GetDetailedScheduleById(int scheduleId)
     {
       using (_scheduleRepository)
       {
-        return _scheduleRepository.Get(scheduleId).ConvertToScheduleDetailDto();
+        var schedule =
+          _scheduleRepository.GetSchedulesWithConditionEagerLoaded(x => x.ScheduleId == scheduleId).FirstOrDefault();
+        return schedule?.ConvertToScheduleDetailDto();
       }
     }
 

@@ -105,7 +105,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
     {
       //arrange
       var mockClassRepo = Mock.Create<IClassRepository>();
-      Mock.Arrange(() => mockClassRepo.GetAll()).Returns(_dbClassList.AsQueryable).OccursOnce();
+      Mock.Arrange(() => mockClassRepo.GetAll()).Returns(_dbClassList).OccursOnce();
 
       _classService = new ClassService(mockClassRepo);
       //act

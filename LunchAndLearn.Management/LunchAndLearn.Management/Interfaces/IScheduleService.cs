@@ -6,7 +6,7 @@ namespace LunchAndLearn.Management.Interfaces
 {
   public interface IScheduleService : IBaseService<ScheduleDto>
   {
-    List<ScheduleDetailDto> GetScheduleDetailsForSpecificDate(DateTime searchStartDate);
-    ScheduleDetailDto GetScheduleDetailsById(int scheduleId);
+    List<ScheduleDetailDto> GetDetailedSchedulesForSpecificDate(DateTime searchStartDate);
+    ScheduleDetailDto GetDetailedScheduleById(int scheduleId);
   }
 }

@@ -44,7 +44,13 @@ namespace LunchAndLearnService.Controllers
       {
         schedule = _scheduleService.Get(id); 
       }
-      return Ok(schedule);
+
+      if (schedule != null)
+      {
+        return Ok(schedule);
+      }
+
+      return NotFound();
     }
 
     [HttpPost]
@@ -64,21 +70,28 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(ScheduleDto))]
     public IHttpActionResult Put(ScheduleDto schedule)
     {
+      ScheduleDto response;
       using (_scheduleService)
       {
-        var response = _scheduleService.Update(schedule);
+        response = _scheduleService.Update(schedule);
+      }
+
+      if (response != null)
+      {
         return Ok(response);
       }
+
+      return NotFound();
     }
 
     [HttpDelete]
-    [Route("delete")]
+    [Route("{id}")]
     [ResponseType(typeof(OkResult))]
-    public OkResult Delete(int id)
+    public IHttpActionResult Delete(int id)
     {
       using (_scheduleService)
       {
-        _scheduleService.Delete(id); 
+          _scheduleService.Delete(id);
       }
       return Ok();
     }
@@ -91,7 +104,7 @@ namespace LunchAndLearnService.Controllers
       List<ScheduleDetailDto> scheduleDetailList;
       using (_scheduleService)
       {
-        scheduleDetailList = _scheduleService.GetScheduleDetailsForSpecificDate(date);
+        scheduleDetailList = _scheduleService.GetDetailedSchedulesForSpecificDate(date);
       }
       return Ok(scheduleDetailList);
     }
@@ -104,9 +117,14 @@ namespace LunchAndLearnService.Controllers
       ScheduleDetailDto scheduleDetail;
       using (_scheduleService)
       {
-        scheduleDetail = _scheduleService.GetScheduleDetailsById(scheduleId);
+        scheduleDetail = _scheduleService.GetDetailedScheduleById(scheduleId);
       }
-      return Ok(scheduleDetail);
+      if (scheduleDetail != null)
+      {
+        return Ok(scheduleDetail);
+      }
+
+      return NotFound();
     }
   }
 }
