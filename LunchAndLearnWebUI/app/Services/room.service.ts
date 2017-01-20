@@ -4,50 +4,50 @@ import {Configuration } from '../app.constants';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
-import { DbClass } from '../Models/dbClass';
+import { Room } from '../Models/room';
 
 @Injectable()
-export class ClassService {
+export class RoomService {
 
   private headers = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json', 'Access-Control-Allow-Origin': 'Allow'});
-  private classUrl = 'api/class';  // URL to web api
+  private roomUrl = 'api/room';  // URL to web api
 
   constructor(private http: Http, private _configuration: Configuration) {
-    this.classUrl = _configuration.ServerWithApiUrl + 'class/';
+    this.roomUrl = _configuration.ServerWithApiUrl + 'room/';
    }
   
-  getClasses() {
-        return this.http.get(this.classUrl + 'all')
-            .map(res => <DbClass[]>res.json())
+  getRooms() {
+        return this.http.get(this.roomUrl + 'all')
+            .map(res => <Room[]>res.json())
             .catch(this.handleError);
     }
 
-  getClass(id: number) {
-      const url = `${this.classUrl}/${id}`;
-      return this.http.get(url)
-          .map(res => <DbClass>res.json())
-          .catch(this.handleError);
-  }
+    getRoom(id: number) {
+        const url = `${this.roomUrl}/${id}`;
+        return this.http.get(url)
+            .map(res => <Room>res.json())
+            .catch(this.handleError);
+    }
 
   delete(id: number) {
-    const url = `${this.classUrl}/${id}`;
+    const url = `${this.roomUrl}/${id}`;
     return this.http.delete(url, {headers: this.headers})
     .map(() => null)
     .catch(this.handleError);
   }
 
-   create(dbClass) {
+   create(room: Room) {
     return this.http
-      .post(this.classUrl + 'create', JSON.stringify(dbClass), {headers: this.headers})
-      .map((res: Response) => res.json())
+      .post(this.roomUrl, JSON.stringify(room), {headers: this.headers})
+      .map(res => res.json().data)
       .catch(this.handleError);
   }
   
-  update(dbClass: DbClass) {
-    const url = `${this.classUrl}/${dbClass.id}`;
+  update(room: Room) {
+    const url = `${this.roomUrl}/${room.id}`;
     return this.http
-      .put(url, JSON.stringify(dbClass), {headers: this.headers})
-      .map(() => dbClass)
+      .put(url, JSON.stringify(room), {headers: this.headers})
+      .map(() => room)
       .catch(this.handleError);
   }
 

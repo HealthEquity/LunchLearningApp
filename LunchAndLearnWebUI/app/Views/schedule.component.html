@@ -1,0 +1,72 @@
+<div>
+<form novalidate (submit)="createSchedule(newSchedule)" [formGroup]="newSchedule">
+      <label>
+        <span>Class Id</span>
+        <input type="text" placeholder="Class Id" formControlName="classId">
+      </label>
+      <div class="error" *ngIf="newSchedule.get('classId').hasError('required') && newSchedule.get('classId').touched">
+        Class Id is required
+      </div>
+      <label>
+        <span>Instructor Id</span>
+        <input type="text" placeholder="Instructor Id" formControlName="instructorId">
+      </label>
+      <div class="error" *ngIf="newSchedule.get('instructorId').hasError('required') && newSchedule.get('instructorId').touched">
+        Instructor Id is required
+      </div>
+      <label>
+        <span>Track Id</span>
+        <input type="text" placeholder="Track Id" formControlName="trackId">
+      </label>
+      <div class="error" *ngIf="newSchedule.get('trackId').hasError('required') && newSchedule.get('trackId').touched">
+        Track Id is required
+      </div>
+      <label>
+        <span>Class Date</span>
+        <input type="text" placeholder="Class Date" formControlName="classDate">
+      </label>
+      <div class="error" *ngIf="newSchedule.get('classDate').hasError('required') && newSchedule.get('classDate').touched">
+        Class Date is required
+      </div>
+      <label>
+        <span>Room Id</span>
+        <input type="text" placeholder="Room Id" formControlName="roomId">
+      </label>
+      <div class="error" *ngIf="newSchedule.get('roomId').hasError('required') && newSchedule.get('roomId').touched">
+        Room Id is required
+      </div>
+      <button type="submit" [disabled]="newSchedule.invalid">Create Schedule</button>
+    </form>
+</div>
+<div class="container-fluid">
+    <div class="row">
+    <div class="col-md-12">
+      <!--Body content-->
+      <table id="schedules" class="table table-striped table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Schedule Id</th>
+            <th>Class Id</th>
+            <th>Instructor Id</th>
+            <th>Track Id</th>
+            <th>Class Date</th>
+            <th>Room Id</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let schedule of schedules | paginate: { itemsPerPage: 20, currentPage: page }">
+              <td>{{schedule.scheduleId}}</td>
+              <td>{{schedule.classId}}</td>
+              <td>{{schedule.instructorId}}</td>
+              <td>{{schedule.trackId}}</td>
+              <td>{{schedule.classDate}}</td>
+              <td>{{schedule.roomId}}</td>
+            </tr>
+          </tbody>
+       </table>
+      </div>
+    </div>
+    <div class="has-text-centered">
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+    </div>
+</div>

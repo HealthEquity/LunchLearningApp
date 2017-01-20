@@ -1,53 +1,52 @@
 import { Injectable }    from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
 import {Configuration } from '../app.constants';
-import 'rxjs/add/operator/toPromise';
 import 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
-import { DbClass } from '../Models/dbClass';
+import { Schedule } from '../Models/schedule';
 
 @Injectable()
-export class ClassService {
+export class ScheduleService {
 
   private headers = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json', 'Access-Control-Allow-Origin': 'Allow'});
-  private classUrl = 'api/class';  // URL to web api
+  private scheduleUrl = 'api/schedule';  // URL to web api
 
   constructor(private http: Http, private _configuration: Configuration) {
-    this.classUrl = _configuration.ServerWithApiUrl + 'class/';
+    this.scheduleUrl = _configuration.ServerWithApiUrl + 'schedule/';
    }
   
-  getClasses() {
-        return this.http.get(this.classUrl + 'all')
-            .map(res => <DbClass[]>res.json())
+  getSchedules() {
+        return this.http.get(this.scheduleUrl + 'all')
+            .map(res => <Schedule[]>res.json())
             .catch(this.handleError);
     }
 
-  getClass(id: number) {
-      const url = `${this.classUrl}/${id}`;
-      return this.http.get(url)
-          .map(res => <DbClass>res.json())
-          .catch(this.handleError);
-  }
+    getSchedule(id: number) {
+        const url = `${this.scheduleUrl}/${id}`;
+        return this.http.get(url)
+            .map(res => <Schedule>res.json())
+            .catch(this.handleError);
+    }
 
   delete(id: number) {
-    const url = `${this.classUrl}/${id}`;
+    const url = `${this.scheduleUrl}/${id}`;
     return this.http.delete(url, {headers: this.headers})
     .map(() => null)
     .catch(this.handleError);
   }
 
-   create(dbClass) {
+   create(schedule: Schedule) {
     return this.http
-      .post(this.classUrl + 'create', JSON.stringify(dbClass), {headers: this.headers})
-      .map((res: Response) => res.json())
+      .post(this.scheduleUrl, JSON.stringify(schedule), {headers: this.headers})
+      .map(res => res.json().data)
       .catch(this.handleError);
   }
   
-  update(dbClass: DbClass) {
-    const url = `${this.classUrl}/${dbClass.id}`;
+  update(schedule: Schedule) {
+    const url = `${this.scheduleUrl}/${schedule.id}`;
     return this.http
-      .put(url, JSON.stringify(dbClass), {headers: this.headers})
-      .map(() => dbClass)
+      .put(url, JSON.stringify(schedule), {headers: this.headers})
+      .map(() => schedule)
       .catch(this.handleError);
   }
 

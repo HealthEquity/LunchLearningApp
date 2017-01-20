@@ -1,0 +1,32 @@
+<div class="container-fluid">
+    <div class="row">
+    <div class="col-md-12">
+      <!--Body content-->
+      <table id="ratings" class="table table-striped table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Rating Id</th>
+            <th>Class Id</th>
+            <th>Class Rating</th>
+            <th>Instructor Id</th>
+            <th>Instructor Rating</th>
+            <th>Comment</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let rating of ratings | paginate: { itemsPerPage: 20, currentPage: page }">
+              <td>{{rating.ratingId}}</td>
+              <td>{{rating.classId}}</td>
+              <td>{{rating.classRating}}</td>
+              <td>{{rating.instructorId}}</td>
+              <td>{{rating.instructorRating}}</td>
+              <td>{{rating.comment}}</td>
+            </tr>
+          </tbody>
+       </table>
+      </div>
+    </div>
+    <div class="has-text-centered">
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+    </div>
+</div>

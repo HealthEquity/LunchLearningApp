@@ -25,19 +25,18 @@
     "@angular/platform-browser": "~2.3.0",
     "@angular/platform-browser-dynamic": "~2.3.0",
     "@angular/router": "~3.3.0",
-
     "angular-in-memory-web-api": "~0.2.1",
-    "systemjs": "0.19.40",
     "core-js": "^2.4.1",
+    "ng2-pagination": "^2.0.0",
     "reflect-metadata": "^0.1.8",
     "rxjs": "5.0.1",
+    "systemjs": "0.19.40",
     "zone.js": "^0.7.2"
   },
   "devDependencies": {
     "concurrently": "^3.1.0",
     "lite-server": "^2.2.2",
     "typescript": "~2.0.10",
-
     "canonical-path": "0.0.2",
     "http-server": "^0.9.0",
     "tslint": "^3.15.1",
@@ -50,7 +49,6 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "protractor": "~4.0.13",
     "rimraf": "^2.5.4",
-
     "@types/node": "^6.0.46",
     "@types/jasmine": "^2.5.36",
     "@types/selenium-webdriver": "^2.53.33"

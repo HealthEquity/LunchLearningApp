@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { DbClass } from './Models/dbClass';
-import { ClassService } from './Services/class.service';
+import { DbClass } from '../Models/dbClass';
+import { ClassService } from '../Services/class.service';
 
 @Component({
   moduleId: module.id,
   selector: 'my-dashboard',
-  templateUrl: 'dashboard.component.html',
-  styleUrls: ['dashboard.component.css']
+  templateUrl: '../Views/dashboard.component.html',
+  styleUrls: ['../CSS/app.component.css']
 })
 export class DashboardComponent implements OnInit {
   classes: DbClass[] = [];
@@ -19,8 +19,12 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.classService.getClasses()
-      .then(classes => this.classes = classes.slice(1, 5));
+    // this.classService.getClasses()
+    //   .then(classes => this.classes = classes.slice(1, 5));
+       this.classService.getClasses()
+            .subscribe(
+            value => this.classes = value.slice(1, 5)
+            );
   }
 
 //   gotoDetail(hero: Hero): void {

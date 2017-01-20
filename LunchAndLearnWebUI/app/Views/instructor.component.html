@@ -1,0 +1,26 @@
+<div class="container-fluid">
+    <div class="row">
+    <div class="col-md-12">
+      <!--Body content-->
+      <table id="instructors" class="table table-striped table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Instructor Id</th>
+            <th>Instructor Name</th>
+            <th>Is Active</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let instructor of instructors | paginate: { itemsPerPage: 20, currentPage: page }">
+              <td>{{instructor.instructorId}}</td>
+              <td>{{instructor.instructorName}}</td>
+              <td>{{instructor.isActive}}</td>
+            </tr>
+          </tbody>
+       </table>
+      </div>
+    </div>
+    <div class="has-text-centered">
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+    </div>
+</div>
