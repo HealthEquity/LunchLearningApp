@@ -8,11 +8,11 @@ using LunchAndLearn.Data.Interfaces;
 
 namespace LunchAndLearn.Data.Repositories
 {
-  public class BaseRepository<T> : IBaseRepository<T> where T : class
+  public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
   {
     protected readonly LunchAndLearnContext DbContext;
 
-    public BaseRepository()
+    protected BaseRepository()
     {
        DbContext = new LunchAndLearnContext();
 #if DEBUG
@@ -53,9 +53,11 @@ namespace LunchAndLearn.Data.Repositories
 
     public void Delete(int id)
     {
-      var entityToDelete = DbContext.Set<T>().Find(id);
+      var entityToDelete = DbContext.Schedules.Find(id);
       DbContext.Entry(entityToDelete).State = EntityState.Deleted;
     }
+
+    public abstract bool Exists(int id);
 
 
     public void SaveChanges()

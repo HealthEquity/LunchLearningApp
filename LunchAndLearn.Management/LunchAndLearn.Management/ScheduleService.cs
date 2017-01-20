@@ -40,16 +40,16 @@ namespace LunchAndLearn.Management
       }
     }
 
-    public ScheduleDto Create(ScheduleDto entity)
+    public ScheduleDto Create(ScheduleDto scheduleDto)
     {
       using (_scheduleRepository)
       {
-        var entityToBeCreated = entity.ConvertToScheduleDbModel();
+        var scheduleDbModel = scheduleDto.ConvertToScheduleDbModel();
 
-        _scheduleRepository.Create(entityToBeCreated);
+        _scheduleRepository.Create(scheduleDbModel);
         _scheduleRepository.SaveChanges();
 
-        return entityToBeCreated.ConvertToScheduleDto();
+        return scheduleDbModel.ConvertToScheduleDto();
       }
     }
 
@@ -59,9 +59,7 @@ namespace LunchAndLearn.Management
       {
         var entityToBeUpdated = entity.ConvertToScheduleDbModel();
 
-        bool entityExists = _scheduleRepository.Get(entityToBeUpdated.ScheduleId) != null;
-
-        if (!entityExists) return null;
+        if (!_scheduleRepository.Exists(entity.ScheduleId)) return null;
 
         _scheduleRepository.Update(entityToBeUpdated);
         _scheduleRepository.SaveChanges();
@@ -70,11 +68,13 @@ namespace LunchAndLearn.Management
       }
     }
 
-    public void Delete(int id)
+    public void Delete(int scheduleId)
     {
       using (_scheduleRepository)
       {
-        _scheduleRepository.Delete(id);
+        if (!_scheduleRepository.Exists(scheduleId)) return;
+
+        _scheduleRepository.Delete(scheduleId);
         _scheduleRepository.SaveChanges();
       }
     }

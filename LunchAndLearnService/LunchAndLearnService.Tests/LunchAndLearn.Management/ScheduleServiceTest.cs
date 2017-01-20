@@ -134,8 +134,8 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
       var scheduleToUpdate = _scheduleList.FirstOrDefault(whereExpression);
 
       var mockScheduleRepository = Mock.Create<IScheduleRepository>();
-      Mock.Arrange(() => mockScheduleRepository.Get(Arg.IsAny<int>()))
-        .Returns(scheduleToUpdate)
+      Mock.Arrange(() => mockScheduleRepository.Exists(Arg.IsAny<int>()))
+        .Returns(true)
         .OccursOnce();
 
       _scheduleService = new ScheduleService(mockScheduleRepository);
@@ -157,8 +157,8 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
       var scheduleToUpdate = _scheduleList.FirstOrDefault(x => x.ScheduleId == idOfScheduleToBeUpdated);
 
       var mockScheduleRepository = Mock.Create<IScheduleRepository>();
-      Mock.Arrange(() => mockScheduleRepository.Get(Arg.IsAny<int>()))
-        .Returns(scheduleToUpdate)
+      Mock.Arrange(() => mockScheduleRepository.Exists(Arg.IsAny<int>()))
+        .Returns(false)
         .OccursOnce();
 
       _scheduleService = new ScheduleService(mockScheduleRepository);
