@@ -16,7 +16,7 @@ namespace LunchAndLearnService
     {
       //enable cross origin requests for client consumption
       var cors = new EnableCorsAttribute(origins: "*", headers: "*", methods: "*");
-      config.EnableCors();
+      config.EnableCors(cors);
 
       // Web API configuration and services
       // Configure Web API to use only bearer token authentication.
