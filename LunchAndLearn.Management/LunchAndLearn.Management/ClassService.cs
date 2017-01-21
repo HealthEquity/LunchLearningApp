@@ -16,64 +16,51 @@ namespace LunchAndLearn.Management
 {
   public class ClassService : IClassService
   {
-    private readonly IClassRepository _classRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public ClassService(IClassRepository classRepository)
+    public ClassService(IUnitOfWork unitOfWork)
     {
-      _classRepository = classRepository;
+      _unitOfWork = unitOfWork;
     }
 
     public ClassDto Get(int id)
     {
-      using (_classRepository)
-      {
-        var retrievedClass = _classRepository.Get(id);
-        return retrievedClass.ConvertToClassDto();
-      }
+      return _unitOfWork.ClassRepository.GetById(id)?.ConvertToClassDto();
     }
 
     public List<ClassDto> GetAll()
     {
-      using (_classRepository)
-      {
-        var classes = _classRepository.GetAll().ToList();
-        return classes.Select(x => x.ConvertToClassDto()).ToList();
-      }
+      return _unitOfWork.ClassRepository.Get().Select(x => x.ConvertToClassDto()).ToList();
     }
 
     public ClassDto Create(ClassDto entity)
     {
-      using (_classRepository)
-      {
-        var entityToCreate = entity.ConvertToClassDbModel();
+      var entityToCreate = entity.ConvertToClassDbModel();
 
-        _classRepository.Create(entityToCreate);
-        _classRepository.SaveChanges();
+      _unitOfWork.ClassRepository.Insert(entityToCreate);
+      _unitOfWork.Save();
 
-        return entityToCreate.ConvertToClassDto();
-      }
+      return entityToCreate.ConvertToClassDto();
     }
 
     public ClassDto Update(ClassDto entity)
     {
-      using (_classRepository)
-      {
-        var entityToUpdate = entity.ConvertToClassDbModel();
+      if (!_unitOfWork.ClassRepository.Exists(x => x.ClassId == entity.ClassId)) return null;
 
-        _classRepository.Update(entityToUpdate);
-        _classRepository.SaveChanges();
+      var entityToUpdate = entity.ConvertToClassDbModel();
 
-        return entityToUpdate.ConvertToClassDto();
-      }
+      _unitOfWork.ClassRepository.Update(entityToUpdate);
+      _unitOfWork.Save();
+
+      return entityToUpdate.ConvertToClassDto();
     }
 
     public void Delete(int id)
     {
-      using (_classRepository)
-      {
-        _classRepository.Delete(id);
-        _classRepository.SaveChanges(); 
-      }
+      if (!_unitOfWork.ClassRepository.Exists(x => x.ClassId == id)) return;
+
+      _unitOfWork.ClassRepository.Delete(id);
+      _unitOfWork.Save();
     }
 
     #region Disposal
@@ -85,8 +72,7 @@ namespace LunchAndLearn.Management
       {
         if (disposing)
         {
-          //Dispose of all repos used in this class here Example: _productRepository, _personRepository
-          _classRepository.Dispose();
+          _unitOfWork.Dispose();
         }
       }
       this._disposed = true;

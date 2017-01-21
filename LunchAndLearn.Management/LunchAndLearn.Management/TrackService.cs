@@ -15,63 +15,51 @@ namespace LunchAndLearn.Management
 {
   public class TrackService : ITrackService
   {
-    private readonly ITrackRepository _trackRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public TrackService(ITrackRepository trackRepository)
+    public TrackService(IUnitOfWork unitOfWork)
     {
-      _trackRepository = trackRepository;
+      _unitOfWork = unitOfWork;
     }
 
-    public TrackDto Get(int id)
+    public TrackDto Get(int trackId)
     {
-      using (_trackRepository)
-      {
-        return _trackRepository.Get(id).ConvertToTrackDto(); 
-      }
+      return _unitOfWork.TrackRepository.GetById(trackId).ConvertToTrackDto();
     }
 
     public List<TrackDto> GetAll()
     {
-      using (_trackRepository)
-      {
-        var trackList =_trackRepository.GetAll().ToList();
-        return trackList.Select(x => x.ConvertToTrackDto()).ToList();
-      }
+      return _unitOfWork.TrackRepository.Get().Select(x => x.ConvertToTrackDto()).ToList();
     }
 
-    public TrackDto Create(TrackDto entity)
+    public TrackDto Create(TrackDto trackDto)
     {
-      using (_trackRepository)
-      {
-        var entityToCreate = entity.ConvertToTrackDbModel();
+      var trackDbModelToCreate = trackDto.ConvertToTrackDbModel();
 
-        _trackRepository.Create(entityToCreate);
-        _trackRepository.SaveChanges();
+      _unitOfWork.TrackRepository.Insert(trackDbModelToCreate);
+      _unitOfWork.Save();
 
-        return entityToCreate.ConvertToTrackDto();
-      }
+      return trackDbModelToCreate.ConvertToTrackDto();
     }
 
-    public TrackDto Update(TrackDto entity)
+    public TrackDto Update(TrackDto trackDto)
     {
-      using (_trackRepository)
-      {
-        var entityToUpdate = entity.ConvertToTrackDbModel();
+      if (!_unitOfWork.TrackRepository.Exists(x => x.TrackId == trackDto.TrackId)) return null;
 
-        _trackRepository.Update(entityToUpdate);
-        _trackRepository.SaveChanges();
+      var trackDbModelToUpdate = trackDto.ConvertToTrackDbModel();
 
-        return entityToUpdate.ConvertToTrackDto();
-      }
+      _unitOfWork.TrackRepository.Update(trackDbModelToUpdate);
+      _unitOfWork.Save();
+
+      return trackDbModelToUpdate.ConvertToTrackDto();
     }
 
-    public void Delete(int id)
+    public void Delete(int trackId)
     {
-      using (_trackRepository)
-      {
-        _trackRepository.Delete(id);
-        _trackRepository.SaveChanges(); 
-      }
+      if (!_unitOfWork.TrackRepository.Exists(x => x.TrackId == trackId)) return;
+
+      _unitOfWork.TrackRepository.Delete(trackId);
+      _unitOfWork.Save();
     }
 
     #region Disposal
@@ -83,7 +71,7 @@ namespace LunchAndLearn.Management
       {
         if (disposing)
         {
-          _trackRepository.Dispose();
+          _unitOfWork.Dispose();
         }
       }
       this._disposed = true;

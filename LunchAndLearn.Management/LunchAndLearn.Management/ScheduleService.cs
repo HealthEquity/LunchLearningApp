@@ -13,92 +13,68 @@ namespace LunchAndLearn.Management
 {
   public class ScheduleService : IScheduleService
   {
-    private readonly IScheduleRepository _scheduleRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public ScheduleService(IScheduleRepository scheduleRepository)
+    public ScheduleService(IUnitOfWork unitOfWork)
     {
-      _scheduleRepository = scheduleRepository;
+      _unitOfWork = unitOfWork;
     }
 
     public ScheduleDto Get(int id)
     {
-      Schedule schedule;
-      using (_scheduleRepository)
-      {
-        schedule = _scheduleRepository.Get(id);
-      }
-
-      return schedule?.ConvertToScheduleDto();
+      return _unitOfWork.ScheduleRepository.GetById(id)?.ConvertToScheduleDto();
     }
 
     public List<ScheduleDto> GetAll()
     {
-      using (_scheduleRepository)
-      {
-        var scheduleList = _scheduleRepository.GetAll().ToList();
-        return scheduleList.Select(x => x.ConvertToScheduleDto()).ToList();
-      }
+      return _unitOfWork.ScheduleRepository.Get().Select(x => x.ConvertToScheduleDto()).ToList();
     }
 
     public ScheduleDto Create(ScheduleDto scheduleDto)
     {
-      using (_scheduleRepository)
-      {
-        var scheduleDbModel = scheduleDto.ConvertToScheduleDbModel();
+      var scheduleDbModel = scheduleDto.ConvertToScheduleDbModel();
 
-        _scheduleRepository.Create(scheduleDbModel);
-        _scheduleRepository.SaveChanges();
+      _unitOfWork.ScheduleRepository.Insert(scheduleDbModel);
+      _unitOfWork.Save();
 
-        return scheduleDbModel.ConvertToScheduleDto();
-      }
+      return scheduleDbModel.ConvertToScheduleDto();
     }
 
     public ScheduleDto Update(ScheduleDto scheduleDto)
     {
-      using (_scheduleRepository)
-      {
-        if (!_scheduleRepository.Exists(x => x.ScheduleId == scheduleDto.ScheduleId)) return null;
+      if (!_unitOfWork.ScheduleRepository.Exists(x => x.ScheduleId == scheduleDto.ScheduleId)) return null;
 
-        var entityToBeUpdated = scheduleDto.ConvertToScheduleDbModel();
+      var scheduleDbModelToBeUpdated = scheduleDto.ConvertToScheduleDbModel();
 
-        _scheduleRepository.Update(entityToBeUpdated);
-        _scheduleRepository.SaveChanges();
+      _unitOfWork.ScheduleRepository.Update(scheduleDbModelToBeUpdated);
+      _unitOfWork.Save();
 
-        return entityToBeUpdated.ConvertToScheduleDto();
-      }
+      return scheduleDbModelToBeUpdated.ConvertToScheduleDto();
     }
 
     public void Delete(int scheduleId)
     {
-      using (_scheduleRepository)
-      {
-        if (!_scheduleRepository.Exists(x => x.ScheduleId == scheduleId)) return;
+      if (!_unitOfWork.ScheduleRepository.Exists(x => x.ScheduleId == scheduleId)) return;
 
-        _scheduleRepository.Delete(scheduleId);
-        _scheduleRepository.SaveChanges();
-      }
+      _unitOfWork.ScheduleRepository.Delete(scheduleId);
+      _unitOfWork.Save();
     }
 
     public List<ScheduleDetailDto> GetDetailedSchedulesForSpecificDate(DateTime searchStartDate)
     {
-      using (_scheduleRepository)
-      {
-        var searchEndDate = searchStartDate.Date.AddDays(1);
-        var scheduleCollection = _scheduleRepository.GetSchedulesWithConditionEagerLoaded(x => x.ClassDate >= searchStartDate && x.ClassDate < searchEndDate)
+      var searchEndDate = searchStartDate.Date.AddDays(1);
+      return
+        _unitOfWork.ScheduleRepository.Get(
+            filter: x => x.ClassDate >= searchStartDate && x.ClassDate < searchEndDate,
+            orderBy: s => s.OrderByDescending(a => a.ClassDate),
+            includeProperties: "class,instructor,track,room")
+          .Select(x => x.ConvertToScheduleDetailDto())
           .ToList();
-
-        return scheduleCollection.Select(x => x.ConvertToScheduleDetailDto()).ToList();
-      }
     }
 
     public ScheduleDetailDto GetDetailedScheduleById(int scheduleId)
     {
-      using (_scheduleRepository)
-      {
-        var schedule =
-          _scheduleRepository.GetSchedulesWithConditionEagerLoaded(x => x.ScheduleId == scheduleId).FirstOrDefault();
-        return schedule?.ConvertToScheduleDetailDto();
-      }
+      return _unitOfWork.ScheduleRepository.GetById(scheduleId)?.ConvertToScheduleDetailDto();
     }
 
 
@@ -111,7 +87,7 @@ namespace LunchAndLearn.Management
       {
         if (disposing)
         {
-          _scheduleRepository.Dispose();
+          _unitOfWork.Dispose();
         }
       }
       this._disposed = true;

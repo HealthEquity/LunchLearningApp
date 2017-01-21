@@ -13,63 +13,51 @@ namespace LunchAndLearn.Management
 {
   public class RatingService : IRatingService
   {
-    private readonly IRatingRepository _ratingRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public RatingService(IRatingRepository ratingRepository)
+    public RatingService(IUnitOfWork unitOfWork)
     {
-      _ratingRepository = ratingRepository;
+      _unitOfWork = unitOfWork;
     }
 
-    public RatingDto Get(int id)
+    public RatingDto Get(int ratingId)
     {
-      using (_ratingRepository)
-      {
-        return _ratingRepository.Get(id).ConvertToRatingDto();
-      }
+      return _unitOfWork.RatingRepository.GetById(ratingId)?.ConvertToRatingDto();
     }
 
     public List<RatingDto> GetAll()
     {
-      using (_ratingRepository)
-      {
-        var ratingList =_ratingRepository.GetAll().ToList();
-        return ratingList.Select(x => x.ConvertToRatingDto()).ToList();
-      }
+      return _unitOfWork.RatingRepository.Get().Select(x => x.ConvertToRatingDto()).ToList();
     }
 
-    public RatingDto Create(RatingDto entity)
+    public RatingDto Create(RatingDto ratingDto)
     {
-      using (_ratingRepository)
-      {
-        var entityToCreate = entity.ConvertToRatingDbModel();
+      var ratingDbModelToCreate = ratingDto.ConvertToRatingDbModel();
 
-        _ratingRepository.Create(entityToCreate);
-        _ratingRepository.SaveChanges();
+      _unitOfWork.RatingRepository.Insert(ratingDbModelToCreate);
+      _unitOfWork.Save();
 
-        return entityToCreate.ConvertToRatingDto();
-      }
+      return ratingDbModelToCreate.ConvertToRatingDto();
     }
 
-    public RatingDto Update(RatingDto entity)
+    public RatingDto Update(RatingDto ratingDto)
     {
-      using (_ratingRepository)
-      {
-        var entityToUpdate = entity.ConvertToRatingDbModel();
+      if (!_unitOfWork.RatingRepository.Exists(x => x.RatingId == ratingDto.RatingId)) return null;
 
-        _ratingRepository.Update(entityToUpdate);
-        _ratingRepository.SaveChanges();
+      var ratingDbModelToUpdate = ratingDto.ConvertToRatingDbModel();
 
-        return entityToUpdate.ConvertToRatingDto();
-      }
+      _unitOfWork.RatingRepository.Update(ratingDbModelToUpdate);
+      _unitOfWork.Save();
+
+      return ratingDbModelToUpdate.ConvertToRatingDto();
     }
 
-    public void Delete(int id)
+    public void Delete(int ratingId)
     {
-      using (_ratingRepository)
-      {
-        _ratingRepository.Delete(id);
-        _ratingRepository.SaveChanges(); 
-      }
+      if (!_unitOfWork.RatingRepository.Exists(x => x.RatingId == ratingId)) return;
+
+      _unitOfWork.RatingRepository.Delete(ratingId);
+      _unitOfWork.Save();
     }
 
     #region Disposal
@@ -81,7 +69,7 @@ namespace LunchAndLearn.Management
       {
         if (disposing)
         {
-          _ratingRepository.Dispose();
+          _unitOfWork.Dispose();
         }
       }
       this._disposed = true;

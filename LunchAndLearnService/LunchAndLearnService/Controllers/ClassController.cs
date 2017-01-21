@@ -91,5 +91,11 @@ namespace LunchAndLearnService.Controllers
       }
       return Ok();
     }
+
+    protected override void Dispose(bool disposing)
+    {
+      _classService.Dispose();
+      base.Dispose(disposing);
+    }
   }
 }

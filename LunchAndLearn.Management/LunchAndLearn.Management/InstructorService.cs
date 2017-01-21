@@ -13,63 +13,53 @@ namespace LunchAndLearn.Management
 {
   public class InstructorService : IInstructorService
   {
-    private readonly IInstructorRepository _instructorRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public InstructorService(IInstructorRepository instructorRepository)
+    public InstructorService(IUnitOfWork unitOfWork)
     {
-      _instructorRepository = instructorRepository;
+      _unitOfWork = unitOfWork;
     }
 
-    public InstructorDto Get(int id)
+    public InstructorDto Get(int instructorId)
     {
-      using (_instructorRepository)
-      {
-        return _instructorRepository.Get(id).ConvertToInstructorDto(); 
-      }
+      return _unitOfWork.InstructorRepository.GetById(instructorId)?.ConvertToInstructorDto();
     }
 
     public List<InstructorDto> GetAll()
     {
-      using (_instructorRepository)
-      {
-        var instructorList = _instructorRepository.GetAll().ToList();
-        return instructorList.Select(x => x.ConvertToInstructorDto()).ToList();
-      }
+      return _unitOfWork.InstructorRepository.Get().Select(x => x.ConvertToInstructorDto()).ToList();
     }
 
-    public InstructorDto Create(InstructorDto entity)
+    public InstructorDto Create(InstructorDto instructorDto)
     {
-      using (_instructorRepository)
-      {
-        var entityToCreate = entity.ConvertToInstructorDbModel();
+      var instructorDbModelToCreate = instructorDto.ConvertToInstructorDbModel();
 
-        _instructorRepository.Create(entityToCreate);
-        _instructorRepository.SaveChanges();
+      _unitOfWork.InstructorRepository.Insert(instructorDbModelToCreate);
+      _unitOfWork.Save();
 
-        return entityToCreate.ConvertToInstructorDto();
-      }
+      return instructorDbModelToCreate.ConvertToInstructorDto();
     }
 
-    public InstructorDto Update(InstructorDto entity)
+    public InstructorDto Update(InstructorDto instructorDto)
     {
-      using (_instructorRepository)
-      {
-        var entityToUpdate = entity.ConvertToInstructorDbModel();
+      if (!_unitOfWork.InstructorRepository.Exists(x => x.InstructorId == instructorDto.InstructorId)) return null;
 
-        _instructorRepository.Update(entityToUpdate);
-        _instructorRepository.SaveChanges();
+      var entityToUpdate = instructorDto.ConvertToInstructorDbModel();
 
-        return entityToUpdate.ConvertToInstructorDto();
-      }
+      _unitOfWork.InstructorRepository.Update(entityToUpdate);
+
+      _unitOfWork.Save();
+
+      return entityToUpdate.ConvertToInstructorDto();
     }
 
-    public void Delete(int id)
+    public void Delete(int instructorId)
     {
-      using (_instructorRepository)
-      {
-        _instructorRepository.Delete(id);
-        _instructorRepository.SaveChanges(); 
-      }
+      if (!_unitOfWork.InstructorRepository.Exists(x => x.InstructorId == instructorId)) return;
+
+      _unitOfWork.InstructorRepository.Delete(instructorId);
+
+      _unitOfWork.Save();
     }
 
     #region Disposal
@@ -81,7 +71,7 @@ namespace LunchAndLearn.Management
       {
         if (disposing)
         {
-          _instructorRepository.Dispose();
+          _unitOfWork.Dispose();
         }
       }
       this._disposed = true;

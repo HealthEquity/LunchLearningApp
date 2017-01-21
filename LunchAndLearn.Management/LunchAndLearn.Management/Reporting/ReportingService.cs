@@ -7,10 +7,10 @@ namespace LunchAndLearn.Management.Reporting
 {
   public class ReportingService : IReportingService
   {
-    private readonly IRatingRepository _ratingRepository;
-    public ReportingService(IRatingRepository ratingRepository)
+    private readonly IUnitOfWork _unitOfWork;
+    public ReportingService(IUnitOfWork unitOfWork)
     {
-      _ratingRepository = ratingRepository;
+      _unitOfWork = unitOfWork;
     }
 
     public OverallInstructorRatingDTO GetAverageRatingForInstructor(int instructorId)
@@ -28,7 +28,7 @@ namespace LunchAndLearn.Management.Reporting
       {
         if (disposing)
         {
-          _ratingRepository.Dispose();
+          _unitOfWork.Dispose();
         }
       }
       this._disposed = true;

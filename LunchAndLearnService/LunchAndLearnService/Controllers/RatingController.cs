@@ -85,5 +85,11 @@ namespace LunchAndLearnService.Controllers
       }
       return Ok();
     }
+
+    protected override void Dispose(bool disposing)
+    {
+      _ratingService.Dispose();
+      base.Dispose(disposing);
+    }
   }
 }

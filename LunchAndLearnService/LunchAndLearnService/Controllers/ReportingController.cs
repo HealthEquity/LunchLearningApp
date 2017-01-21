@@ -37,5 +37,11 @@ namespace LunchAndLearnService.Controllers
 
       return NotFound();
     }
+
+    protected override void Dispose(bool disposing)
+    {
+      _reportingService.Dispose();
+      base.Dispose(disposing);
+    }
   }
 }

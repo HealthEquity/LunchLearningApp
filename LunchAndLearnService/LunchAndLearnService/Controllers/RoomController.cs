@@ -82,5 +82,11 @@ namespace LunchAndLearnService.Controllers
       }
       return Ok();
     }
+
+    protected override void Dispose(bool disposing)
+    {
+      _roomService.Dispose();
+      base.Dispose(disposing);
+    }
   }
 }

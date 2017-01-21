@@ -26,12 +26,7 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(List<ScheduleDto>))]
     public IHttpActionResult GetAll()
     {
-      List<ScheduleDto> schedules;
-      using (_scheduleService)
-      {
-        schedules = _scheduleService.GetAll();
-      }
-      return Ok(schedules);
+      return Ok(_scheduleService.GetAll());
     }
 
     [HttpGet]
@@ -39,12 +34,8 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(ScheduleDto))]
     public IHttpActionResult Get(int id)
     {
-      ScheduleDto schedule;
-      using (_scheduleService)
-      {
-        schedule = _scheduleService.Get(id); 
-      }
-
+      var schedule = _scheduleService.Get(id);
+      
       if (schedule != null)
       {
         return Ok(schedule);
@@ -58,11 +49,8 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(ScheduleDto))]
     public IHttpActionResult Post(ScheduleDto schedule)
     {
-      using (_scheduleService)
-      {
         var response = _scheduleService.Create(schedule);
         return Created(new Uri(Request.RequestUri, $"{response.ScheduleId}"), response);
-      }
     }
 
     [HttpPut]
@@ -70,11 +58,7 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(ScheduleDto))]
     public IHttpActionResult Put(ScheduleDto schedule)
     {
-      ScheduleDto response;
-      using (_scheduleService)
-      {
-        response = _scheduleService.Update(schedule);
-      }
+      var response = _scheduleService.Update(schedule);
 
       if (response != null)
       {
@@ -89,10 +73,7 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(OkResult))]
     public IHttpActionResult Delete(int id)
     {
-      using (_scheduleService)
-      {
-          _scheduleService.Delete(id);
-      }
+      _scheduleService.Delete(id);
       return Ok();
     }
 
@@ -101,12 +82,7 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(List<ScheduleDetailDto>))]
     public IHttpActionResult GetScheduleDetailsForSpecificDate(DateTime date)
     {
-      List<ScheduleDetailDto> scheduleDetailList;
-      using (_scheduleService)
-      {
-        scheduleDetailList = _scheduleService.GetDetailedSchedulesForSpecificDate(date);
-      }
-      return Ok(scheduleDetailList);
+      return Ok(_scheduleService.GetDetailedSchedulesForSpecificDate(date));
     }
 
     [HttpGet]
@@ -114,17 +90,20 @@ namespace LunchAndLearnService.Controllers
     [ResponseType(typeof(ScheduleDetailDto))]
     public IHttpActionResult GetScheduleDetailsById(int scheduleId)
     {
-      ScheduleDetailDto scheduleDetail;
-      using (_scheduleService)
-      {
-        scheduleDetail = _scheduleService.GetDetailedScheduleById(scheduleId);
-      }
+      var scheduleDetail = _scheduleService.GetDetailedScheduleById(scheduleId);
+
       if (scheduleDetail != null)
       {
         return Ok(scheduleDetail);
       }
 
       return NotFound();
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+      _scheduleService.Dispose();
+      base.Dispose(disposing);
     }
   }
 }
