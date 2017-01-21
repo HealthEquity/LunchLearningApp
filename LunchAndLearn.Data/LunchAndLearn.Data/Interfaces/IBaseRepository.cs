@@ -14,7 +14,7 @@ namespace LunchAndLearn.Data.Interfaces
     List<TEntity> GetWithConditions(Expression<Func<TEntity, bool>> whereExpression);
     void Update(TEntity entity);
     void Delete(int id);
-    bool Exists(int id);
+    bool Exists(Expression<Func<TEntity, bool>> condition);
     void SaveChanges();
   }
 }
