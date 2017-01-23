@@ -37,7 +37,7 @@ namespace LunchAndLearn.Management
       var trackDbModelToCreate = trackDto.ConvertToTrackDbModel();
 
       _unitOfWork.TrackRepository.Insert(trackDbModelToCreate);
-      _unitOfWork.Save();
+      _unitOfWork.Commit();
 
       return trackDbModelToCreate.ConvertToTrackDto();
     }
@@ -49,7 +49,7 @@ namespace LunchAndLearn.Management
       var trackDbModelToUpdate = trackDto.ConvertToTrackDbModel();
 
       _unitOfWork.TrackRepository.Update(trackDbModelToUpdate);
-      _unitOfWork.Save();
+      _unitOfWork.Commit();
 
       return trackDbModelToUpdate.ConvertToTrackDto();
     }
@@ -59,7 +59,7 @@ namespace LunchAndLearn.Management
       if (!_unitOfWork.TrackRepository.Exists(x => x.TrackId == trackId)) return;
 
       _unitOfWork.TrackRepository.Delete(trackId);
-      _unitOfWork.Save();
+      _unitOfWork.Commit();
     }
 
     #region Disposal

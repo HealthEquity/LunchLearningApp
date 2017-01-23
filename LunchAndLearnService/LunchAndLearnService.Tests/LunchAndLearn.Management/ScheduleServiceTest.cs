@@ -89,8 +89,8 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
     {
       //arrange
       var expected = _scheduleList.FirstOrDefault(x => x.ScheduleId == idOfScheduleToRetrieve);
-      var mockScheduleRepository = Mock.Create<IScheduleRepository>();
-      Mock.Arrange(() => mockScheduleRepository.Get(Arg.IsAny<int>()))
+      var mockScheduleRepository = Mock.Create<IUnitOfWork>();
+      Mock.Arrange(() => mockScheduleRepository.ScheduleRepository.GetById(Arg.IsAny<int>()))
         .Returns(expected)
         .OccursOnce();
 
@@ -110,8 +110,8 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
     {
       //arrange
       var expected = _scheduleList.FirstOrDefault(x => x.ScheduleId == idOfScheduleToRetrieve);
-      var mockScheduleRepository = Mock.Create<IScheduleRepository>();
-      Mock.Arrange(() => mockScheduleRepository.Get(Arg.IsAny<int>()))
+      var mockScheduleRepository = Mock.Create<IUnitOfWork>();
+      Mock.Arrange(() => mockScheduleRepository.ScheduleRepository.GetById(Arg.IsAny<int>()))
         .Returns(expected)
         .OccursOnce();
 
@@ -134,8 +134,8 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
       var expected = _scheduleList.FirstOrDefault(whereFunc)?.ConvertToScheduleDto();
       var scheduleToUpdate = _scheduleList.FirstOrDefault(whereFunc);
 
-      var mockScheduleRepository = Mock.Create<IScheduleRepository>();
-      Mock.Arrange(() => mockScheduleRepository.Exists(whereExpression2))
+      var mockScheduleRepository = Mock.Create<IUnitOfWork>();
+      Mock.Arrange(() => mockScheduleRepository.ScheduleRepository.Exists(whereExpression2))
         .Returns(true)
         .OccursOnce();
 
@@ -159,8 +159,8 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
 
 
 
-      var mockScheduleRepository = Mock.Create<IScheduleRepository>();
-      Mock.Arrange(() => mockScheduleRepository.Exists(x => x.ScheduleId == idOfScheduleToBeUpdated))
+      var mockScheduleRepository = Mock.Create<IUnitOfWork>();
+      Mock.Arrange(() => mockScheduleRepository.ScheduleRepository.Exists(x => x.ScheduleId == idOfScheduleToBeUpdated))
         .Returns(false)
         .OccursOnce();
 
@@ -190,8 +190,8 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
         ClassDate = DateTime.Now
       };
 
-      var mockRepo = Mock.Create<IScheduleRepository>();
-      Mock.Arrange(() => mockRepo.Create(Arg.IsAny<Schedule>()))
+      var mockRepo = Mock.Create<IUnitOfWork>();
+      Mock.Arrange(() => mockRepo.ScheduleRepository.Insert(Arg.IsAny<Schedule>()))
         .DoInstead(() => _scheduleList.Add(scheduleToCreate))
         .OccursOnce();
 
@@ -210,7 +210,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
     public void GetScheduleDetailsByDate_WhereDateIsTodaysDate_ReturnsOnlySchedulesForThatDate()
     {
       //arrange
-      var mockRepo = Mock.Create<IScheduleRepository>();
+      var mockRepo = Mock.Create<IUnitOfWork>();
       DateTime searchStartDate = DateTime.Now.Date;
       DateTime searchEndDate = DateTime.Now.Date.AddDays(1);
 
@@ -219,7 +219,7 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
 
       var expectedCount = _scheduleList.Count(countFunc);
 
-      Mock.Arrange(() => mockRepo.GetSchedulesWithConditionEagerLoaded(whereExpression))
+      Mock.Arrange(() => mockRepo.ScheduleRepository.Get(whereExpression, null, ""))
         .Returns(() => _scheduleList.Where(countFunc).ToList())
         .OccursOnce();
 
@@ -241,8 +241,8 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
       Expression<Func<Schedule, bool>> whereStatement = x => x.ScheduleId == scheduleId;
       var mockResults = _scheduleList.Where(x => x.ScheduleId == scheduleId).ToList();
       var expected = mockResults.FirstOrDefault();
-      var mockScheduleRepo = Mock.Create<IScheduleRepository>();
-      Mock.Arrange(() => mockScheduleRepo.GetSchedulesWithConditionEagerLoaded(whereStatement))
+      var mockScheduleRepo = Mock.Create<IUnitOfWork>();
+      Mock.Arrange(() => mockScheduleRepo.ScheduleRepository.Get(whereStatement, null, ""))
         .Returns(mockResults)
         .OccursOnce();
 
@@ -265,8 +265,8 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
       var mockResults = _scheduleList.Where(x => x.ScheduleId == scheduleId).ToList();
       var expected = mockResults?.FirstOrDefault()?.ConvertToScheduleDetailDto();
 
-      var mockScheduleRepo = Mock.Create<IScheduleRepository>();
-      Mock.Arrange(() => mockScheduleRepo.GetSchedulesWithConditionEagerLoaded(x => x.ScheduleId == scheduleId))
+      var mockScheduleRepo = Mock.Create<IUnitOfWork>();
+      Mock.Arrange(() => mockScheduleRepo.ScheduleRepository.Get(x => x.ScheduleId == scheduleId, null, ""))
         .Returns(mockResults)
         .OccursOnce();
 

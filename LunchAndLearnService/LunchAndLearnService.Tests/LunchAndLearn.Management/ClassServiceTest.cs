@@ -64,8 +64,8 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
         ClassName = "test class name"
       };
 
-      var mockRepo = Mock.Create<IClassRepository>();
-      Mock.Arrange(() => mockRepo.Create(Arg.IsAny<Class>()))
+      var mockRepo = Mock.Create<IUnitOfWork>();
+      Mock.Arrange(() => mockRepo.ClassRepository.Insert(Arg.IsAny<Class>()))
         .DoInstead(() => _dbClassList.Add(classToBeCreated))
         .OccursOnce();
 
@@ -85,8 +85,8 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
     public void GetClassById_WhereIdExists_ReturnsNonNullClassDto([Values(1,2,3)]int id)
     {
       //arrange
-      var mockClassRepo = Mock.Create<IClassRepository>();
-      Mock.Arrange(() => mockClassRepo.Get(Arg.IsAny<int>()))
+      var mockClassRepo = Mock.Create<IUnitOfWork>();
+      Mock.Arrange(() => mockClassRepo.ClassRepository.GetById(Arg.IsAny<int>()))
         .Returns(_dbClassList.FirstOrDefault(x => x.ClassId == id))
         .OccursOnce();
 
@@ -104,8 +104,8 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
     public void GetAll_UnderNormalConditions_ReturnsListOfClassDtos()
     {
       //arrange
-      var mockClassRepo = Mock.Create<IClassRepository>();
-      Mock.Arrange(() => mockClassRepo.GetAll()).Returns(_dbClassList).OccursOnce();
+      var mockClassRepo = Mock.Create<IUnitOfWork>();
+      Mock.Arrange(() => mockClassRepo.ClassRepository.Get(null, null, null)).Returns(_dbClassList).OccursOnce();
 
       _classService = new ClassService(mockClassRepo);
       //act
@@ -123,8 +123,8 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
       //arrange
       const string update = "UPDATED";
       var classToBeUpdated = _dbClassList.FirstOrDefault(x => x.ClassId == id);
-      var mockClassRepo = Mock.Create<IClassRepository>();
-      Mock.Arrange(() => mockClassRepo.Update(Arg.IsAny<Class>()))
+      var mockClassRepo = Mock.Create<IUnitOfWork>();
+      Mock.Arrange(() => mockClassRepo.ClassRepository.Update(Arg.IsAny<Class>()))
         .DoInstead(() =>
         {
           var updatedClass = _dbClassList.FirstOrDefault(x => x.ClassId == id);
@@ -149,8 +149,8 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
       //arrange
       var classToBeDeleted = _dbClassList.FirstOrDefault(x => x.ClassId == id);
       var originalCountOfClasses = _dbClassList.Count;
-      var mockClassRepo = Mock.Create<IClassRepository>();
-      Mock.Arrange(() => mockClassRepo.Delete(id)).DoInstead(() => _dbClassList.RemoveAt(id - 1)).OccursOnce();
+      var mockClassRepo = Mock.Create<IUnitOfWork>();
+      Mock.Arrange(() => mockClassRepo.ClassRepository.Delete(Arg.IsAny<Class>())).DoInstead(() => _dbClassList.RemoveAt(id - 1)).OccursOnce();
 
       _classService = new ClassService(mockClassRepo);
 

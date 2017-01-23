@@ -38,7 +38,7 @@ namespace LunchAndLearn.Management
       var entityToCreate = entity.ConvertToClassDbModel();
 
       _unitOfWork.ClassRepository.Insert(entityToCreate);
-      _unitOfWork.Save();
+      _unitOfWork.Commit();
 
       return entityToCreate.ConvertToClassDto();
     }
@@ -50,7 +50,7 @@ namespace LunchAndLearn.Management
       var entityToUpdate = entity.ConvertToClassDbModel();
 
       _unitOfWork.ClassRepository.Update(entityToUpdate);
-      _unitOfWork.Save();
+      _unitOfWork.Commit();
 
       return entityToUpdate.ConvertToClassDto();
     }
@@ -60,7 +60,7 @@ namespace LunchAndLearn.Management
       if (!_unitOfWork.ClassRepository.Exists(x => x.ClassId == id)) return;
 
       _unitOfWork.ClassRepository.Delete(id);
-      _unitOfWork.Save();
+      _unitOfWork.Commit();
     }
 
     #region Disposal

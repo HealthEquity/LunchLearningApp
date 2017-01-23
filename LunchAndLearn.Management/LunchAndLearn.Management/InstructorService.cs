@@ -35,7 +35,7 @@ namespace LunchAndLearn.Management
       var instructorDbModelToCreate = instructorDto.ConvertToInstructorDbModel();
 
       _unitOfWork.InstructorRepository.Insert(instructorDbModelToCreate);
-      _unitOfWork.Save();
+      _unitOfWork.Commit();
 
       return instructorDbModelToCreate.ConvertToInstructorDto();
     }
@@ -48,7 +48,7 @@ namespace LunchAndLearn.Management
 
       _unitOfWork.InstructorRepository.Update(entityToUpdate);
 
-      _unitOfWork.Save();
+      _unitOfWork.Commit();
 
       return entityToUpdate.ConvertToInstructorDto();
     }
@@ -59,7 +59,7 @@ namespace LunchAndLearn.Management
 
       _unitOfWork.InstructorRepository.Delete(instructorId);
 
-      _unitOfWork.Save();
+      _unitOfWork.Commit();
     }
 
     #region Disposal

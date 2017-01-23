@@ -64,8 +64,8 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
         RoomName = "room name 5"
       };
 
-      var mockRepo = Mock.Create<IRoomRepository>();
-      Mock.Arrange(() => mockRepo.Create(Arg.IsAny<Room>())).DoInstead(() => _roomList.Add(roomToCreate)).OccursOnce();
+      var mockRepo = Mock.Create<IUnitOfWork>();
+      Mock.Arrange(() => mockRepo.RoomRepository.Insert(Arg.IsAny<Room>())).DoInstead(() => _roomList.Add(roomToCreate)).OccursOnce();
 
       _roomService = new RoomService(mockRepo);
 

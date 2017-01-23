@@ -36,7 +36,7 @@ namespace LunchAndLearn.Management
       var entityToCreate = roomDto.ConvertToRoomDbModel();
 
       _unitOfWork.RoomRepository.Insert(entityToCreate);
-      _unitOfWork.Save();
+      _unitOfWork.Commit();
 
       return entityToCreate.ConvertToRoomDto();
     }
@@ -48,7 +48,7 @@ namespace LunchAndLearn.Management
       var roomDbModelToUpdate = roomDto.ConvertToRoomDbModel();
 
       _unitOfWork.RoomRepository.Update(roomDbModelToUpdate);
-      _unitOfWork.Save();
+      _unitOfWork.Commit();
 
       return roomDbModelToUpdate.ConvertToRoomDto();
     }
@@ -58,7 +58,7 @@ namespace LunchAndLearn.Management
       if (!_unitOfWork.RoomRepository.Exists(x => x.RoomId == roomId)) return;
 
       _unitOfWork.RoomRepository.Delete(roomId);
-      _unitOfWork.Save();
+      _unitOfWork.Commit();
     }
 
     #region Disposal

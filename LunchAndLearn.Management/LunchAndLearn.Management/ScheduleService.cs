@@ -35,7 +35,7 @@ namespace LunchAndLearn.Management
       var scheduleDbModel = scheduleDto.ConvertToScheduleDbModel();
 
       _unitOfWork.ScheduleRepository.Insert(scheduleDbModel);
-      _unitOfWork.Save();
+      _unitOfWork.Commit();
 
       return scheduleDbModel.ConvertToScheduleDto();
     }
@@ -47,7 +47,7 @@ namespace LunchAndLearn.Management
       var scheduleDbModelToBeUpdated = scheduleDto.ConvertToScheduleDbModel();
 
       _unitOfWork.ScheduleRepository.Update(scheduleDbModelToBeUpdated);
-      _unitOfWork.Save();
+      _unitOfWork.Commit();
 
       return scheduleDbModelToBeUpdated.ConvertToScheduleDto();
     }
@@ -57,7 +57,7 @@ namespace LunchAndLearn.Management
       if (!_unitOfWork.ScheduleRepository.Exists(x => x.ScheduleId == scheduleId)) return;
 
       _unitOfWork.ScheduleRepository.Delete(scheduleId);
-      _unitOfWork.Save();
+      _unitOfWork.Commit();
     }
 
     public List<ScheduleDetailDto> GetDetailedSchedulesForSpecificDate(DateTime searchStartDate)

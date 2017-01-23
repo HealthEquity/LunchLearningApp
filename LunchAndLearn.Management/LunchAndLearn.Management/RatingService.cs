@@ -35,7 +35,7 @@ namespace LunchAndLearn.Management
       var ratingDbModelToCreate = ratingDto.ConvertToRatingDbModel();
 
       _unitOfWork.RatingRepository.Insert(ratingDbModelToCreate);
-      _unitOfWork.Save();
+      _unitOfWork.Commit();
 
       return ratingDbModelToCreate.ConvertToRatingDto();
     }
@@ -47,7 +47,7 @@ namespace LunchAndLearn.Management
       var ratingDbModelToUpdate = ratingDto.ConvertToRatingDbModel();
 
       _unitOfWork.RatingRepository.Update(ratingDbModelToUpdate);
-      _unitOfWork.Save();
+      _unitOfWork.Commit();
 
       return ratingDbModelToUpdate.ConvertToRatingDto();
     }
@@ -57,7 +57,7 @@ namespace LunchAndLearn.Management
       if (!_unitOfWork.RatingRepository.Exists(x => x.RatingId == ratingId)) return;
 
       _unitOfWork.RatingRepository.Delete(ratingId);
-      _unitOfWork.Save();
+      _unitOfWork.Commit();
     }
 
     #region Disposal

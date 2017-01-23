@@ -19,26 +19,26 @@ namespace LunchAndLearn.Data
     }
 
 
-    private GenericRepository<Class> _classRepository;
-    private GenericRepository<Instructor> _instructorRepository;
-    private GenericRepository<Rating> _ratingRepository;
-    private GenericRepository<Room> _roomRepository;
-    private GenericRepository<Schedule> _scheduleRepository;
-    private GenericRepository<Track> _trackRepository;
+    private IGenericRepository<Class> _classRepository;
+    private IGenericRepository<Instructor> _instructorRepository;
+    private IGenericRepository<Rating> _ratingRepository;
+    private IGenericRepository<Room> _roomRepository;
+    private IGenericRepository<Schedule> _scheduleRepository;
+    private IGenericRepository<Track> _trackRepository;
 
-    public GenericRepository<Class> ClassRepository => _classRepository ?? (_classRepository = new GenericRepository<Class>(_context));
+    public IGenericRepository<Class> ClassRepository => _classRepository ?? (_classRepository = new GenericRepository<Class>(_context));
 
-    public GenericRepository<Instructor> InstructorRepository => _instructorRepository ?? (_instructorRepository = new GenericRepository<Instructor>(_context));
+    public IGenericRepository<Instructor> InstructorRepository => _instructorRepository ?? (_instructorRepository = new GenericRepository<Instructor>(_context));
 
-    public GenericRepository<Rating> RatingRepository => _ratingRepository ?? (_ratingRepository = new GenericRepository<Rating>(_context));
+    public IGenericRepository<Rating> RatingRepository => _ratingRepository ?? (_ratingRepository = new GenericRepository<Rating>(_context));
 
-    public GenericRepository<Room> RoomRepository => _roomRepository ?? (_roomRepository = new GenericRepository<Room>(_context));
+    public IGenericRepository<Room> RoomRepository => _roomRepository ?? (_roomRepository = new GenericRepository<Room>(_context));
 
-    public GenericRepository<Schedule> ScheduleRepository => _scheduleRepository ?? (_scheduleRepository = new GenericRepository<Schedule>(_context));
+    public IGenericRepository<Schedule> ScheduleRepository => _scheduleRepository ?? (_scheduleRepository = new GenericRepository<Schedule>(_context));
 
-    public GenericRepository<Track> TrackRepository => _trackRepository ?? (_trackRepository = new GenericRepository<Track>(_context));
+    public IGenericRepository<Track> TrackRepository => _trackRepository ?? (_trackRepository = new GenericRepository<Track>(_context));
 
-    public void Save()
+    public void Commit()
     {
       _context.SaveChanges();
     }
