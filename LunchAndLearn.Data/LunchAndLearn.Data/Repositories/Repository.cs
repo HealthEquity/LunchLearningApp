@@ -7,12 +7,12 @@ using LunchAndLearn.Data.Interfaces;
 
 namespace LunchAndLearn.Data.Repositories
 {
-  public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
+  public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
   {
     internal LunchAndLearnContext DbContext;
     internal DbSet<TEntity> DbSet;
 
-    public GenericRepository(LunchAndLearnContext context)
+    public Repository(LunchAndLearnContext context)
     {
       DbContext = context;
       DbSet = context.Set<TEntity>();

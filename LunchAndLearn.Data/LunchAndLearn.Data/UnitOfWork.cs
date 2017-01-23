@@ -19,24 +19,24 @@ namespace LunchAndLearn.Data
     }
 
 
-    private IGenericRepository<Class> _classRepository;
-    private IGenericRepository<Instructor> _instructorRepository;
-    private IGenericRepository<Rating> _ratingRepository;
-    private IGenericRepository<Room> _roomRepository;
-    private IGenericRepository<Schedule> _scheduleRepository;
-    private IGenericRepository<Track> _trackRepository;
+    private IRepository<Class> _classRepository;
+    private IRepository<Instructor> _instructorRepository;
+    private IRepository<Rating> _ratingRepository;
+    private IRepository<Room> _roomRepository;
+    private IRepository<Schedule> _scheduleRepository;
+    private IRepository<Track> _trackRepository;
 
-    public IGenericRepository<Class> ClassRepository => _classRepository ?? (_classRepository = new GenericRepository<Class>(_context));
+    public IRepository<Class> ClassRepository => _classRepository ?? (_classRepository = new Repository<Class>(_context));
 
-    public IGenericRepository<Instructor> InstructorRepository => _instructorRepository ?? (_instructorRepository = new GenericRepository<Instructor>(_context));
+    public IRepository<Instructor> InstructorRepository => _instructorRepository ?? (_instructorRepository = new Repository<Instructor>(_context));
 
-    public IGenericRepository<Rating> RatingRepository => _ratingRepository ?? (_ratingRepository = new GenericRepository<Rating>(_context));
+    public IRepository<Rating> RatingRepository => _ratingRepository ?? (_ratingRepository = new Repository<Rating>(_context));
 
-    public IGenericRepository<Room> RoomRepository => _roomRepository ?? (_roomRepository = new GenericRepository<Room>(_context));
+    public IRepository<Room> RoomRepository => _roomRepository ?? (_roomRepository = new Repository<Room>(_context));
 
-    public IGenericRepository<Schedule> ScheduleRepository => _scheduleRepository ?? (_scheduleRepository = new GenericRepository<Schedule>(_context));
+    public IRepository<Schedule> ScheduleRepository => _scheduleRepository ?? (_scheduleRepository = new Repository<Schedule>(_context));
 
-    public IGenericRepository<Track> TrackRepository => _trackRepository ?? (_trackRepository = new GenericRepository<Track>(_context));
+    public IRepository<Track> TrackRepository => _trackRepository ?? (_trackRepository = new Repository<Track>(_context));
 
     public void Commit()
     {

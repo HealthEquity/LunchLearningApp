@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace LunchAndLearn.Data.Interfaces
 {
-  public interface IGenericRepository<TEntity> where TEntity : class
+  public interface IRepository<TEntity> where TEntity : class
   {
     IEnumerable<TEntity> Get(
       Expression<Func<TEntity, bool>> filter = null,

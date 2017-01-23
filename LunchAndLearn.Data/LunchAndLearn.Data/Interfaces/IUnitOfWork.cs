@@ -6,12 +6,12 @@ namespace LunchAndLearn.Data.Interfaces
 {
   public interface IUnitOfWork : IDisposable
   {
-    IGenericRepository<Class> ClassRepository { get; }
-    IGenericRepository<Instructor> InstructorRepository { get; }
-    IGenericRepository<Rating> RatingRepository { get; }
-    IGenericRepository<Room> RoomRepository { get; }
-    IGenericRepository<Schedule> ScheduleRepository { get; }
-    IGenericRepository<Track> TrackRepository { get; }
+    IRepository<Class> ClassRepository { get; }
+    IRepository<Instructor> InstructorRepository { get; }
+    IRepository<Rating> RatingRepository { get; }
+    IRepository<Room> RoomRepository { get; }
+    IRepository<Schedule> ScheduleRepository { get; }
+    IRepository<Track> TrackRepository { get; }
     void Commit();
   }
 }
