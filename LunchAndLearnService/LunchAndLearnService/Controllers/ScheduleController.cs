@@ -126,5 +126,18 @@ namespace LunchAndLearnService.Controllers
 
       return NotFound();
     }
+
+    [HttpGet]
+    [Route("mobile/scheduleDetailsForWeek/{dateTime}")]
+    [ResponseType(typeof(List<ScheduleDetailDto>))]
+    public IHttpActionResult GetDetailedSchedulesForWeek(DateTime dateTime)
+    {
+      List<ScheduleDetailDto> detailedScheduleList;
+      using (_scheduleService)
+      {
+        detailedScheduleList = _scheduleService.GetDetailedSchedulesForWeek(dateTime);
+      }
+      return Ok(detailedScheduleList);
+    }
   }
 }

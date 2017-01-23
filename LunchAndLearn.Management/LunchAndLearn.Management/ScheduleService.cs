@@ -101,6 +101,19 @@ namespace LunchAndLearn.Management
       }
     }
 
+    public List<ScheduleDetailDto> GetDetailedSchedulesForWeek(DateTime searchDate)
+    {
+      var searchDateDayOfWeek = (int)searchDate.DayOfWeek;
+      var beginningSearchDateOfWeek = searchDate.Date.AddDays(-searchDateDayOfWeek);
+      var endSearchDateOfWeek = beginningSearchDateOfWeek.AddDays(7);
+
+      var scheduleDetailList =
+        _scheduleRepository.GetSchedulesWithConditionEagerLoaded(
+          x => x.ClassDate >= beginningSearchDateOfWeek && x.ClassDate < endSearchDateOfWeek);
+
+      return scheduleDetailList.Select(x => x.ConvertToScheduleDetailDto()).ToList();
+    }
+
 
     #region Disposal
     private bool _disposed = false;
