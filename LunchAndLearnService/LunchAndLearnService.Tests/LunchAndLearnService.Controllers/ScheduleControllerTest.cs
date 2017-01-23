@@ -315,6 +315,37 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
       Assert.That(actual, Is.Not.Null);
       Assert.That(actual, Is.TypeOf(typeof(NotFoundResult)));
     }
+
+    [Test]
+    public void GetSchedulesByDateForCurrentWeek_ReturnsListOfClassesWithDatesInsideTheCurrentWeek()
+    {
+      //arrange
+      var searchDateDayOfWeek = (int)DateTime.Now.DayOfWeek;
+      var beginningSearchDateOfWeek = DateTime.Now.Date.AddDays(-searchDateDayOfWeek);
+      var endSearchDateOfWeek = beginningSearchDateOfWeek.AddDays(7);
+
+      var expected =
+        _scheduleDetailList.Where(
+          x => x.ClassDate >= beginningSearchDateOfWeek && x.ClassDate < endSearchDateOfWeek);
+
+
+      var todaysDate = DateTime.Now.Date;
+      var mockScheduleService = Mock.Create<IScheduleService>();
+      Mock.Arrange(() => mockScheduleService.GetDetailedSchedulesForWeek(todaysDate)).Returns(_scheduleDetailList).OccursOnce();
+
+      var scheduleController = new ScheduleController(mockScheduleService);
+
+      //act
+      var actual =
+        scheduleController.GetDetailedSchedulesForWeek(todaysDate) as OkNegotiatedContentResult<List<ScheduleDetailDto>>;
+      var actualContent = actual.Content;
+
+      //assert
+      Mock.Assert(mockScheduleService);
+      Assert.That(actual, Is.Not.Null);
+      Assert.That(actualContent, Is.Not.Null);
+      Assert.That(actualContent, Is.EqualTo(expected));
+    }
   }
 
 }

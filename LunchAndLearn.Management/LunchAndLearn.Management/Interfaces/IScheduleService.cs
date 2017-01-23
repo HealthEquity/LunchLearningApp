@@ -8,5 +8,6 @@ namespace LunchAndLearn.Management.Interfaces
   {
     List<ScheduleDetailDto> GetDetailedSchedulesForSpecificDate(DateTime searchStartDate);
     ScheduleDetailDto GetDetailedScheduleById(int scheduleId);
+    List<ScheduleDetailDto> GetDetailedSchedulesForWeek(DateTime date);
   }
 }

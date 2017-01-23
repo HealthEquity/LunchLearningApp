@@ -100,6 +100,14 @@ namespace LunchAndLearnService.Controllers
       return NotFound();
     }
 
+    [HttpGet]
+    [Route("mobile/scheduleDetailsForWeek/{dateTime}")]
+    [ResponseType(typeof(List<ScheduleDetailDto>))]
+    public IHttpActionResult GetDetailedSchedulesForWeek(DateTime dateTime)
+    {
+      return Ok(_scheduleService.GetDetailedSchedulesForWeek(dateTime));
+    }
+
     protected override void Dispose(bool disposing)
     {
       _scheduleService.Dispose();

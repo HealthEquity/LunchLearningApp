@@ -14,6 +14,7 @@ namespace LunchAndLearn.Management
   public class ScheduleService : IScheduleService
   {
     private readonly IUnitOfWork _unitOfWork;
+    private const string EagerLoadIncludePropertiesAll = "class,instructor,track,room";
 
     public ScheduleService(IUnitOfWork unitOfWork)
     {
@@ -67,7 +68,7 @@ namespace LunchAndLearn.Management
         _unitOfWork.ScheduleRepository.Get(
             filter: x => x.ClassDate >= searchStartDate && x.ClassDate < searchEndDate,
             orderBy: s => s.OrderByDescending(a => a.ClassDate),
-            includeProperties: "class,instructor,track,room")
+            includeProperties: EagerLoadIncludePropertiesAll)
           .Select(x => x.ConvertToScheduleDetailDto())
           .ToList();
     }
@@ -75,6 +76,22 @@ namespace LunchAndLearn.Management
     public ScheduleDetailDto GetDetailedScheduleById(int scheduleId)
     {
       return _unitOfWork.ScheduleRepository.GetById(scheduleId)?.ConvertToScheduleDetailDto();
+    }
+
+    public List<ScheduleDetailDto> GetDetailedSchedulesForWeek(DateTime searchDate)
+    {
+      var searchDateDayOfWeek = (int)searchDate.DayOfWeek;
+      var beginningSearchDateOfWeek = searchDate.Date.AddDays(-searchDateDayOfWeek);
+      var endSearchDateOfWeek = beginningSearchDateOfWeek.AddDays(7);
+
+
+      return
+        _unitOfWork.ScheduleRepository.Get(
+            filter: x => x.ClassDate >= beginningSearchDateOfWeek && x.ClassDate < endSearchDateOfWeek,
+            orderBy: x => x.OrderByDescending(a => a.ClassDate),
+            includeProperties: EagerLoadIncludePropertiesAll)
+          .Select(x => x.ConvertToScheduleDetailDto())
+          .ToList();
     }
 
 
