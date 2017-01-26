@@ -1,3 +1,27 @@
+<form class="form-horizontal" novalidate (submit)="createRoom(newRoom)" [formGroup]="newRoom">
+  <fieldset>
+  <div class="form-group">
+    <label for="roomName" class="col-lg-2 control-label">Room Name</label>
+    <div class="col-lg-10">
+    <input type="text"  class="form-control" placeholder="Room name" formControlName="roomName">
+    </div>
+      <div class="error" *ngIf="newRoom.get('roomName').hasError('required') && newRoom.get('roomName').touched">
+    Room Name is required
+  </div>
+  </div>
+  <div class="form-group">
+    <label for="roomDescription" class="col-lg-2 control-label">Room Description</label>
+    <div class="col-lg-10">
+      <input type="text"  class="form-control" placeholder="Description of Room" formControlName="roomDescription">
+    </div>
+  </div>
+      <div class="form-group">
+      <div class="col-lg-10 col-lg-offset-2">
+        <button type="submit" class="btn btn-primary" [disabled]="newRoom.invalid">Create Room</button>
+      </div>
+    </div>
+  </fieldset>
+</form>
 <div class="container-fluid">
     <div class="row">
     <div class="col-md-12">

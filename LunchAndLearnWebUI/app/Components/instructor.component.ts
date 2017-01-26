@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Instructor } from '../Models/instructor';
 import { InstructorService } from '../Services/instructor.service';
 
@@ -12,21 +12,30 @@ import { InstructorService } from '../Services/instructor.service';
 })
 export class InstructorComponent implements OnInit {
  instructors: Instructor[] = [];
-
+ newInstructor: FormGroup;
   constructor(
     private router: Router,
-    private InstructorService: InstructorService) {
+    private formBuilder: FormBuilder,
+    private instructorService: InstructorService) {
   }
 
   ngOnInit(): void {
-       this.InstructorService.getInstructors()
+       this.instructorService.getInstructors()
             .subscribe(
             value => this.instructors = value
             );
+
+       this.newInstructor = this.formBuilder.group({
+            instructorName: ['', [Validators.required]],
+            isActive: ['']
+        });    
   }
 
-//   gotoDetail(hero: Hero): void {
-//     let link = ['/detail', hero.id];
-//     this.router.navigate(link);
-//   }
+    createInstructor({ value, valid }: {value: Instructor, valid: boolean}) {
+      this.instructorService.create(value)
+      .subscribe(
+      value => this.instructors.push(value));
+      this.newInstructor.reset();
+  }
+
 }

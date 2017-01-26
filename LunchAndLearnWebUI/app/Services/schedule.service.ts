@@ -37,15 +37,14 @@ export class ScheduleService {
 
    create(schedule: Schedule) {
     return this.http
-      .post(this.scheduleUrl, JSON.stringify(schedule), {headers: this.headers})
-      .map(res => res.json().data)
+      .post(this.scheduleUrl + 'create', JSON.stringify(schedule), {headers: this.headers})
+      .map((res: Response) => res.json())
       .catch(this.handleError);
   }
   
   update(schedule: Schedule) {
-    const url = `${this.scheduleUrl}/${schedule.id}`;
     return this.http
-      .put(url, JSON.stringify(schedule), {headers: this.headers})
+      .put(this.scheduleUrl + 'update', JSON.stringify(schedule), {headers: this.headers})
       .map(() => schedule)
       .catch(this.handleError);
   }

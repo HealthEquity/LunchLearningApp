@@ -38,8 +38,8 @@ export class RoomService {
 
    create(room: Room) {
     return this.http
-      .post(this.roomUrl, JSON.stringify(room), {headers: this.headers})
-      .map(res => res.json().data)
+      .post(this.roomUrl + 'create', JSON.stringify(room), {headers: this.headers})
+      .map((res: Response) => res.json())
       .catch(this.handleError);
   }
   

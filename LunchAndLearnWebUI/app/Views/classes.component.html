@@ -1,24 +1,30 @@
-<div>
-<form novalidate (submit)="createClass(newClass)" [formGroup]="newClass">
-      <label>
-        <span>Class name</span>
-        <input type="text" placeholder="Class name" formControlName="className">
-      </label>
-      <div class="error" *ngIf="newClass.get('className').hasError('required') && newClass.get('className').touched">
-        Class Name is required
+<form class="form-horizontal" novalidate (submit)="createClass(newClass)" [formGroup]="newClass">
+  <fieldset>
+  <div class="form-group">
+    <label for="className" class="col-lg-2 control-label">Class Name</label>
+    <div class="col-lg-10">
+    <input type="text"  class="form-control" placeholder="Class name" formControlName="className">
+    <div class="has-error" *ngIf="newClass.get('className').hasError('required') && newClass.get('className').touched">
+    Class Name is required
+    </div>
+    <div class="error" *ngIf="newClass.get('className').hasError('minlength') && newClass.get('className').touched">
+    Minimum of 2 characters
+    </div>
+  </div>  
+  </div>
+  <div class="form-group">
+    <label for="classDescription" class="col-lg-2 control-label">Class Description</label>
+    <div class="col-lg-10">
+      <input type="text"  class="form-control" placeholder="Description of Class" formControlName="classDescription">
+    </div>
+  </div>
+      <div class="form-group">
+      <div class="col-lg-10 col-lg-offset-2">
+        <button type="submit" class="btn btn-primary" [disabled]="newClass.invalid">Create Class</button>
       </div>
-      <div class="error" *ngIf="newClass.get('className').hasError('minlength') && newClass.get('className').touched">
-        Minimum of 2 characters
-      </div>
-      <div>
-        <label>
-          <span>Class Description</span>
-          <input type="text" placeholder="Description of Class" formControlName="classDescription">
-        </label>
-      </div>
-      <button type="submit" [disabled]="newClass.invalid">Create Class</button>
-    </form>
-</div>
+    </div>
+  </fieldset>
+</form>
 <div class="container-fluid">
     <div class="row">
     <div class="col-md-12">

@@ -38,8 +38,8 @@ export class TrackService {
 
    create(track: Track) {
     return this.http
-      .post(this.trackUrl, JSON.stringify(track), {headers: this.headers})
-      .map(res => res.json().data)
+      .post(this.trackUrl + 'create', JSON.stringify(track), {headers: this.headers})
+      .map((res: Response) => res.json())
       .catch(this.handleError);
   }
   

@@ -1,43 +1,73 @@
-<div>
-<form novalidate (submit)="createSchedule(newSchedule)" [formGroup]="newSchedule">
-      <label>
-        <span>Class Id</span>
-        <input type="text" placeholder="Class Id" formControlName="classId">
-      </label>
-      <div class="error" *ngIf="newSchedule.get('classId').hasError('required') && newSchedule.get('classId').touched">
+<form class="form-horizontal" (submit)="createSchedule(newSchedule)" [formGroup]="newSchedule">
+  <fieldset>
+     <div class="form-group">
+       <label for="classId" class="col-lg-2 control-label">Class</label>
+       <div class="col-lg-10">
+           <select formControlName="classId">
+                <option *ngFor="let class of classesList" value= {{class.classId}}>
+                  {{class.className}}
+                </option>
+           </select>
+       </div>
+       <div class="error" *ngIf="newSchedule.get('classId').hasError('required') && newSchedule.get('classId').touched">
         Class Id is required
       </div>
-      <label>
-        <span>Instructor Id</span>
-        <input type="text" placeholder="Instructor Id" formControlName="instructorId">
-      </label>
-      <div class="error" *ngIf="newSchedule.get('instructorId').hasError('required') && newSchedule.get('instructorId').touched">
+     </div>
+     <div class="form-group">
+       <label for="instructorId" class="col-lg-2 control-label">Instructor</label>
+       <div class="col-lg-10">
+          <select formControlName="instructorId">
+                <option *ngFor="let instructor of instructorList" value= {{instructor.instructorId}}>
+                  {{instructor.instructorName}}
+                </option>
+           </select>
+       </div>
+       <div class="error" *ngIf="newSchedule.get('instructorId').hasError('required') && newSchedule.get('instructorId').touched">
         Instructor Id is required
       </div>
-      <label>
-        <span>Track Id</span>
-        <input type="text" placeholder="Track Id" formControlName="trackId">
-      </label>
-      <div class="error" *ngIf="newSchedule.get('trackId').hasError('required') && newSchedule.get('trackId').touched">
+     </div>
+      <div class="form-group">
+       <label for="trackId" class="col-lg-2 control-label">Track</label>
+       <div class="col-lg-10">
+        <select formControlName="trackId">
+                <option *ngFor="let track of trackList" value= {{track.trackId}}>
+                  {{track.trackName}}
+                </option>
+           </select>
+       </div>
+       <div class="error" *ngIf="newSchedule.get('trackId').hasError('required') && newSchedule.get('trackId').touched">
         Track Id is required
       </div>
-      <label>
-        <span>Class Date</span>
-        <input type="text" placeholder="Class Date" formControlName="classDate">
-      </label>
-      <div class="error" *ngIf="newSchedule.get('classDate').hasError('required') && newSchedule.get('classDate').touched">
+     </div>
+        <div class="form-group">
+       <label for="classDate" class="col-lg-2 control-label">Class Date</label>
+       <div class="col-lg-10">
+        <input type="date"  class="form-control" placeholder="Class Date" formControlName="classDate">
+       </div>
+       <div class="error" *ngIf="newSchedule.get('classDate').hasError('required') && newSchedule.get('classDate').touched">
         Class Date is required
       </div>
-      <label>
-        <span>Room Id</span>
-        <input type="text" placeholder="Room Id" formControlName="roomId">
-      </label>
-      <div class="error" *ngIf="newSchedule.get('roomId').hasError('required') && newSchedule.get('roomId').touched">
+     </div>
+    <div class="form-group">
+       <label for="roomId" class="col-lg-2 control-label">Room</label>
+       <div class="col-lg-10">
+        <select formControlName="roomId">
+                <option *ngFor="let room of roomList" value= {{room.roomId}}>
+                  {{room.roomName}}
+                </option>
+           </select>
+       </div>
+       <div class="error" *ngIf="newSchedule.get('roomId').hasError('required') && newSchedule.get('roomId').touched">
         Room Id is required
       </div>
-      <button type="submit" [disabled]="newSchedule.invalid">Create Schedule</button>
-    </form>
-</div>
+     </div> 
+      <div class="form-group">
+        <div class="col-lg-10 col-lg-offset-2">
+          <button type="submit" class="btn btn-primary" [disabled]="newSchedule.invalid">Create Schedule</button>
+        </div>
+      </div>
+  </fieldset>
+</form>
 <div class="container-fluid">
     <div class="row">
     <div class="col-md-12">
@@ -51,16 +81,44 @@
             <th>Track Id</th>
             <th>Class Date</th>
             <th>Room Id</th>
+            <th></th>
           </tr>
           </thead>
           <tbody>
             <tr *ngFor="let schedule of schedules | paginate: { itemsPerPage: 20, currentPage: page }">
               <td>{{schedule.scheduleId}}</td>
-              <td>{{schedule.classId}}</td>
-              <td>{{schedule.instructorId}}</td>
-              <td>{{schedule.trackId}}</td>
-              <td>{{schedule.classDate}}</td>
-              <td>{{schedule.roomId}}</td>
+              <td>
+                <select [ngModel]="schedule.classId">
+                <option *ngFor="let class of classesList" value= {{class.classId}}>
+                  {{class.className}}
+                </option>
+           </select>
+              </td>
+              <td>
+                <select [ngModel]="schedule.instructorId">
+                <option *ngFor="let instructor of instructorList" value= {{instructor.instructorId}}>
+                  {{instructor.instructorName}}
+                </option>
+                </select>
+              </td>
+              <td>
+                <select [ngModel]="schedule.trackId">
+                <option *ngFor="let track of trackList" value= {{track.trackId}}>
+                  {{track.trackName}}
+                </option>
+           </select>
+              </td>
+              <td>
+                <input type="text" [ngModel]="schedule.classDate | date:'MM/dd/yyyy'">
+              </td>
+              <td>
+                 <select [ngModel]="schedule.roomId">
+                <option *ngFor="let room of roomList" value= {{room.roomId}}>
+                  {{room.roomName}}
+                </option>
+           </select>
+              </td>
+              <td><button type="button" class="btn btn-default" (click)="updateSchedule(schedule)">Update</button></td>
             </tr>
           </tbody>
        </table>

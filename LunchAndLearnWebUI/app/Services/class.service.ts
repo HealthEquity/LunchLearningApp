@@ -36,7 +36,7 @@ export class ClassService {
     .catch(this.handleError);
   }
 
-   create(dbClass) {
+   create(dbClass: DbClass) {
     return this.http
       .post(this.classUrl + 'create', JSON.stringify(dbClass), {headers: this.headers})
       .map((res: Response) => res.json())

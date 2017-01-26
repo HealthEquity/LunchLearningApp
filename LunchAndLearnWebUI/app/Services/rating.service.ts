@@ -38,8 +38,8 @@ export class RatingService {
 
    create(rating: Rating) {
     return this.http
-      .post(this.ratingUrl, JSON.stringify(rating), {headers: this.headers})
-      .map(res => res.json().data)
+      .post(this.ratingUrl + 'create', JSON.stringify(rating), {headers: this.headers})
+      .map((res : Response) => res.json())
       .catch(this.handleError);
   }
   

@@ -38,8 +38,8 @@ export class InstructorService {
 
    create(instructor: Instructor) {
     return this.http
-      .post(this.instructorUrl, JSON.stringify(instructor), {headers: this.headers})
-      .map(res => res.json().data)
+      .post(this.instructorUrl + 'create', JSON.stringify(instructor), {headers: this.headers})
+      .map((res: Response) => res.json())
       .catch(this.handleError);
   }
   
