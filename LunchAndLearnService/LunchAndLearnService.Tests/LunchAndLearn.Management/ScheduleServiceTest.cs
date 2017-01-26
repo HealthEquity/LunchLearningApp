@@ -51,6 +51,33 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
           TrackId = 3,
           ClassDate = DateTime.Now.AddDays(2).Date
         },
+        new Schedule()
+        {
+          ScheduleId = 4,
+          InstructorId = 3,
+          ClassId = 3,
+          RoomId = 3,
+          TrackId = 3,
+          ClassDate = new DateTime(2017, 1, 22)
+        },
+        new Schedule()
+        {
+          ScheduleId = 5,
+          InstructorId = 3,
+          ClassId = 3,
+          RoomId = 3,
+          TrackId = 3,
+          ClassDate = new DateTime(2017, 1, 28)
+        },
+        new Schedule()
+        {
+          ScheduleId = 6,
+          InstructorId = 3,
+          ClassId = 3,
+          RoomId = 3,
+          TrackId = 3,
+          ClassDate = new DateTime(2017, 1, 29)
+        }
       };
 
       _scheduleDetailList = new List<ScheduleDetailDto>()
@@ -72,7 +99,34 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
           TrackName = "test track name 2",
           InstructorName = "test instructor name 2",
           RoomName = "test room name 2"
-        }
+        },
+        new ScheduleDetailDto()
+        {
+          ScheduleId = 3,
+          ClassDate = new DateTime(2017, 1, 22),
+          ClassName = "test class name 2",
+          TrackName = "test track name 2",
+          InstructorName = "test instructor name 2",
+          RoomName = "test room name 2"
+        },
+        new ScheduleDetailDto()
+        {
+          ScheduleId = 4,
+          ClassDate = new DateTime(2017, 1, 28),
+          ClassName = "test class name 2",
+          TrackName = "test track name 2",
+          InstructorName = "test instructor name 2",
+          RoomName = "test room name 2"
+        },
+        new ScheduleDetailDto()
+        {
+          ScheduleId = 5,
+          ClassDate = new DateTime(2017, 1, 29),
+          ClassName = "test class name 2",
+          TrackName = "test track name 2",
+          InstructorName = "test instructor name 2",
+          RoomName = "test room name 2"
+        },
       };
     }
 
@@ -129,12 +183,13 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
     public void UpdateSchedule_WhereScheduleExists_ReturnsScheduleDTO([Values(1, 2, 3)] int idOfScheduleToBeUpdated)
     {
       //arrange
-      Func<Schedule, bool> whereExpression = x => x.ScheduleId == idOfScheduleToBeUpdated;
-      var expected = _scheduleList.FirstOrDefault(whereExpression)?.ConvertToScheduleDto();
-      var scheduleToUpdate = _scheduleList.FirstOrDefault(whereExpression);
+      Func<Schedule, bool> whereFunc = x => x.ScheduleId == idOfScheduleToBeUpdated;
+      Expression<Func<Schedule, bool>> whereExpression2 = x => x.ScheduleId == idOfScheduleToBeUpdated;
+      var expected = _scheduleList.FirstOrDefault(whereFunc)?.ConvertToScheduleDto();
+      var scheduleToUpdate = _scheduleList.FirstOrDefault(whereFunc);
 
       var mockScheduleRepository = Mock.Create<IScheduleRepository>();
-      Mock.Arrange(() => mockScheduleRepository.Exists(Arg.IsAny<int>()))
+      Mock.Arrange(() => mockScheduleRepository.Exists(whereExpression2))
         .Returns(true)
         .OccursOnce();
 
@@ -156,8 +211,10 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
       var scheduleDtoToUpdate = new ScheduleDto() {ScheduleId = idOfScheduleToBeUpdated};
       var scheduleToUpdate = _scheduleList.FirstOrDefault(x => x.ScheduleId == idOfScheduleToBeUpdated);
 
+
+
       var mockScheduleRepository = Mock.Create<IScheduleRepository>();
-      Mock.Arrange(() => mockScheduleRepository.Exists(Arg.IsAny<int>()))
+      Mock.Arrange(() => mockScheduleRepository.Exists(x => x.ScheduleId == idOfScheduleToBeUpdated))
         .Returns(false)
         .OccursOnce();
 
@@ -276,6 +333,31 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
       Mock.Assert(mockScheduleRepo);
       Assert.That(actual, Is.Null);
       Assert.That(actual, Is.EqualTo(expected));
+    }
+
+    [Ignore("test is incomplete and needs to be re-worked...")]
+    [TestCase("01/22/2017")]
+    [TestCase("01/29/2017")]
+    [TestCase("01/28/2017")]
+    public void GetDetailedSchedulesForWeekByDate_ReturnsSchedulesOnlyWithinTheWeekOfTheDate(DateTime date)
+    {
+      //arrange
+
+
+      var expected = new List<ScheduleDetailDto>();
+      var mockScheduleRepository = Mock.Create<IScheduleRepository>();
+      Mock.Arrange(() => mockScheduleRepository.GetSchedulesWithConditionEagerLoaded(x => x.ClassDate >= date))
+        .Returns(_scheduleList)
+        .OccursOnce();
+      _scheduleService = new ScheduleService(mockScheduleRepository);
+
+      //act
+      var actual = _scheduleService.GetDetailedSchedulesForWeek(date);
+
+      //assert
+      //Mock.Assert(mockScheduleRepository);
+      Assert.That(actual, Is.Not.Null);
+      Assert.That(actual.Count, Is.EqualTo(expected.Count));
     }
   }
 }

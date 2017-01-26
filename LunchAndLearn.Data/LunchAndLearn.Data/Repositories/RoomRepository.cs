@@ -18,9 +18,5 @@ namespace LunchAndLearn.Data.Repositories
     //  return DbContext.Rooms
     //    .Include(x => x.Schedules);
     //}
-    public override bool Exists(int roomId)
-    {
-      return base.DbContext.Rooms.Any(x => x.RoomId == roomId);
-    }
   }
 }

@@ -19,10 +19,5 @@ namespace LunchAndLearn.Data.Repositories
     //    .Include(x => x.Schedules)
     //    .Include(x => x.Ratings);
     //}
-
-    public override bool Exists(int classId)
-    {
-      return base.DbContext.Classes.Any(x => x.ClassId == classId);
-    }
   }
 }

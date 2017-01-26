@@ -53,13 +53,13 @@ namespace LunchAndLearn.Management
       }
     }
 
-    public ScheduleDto Update(ScheduleDto entity)
+    public ScheduleDto Update(ScheduleDto scheduleDto)
     {
       using (_scheduleRepository)
       {
-        var entityToBeUpdated = entity.ConvertToScheduleDbModel();
+        if (!_scheduleRepository.Exists(x => x.ScheduleId == scheduleDto.ScheduleId)) return null;
 
-        if (!_scheduleRepository.Exists(entity.ScheduleId)) return null;
+        var entityToBeUpdated = scheduleDto.ConvertToScheduleDbModel();
 
         _scheduleRepository.Update(entityToBeUpdated);
         _scheduleRepository.SaveChanges();
@@ -72,7 +72,7 @@ namespace LunchAndLearn.Management
     {
       using (_scheduleRepository)
       {
-        if (!_scheduleRepository.Exists(scheduleId)) return;
+        if (!_scheduleRepository.Exists(x => x.ScheduleId == scheduleId)) return;
 
         _scheduleRepository.Delete(scheduleId);
         _scheduleRepository.SaveChanges();
@@ -99,6 +99,19 @@ namespace LunchAndLearn.Management
           _scheduleRepository.GetSchedulesWithConditionEagerLoaded(x => x.ScheduleId == scheduleId).FirstOrDefault();
         return schedule?.ConvertToScheduleDetailDto();
       }
+    }
+
+    public List<ScheduleDetailDto> GetDetailedSchedulesForWeek(DateTime searchDate)
+    {
+      var searchDateDayOfWeek = (int)searchDate.DayOfWeek;
+      var beginningSearchDateOfWeek = searchDate.Date.AddDays(-searchDateDayOfWeek);
+      var endSearchDateOfWeek = beginningSearchDateOfWeek.AddDays(7);
+
+      var scheduleDetailList =
+        _scheduleRepository.GetSchedulesWithConditionEagerLoaded(
+          x => x.ClassDate >= beginningSearchDateOfWeek && x.ClassDate < endSearchDateOfWeek);
+
+      return scheduleDetailList.Select(x => x.ConvertToScheduleDetailDto()).ToList();
     }
 
 

@@ -8,7 +8,7 @@ using LunchAndLearn.Data.Interfaces;
 
 namespace LunchAndLearn.Data.Repositories
 {
-  public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
+  public class BaseRepository<T> : IBaseRepository<T> where T : class
   {
     protected readonly LunchAndLearnContext DbContext;
 
@@ -57,7 +57,10 @@ namespace LunchAndLearn.Data.Repositories
       DbContext.Entry(entityToDelete).State = EntityState.Deleted;
     }
 
-    public abstract bool Exists(int id);
+    public bool Exists(Expression<Func<T, bool>> condition)
+    {
+      return DbContext.Set<T>().Any(condition);
+    }
 
 
     public void SaveChanges()

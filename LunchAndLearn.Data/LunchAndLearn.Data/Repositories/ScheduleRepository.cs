@@ -24,10 +24,5 @@ namespace LunchAndLearn.Data.Repositories
         .Where(whereExpression)
         .ToList();
     }
-
-    public override bool Exists(int scheduleId)
-    {
-      return base.DbContext.Schedules.Any(x => x.ScheduleId == scheduleId);
-    }
   }
 }
