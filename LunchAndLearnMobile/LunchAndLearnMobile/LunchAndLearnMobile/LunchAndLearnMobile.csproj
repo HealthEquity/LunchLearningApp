@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Behaviors\StarBehavior.cs" />
+    <Compile Include="DataSourceConverter.cs" />
     <Compile Include="ImageResourceExtension.cs" />
     <Compile Include="Models\Rating.cs" />
     <Compile Include="Models\Schedule.cs" />

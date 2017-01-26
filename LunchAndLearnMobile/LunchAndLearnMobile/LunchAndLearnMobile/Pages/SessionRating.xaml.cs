@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 using LunchAndLearnMobile.Models;
 using LunchAndLearnMobile.ViewModels;
 using Xamarin.Forms;
@@ -33,10 +34,15 @@ namespace LunchAndLearnMobile.Pages
       ((SessionRatingViewModel) BindingContext).SetComment(text);
     }
 
-    private void Entry_OnCompleted(object sender, EventArgs e)
+    private void ValidatePickerSelection(object sender, EventArgs e)
     {
-      var text = ((Entry)sender).Text;
-      ((SessionRatingViewModel)BindingContext).SetComment(text);
+      ((Picker) sender).TextColor = Color.Default;
+      var selectedItem = ((Picker)sender).SelectedIndex;
+      if (selectedItem == 0)
+      {
+        ((Picker)sender).TextColor = Color.Red;
+        return;
+      }
     }
   }
 }

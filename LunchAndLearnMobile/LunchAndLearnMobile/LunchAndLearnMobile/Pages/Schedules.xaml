@@ -2,10 +2,17 @@
 <TabbedPage  xmlns="http://xamarin.com/schemas/2014/forms"
 					   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 					   xmlns:sys="clr-namespace:System;assembly=System.Runtime"
-					   x:Class="LunchAndLearnMobile.Pages.Schedules">
+             xmlns:local="clr-namespace:LunchAndLearnMobile;assembly=LunchAndLearnMobile"
+					   x:Class="LunchAndLearnMobile.Pages.Schedules"
+             >
 
   <TabbedPage.Children>
     <ContentPage Title="Schedule">
+      <ContentPage.Resources>
+            <ResourceDictionary>
+                <local:DataSourceConverter x:Key="DataSourceConverter"/>
+            </ResourceDictionary>
+   </ContentPage.Resources>
       <StackLayout Orientation="Vertical" VerticalOptions="Start">
         <ActivityIndicator IsVisible="{Binding IsLoading}" IsRunning="{Binding IsLoading}" HorizontalOptions="CenterAndExpand" />
         <DatePicker x:Name="ScheduleDatePicker" VerticalOptions="CenterAndExpand" Date="{x:Static sys:DateTime.Now}" DateSelected="DatePicker_SelectedDateChanged">
@@ -20,11 +27,12 @@
           <DatePicker.MaximumDate>
             <sys:DateTime x:FactoryMethod="Parse">
               <x:Arguments>
-                <x:String>Dec 31 2050</x:String>
+                <x:String>Dec 31 2017</x:String>
               </x:Arguments>
             </sys:DateTime>
           </DatePicker.MaximumDate>
         </DatePicker>
+        <Label Text="There are no classes for the selected date" HorizontalOptions="CenterAndExpand" IsVisible="{Binding Schedules, Converter={StaticResource DataSourceConverter}}"></Label>
         <ListView ItemsSource="{Binding Schedules}" ItemTapped="Schedule_Tapped">
           <ListView.ItemTemplate>
             <DataTemplate>
@@ -35,12 +43,10 @@
                   <Label Grid.Column="2" Text="{Binding ClassDate, StringFormat='{0:MM/dd/yyyy}'}"></Label>
                 </Grid>
               </ViewCell>
-              <!--<TextCell Text="{Binding ClassName}" Detail="{Binding ClassDate, StringFormat='{0:MM/dd/yyyy}'}" />-->
             </DataTemplate>
           </ListView.ItemTemplate>
         </ListView>
       </StackLayout>
     </ContentPage>
   </TabbedPage.Children>
-
 </TabbedPage>

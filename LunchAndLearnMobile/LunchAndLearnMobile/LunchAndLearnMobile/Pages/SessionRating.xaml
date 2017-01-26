@@ -15,8 +15,9 @@
           </TableSection>
           <TableSection Title="Class Rating">
             <ViewCell>
-            <Picker x:Name="ClassRating" SelectedIndex="{Binding Rating.ClassRating}" HorizontalOptions="FillAndExpand">
+            <Picker x:Name="ClassRating" SelectedIndexChanged="ValidatePickerSelection" SelectedIndex="{Binding ClassRating}" HorizontalOptions="FillAndExpand">
               <Picker.Items>
+                <x:String>Pick A Rating</x:String>
                 <x:String>1</x:String>
                 <x:String>2</x:String>
                 <x:String>3</x:String>
@@ -28,8 +29,9 @@
           </TableSection>
           <TableSection Title="Instructor Rating">
             <ViewCell>
-              <Picker x:Name="InstructorRating" SelectedIndex="{Binding Rating.InstructorRating}" HorizontalOptions="FillAndExpand">
+              <Picker x:Name="InstructorRating" SelectedIndexChanged="ValidatePickerSelection" SelectedIndex="{Binding Rating.InstructorRating}" HorizontalOptions="FillAndExpand">
                 <Picker.Items>
+                  <x:String>Pick A Rating</x:String>
                   <x:String>1</x:String>
                   <x:String>2</x:String>
                   <x:String>3</x:String>
