@@ -16,6 +16,9 @@ namespace LunchAndLearn.Model.DB_Models
     [DataMember]
     public string RoomDescription { get; set; }
 
+    [DataMember]
+    public ushort MaxOccupants { get; set; }
+
     public virtual ICollection<Schedule> Schedules { get; set; }
 
     public RoomDto ConvertToRoomDto()

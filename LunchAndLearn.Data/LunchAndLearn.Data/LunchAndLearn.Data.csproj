@@ -57,6 +57,11 @@
     <Compile Include="Interfaces\IScheduleRepository.cs" />
     <Compile Include="Interfaces\ITrackRepository.cs" />
     <Compile Include="LunchAndLearnContext.cs" />
+    <Compile Include="Migrations\201710171855555_initial.cs" />
+    <Compile Include="Migrations\201710171855555_initial.Designer.cs">
+      <DependentUpon>201710171855555_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\ClassRepository.cs" />
     <Compile Include="Repositories\InstructorRepository.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
@@ -75,6 +80,11 @@
       <Project>{3AC9FB75-990D-4E7D-AF0F-69682457622F}</Project>
       <Name>LunchAndLearn.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201710171855555_initial.resx">
+      <DependentUpon>201710171855555_initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -23,6 +23,7 @@ namespace LunchAndLearnService
 
       //Added to camelCase all responses from the controllers to make client consumption easier
       HttpConfiguration config = GlobalConfiguration.Configuration;
+      config.EnableCors();
       config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
       config.Formatters.JsonFormatter.UseDataContractJsonSerializer = false;
     }

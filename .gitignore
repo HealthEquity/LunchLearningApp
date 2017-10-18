@@ -250,3 +250,6 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+
+# Configuration files
+LunchAndLearnService/LunchAndLearnService/Web.config

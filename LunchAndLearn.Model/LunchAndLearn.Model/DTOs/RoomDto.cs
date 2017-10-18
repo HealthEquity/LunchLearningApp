@@ -12,6 +12,7 @@ namespace LunchAndLearn.Model.DTOs
     public int RoomId { get; set; }
     public string RoomName { get; set; }
     public string RoomDescription { get; set; }
+    public ushort MaxOccupants { get; set; }
 
     public Room ConvertToRoomDbModel()
     {
@@ -19,7 +20,8 @@ namespace LunchAndLearn.Model.DTOs
       {
         RoomId = this.RoomId,
         RoomName = this.RoomName,
-        RoomDescription = this.RoomDescription
+        RoomDescription = this.RoomDescription,
+        MaxOccupants = this.MaxOccupants,
       };
     }
   }
