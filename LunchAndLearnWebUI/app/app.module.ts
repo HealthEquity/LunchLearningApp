@@ -22,6 +22,9 @@ import { TrackService }          from './Services/track.service';
 import { Configuration } from './app.constants';
 import {APP_BASE_HREF} from '@angular/common';
 import {Ng2PaginationModule} from 'ng2-pagination';
+import { AuthenticationService } from './Services/authentication.service';
+import { LoginComponent } from './Components/login.component';
+import { AuthGuard } from './Guards/auth.guard';
 
 @NgModule({
   imports:      [ 
@@ -32,9 +35,9 @@ import {Ng2PaginationModule} from 'ng2-pagination';
     AppRoutingModule, 
     Ng2PaginationModule,
     ],
-  declarations: [ AppComponent, DashboardComponent, ClassesComponent, InstructorComponent, RoomComponent, RatingComponent,ScheduleComponent, TrackComponent ],
+  declarations: [ AppComponent, DashboardComponent, ClassesComponent, InstructorComponent, RoomComponent, RatingComponent,ScheduleComponent, TrackComponent, LoginComponent ],
   providers: [ {provide: APP_BASE_HREF, useValue : '/' },
-    ClassService, InstructorService, RoomService, RatingService, ScheduleService, TrackService, Configuration
+    ClassService, InstructorService, RoomService, RatingService, ScheduleService, TrackService, Configuration, AuthenticationService, AuthGuard
   ],
   bootstrap:    [ AppComponent ]
 })

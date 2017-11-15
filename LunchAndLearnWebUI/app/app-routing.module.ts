@@ -8,8 +8,8 @@ import { TrackComponent }  from './Components/track.component';
 import { RoomComponent }  from './Components/room.component';
 import { ScheduleComponent }  from './Components/schedule.component';
 import { RatingComponent }  from './Components/rating.component';
-
-
+import { LoginComponent } from './Components/login.component';
+import { AuthGuard } from './Guards/auth.guard';
 
 const routes: Routes = [
   { 
@@ -17,33 +17,44 @@ const routes: Routes = [
     redirectTo: '/classes',
     pathMatch: 'full' 
   },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
   { 
     path: 'dashboard',  
-    component: DashboardComponent 
+    component: DashboardComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'classes',
-    component: ClassesComponent
+    component: ClassesComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'instructors',
-    component: InstructorComponent
+    component: InstructorComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'tracks',
-    component: TrackComponent
+    component: TrackComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'rooms',
-    component: RoomComponent
+    component: RoomComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'schedules',
-    component: ScheduleComponent
+    component: ScheduleComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'ratings',
-    component: RatingComponent
+    component: RatingComponent,
+    //canActivate: [AuthGuard]
   },
     // { path: 'detail/:id', component: HeroDetailComponent },
     // { path: 'heroes',     component: HeroesComponent }
@@ -54,5 +65,4 @@ const routes: Routes = [
   exports: [ RouterModule ]
 })
 export class AppRoutingModule {}
-
 export const routedComponents = [DashboardComponent];
