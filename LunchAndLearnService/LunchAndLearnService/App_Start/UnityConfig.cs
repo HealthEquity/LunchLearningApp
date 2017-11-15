@@ -1,21 +1,16 @@
 using Microsoft.Practices.Unity;
-using System.Web.Http;
 using LunchAndLearn.Data.Interfaces;
 using LunchAndLearn.Data.Repositories;
 using LunchAndLearn.Management;
 using LunchAndLearn.Management.Interfaces;
 using LunchAndLearn.Management.Interfaces.Reporting;
 using LunchAndLearn.Management.Reporting;
-using LunchAndLearn.Model;
-using LunchAndLearn.Model.DB_Models;
-using LunchAndLearn.Model.DTOs;
-using Unity.WebApi;
 
 namespace LunchAndLearnService
 {
   public static class UnityConfig
   {
-    public static void RegisterComponents()
+    public static IUnityContainer GetUnityContainerWithRegisteredComponents()
     {
       var container = new UnityContainer();
 
@@ -58,7 +53,9 @@ namespace LunchAndLearnService
       container
         .RegisterType<IReportingService, ReportingService>(new HierarchicalLifetimeManager());
 
-      GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
+      //GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
+
+      return container;
     }
   }
 }

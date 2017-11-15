@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web.Http;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
+using Unity.WebApi;
 
 [assembly: OwinStartup(typeof(LunchAndLearnService.Startup))]
 
@@ -14,16 +13,22 @@ namespace LunchAndLearnService
   {
     public void Configuration(IAppBuilder app)
     {
-      HttpConfiguration config = new HttpConfiguration();
+      var httpConfiguration = new HttpConfiguration
+      {
+        DependencyResolver = new UnityDependencyResolver(UnityConfig.GetUnityContainerWithRegisteredComponents())
+      };
 
-      WebApiConfig.Register(config);
+
+      ConfigureOAuth(app);
+
+      WebApiConfig.Register(httpConfiguration);
       app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-      app.UseWebApi(config);
+      app.UseWebApi(httpConfiguration);
     }
 
     public void ConfigureOAuth(IAppBuilder app)
     {
-      OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
+      var oAuthServerOptions = new OAuthAuthorizationServerOptions()
       {
         AllowInsecureHttp = true,
         TokenEndpointPath = new PathString("/token"),
@@ -32,7 +37,7 @@ namespace LunchAndLearnService
       };
 
       // Token Generation
-      app.UseOAuthAuthorizationServer(OAuthServerOptions);
+      app.UseOAuthAuthorizationServer(oAuthServerOptions);
       app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
 
     }

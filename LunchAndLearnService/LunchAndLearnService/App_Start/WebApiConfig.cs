@@ -29,6 +29,9 @@ namespace LunchAndLearnService
       //Comment or un-comment to ensure all models are not null before being handed to the controller
       config.Filters.Add(new CheckModelForNullAttribute());
 
+      config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+      config.Formatters.JsonFormatter.UseDataContractJsonSerializer = false;
+
       // Web API routes
       config.MapHttpAttributeRoutes();
 
