@@ -42,6 +42,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,28 +51,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DB_Models\Class.cs" />
-    <Compile Include="DB_Models\Instructor.cs" />
-    <Compile Include="DB_Models\UserModel.cs" />
-    <Compile Include="DTOs\ClassDto.cs" />
-    <Compile Include="DTOs\InstructorDto.cs" />
-    <Compile Include="DTOs\RatingDto.cs" />
-    <Compile Include="DTOs\ReportingDTOs\OverallInstructorRatingDTO.cs" />
-    <Compile Include="DTOs\RoomDto.cs" />
-    <Compile Include="DTOs\ScheduleDetailDto.cs" />
-    <Compile Include="DTOs\ScheduleDto.cs" />
-    <Compile Include="DTOs\TrackDto.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Conceptual\LunchAndLearn._ORMCustomToolReport.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LunchAndLearn.orm</DependentUpon>
+    </Compile>
+    <Compile Include="DB_Models\Artifact.cs" />
+    <Compile Include="DB_Models\Course.cs" />
+    <Compile Include="DB_Models\CourseSession.cs" />
+    <Compile Include="DB_Models\LunchAndLearn.cs" />
+    <Compile Include="DB_Models\Person.cs" />
     <Compile Include="DB_Models\Rating.cs" />
+    <Compile Include="DB_Models\RatingHash.cs" />
     <Compile Include="DB_Models\Room.cs" />
-    <Compile Include="DB_Models\Schedule.cs" />
     <Compile Include="DB_Models\Track.cs" />
+    <Compile Include="DB_Models\TrackSession.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Conceptual\LunchAndLearn.orm">
+      <Generator>ORMCustomTool</Generator>
+      <LastGenOutput>LunchAndLearn._ORMCustomToolReport.cs</LastGenOutput>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DTOs\" />
+  </ItemGroup>
+  <ItemGroup Condition="Exists('Conceptual/LunchAndLearn.orm')">
+    <None Include="Conceptual\LunchAndLearn.DCIL.xml">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LunchAndLearn.orm</DependentUpon>
+      <ORMGenerator>ConceptualDBtoDCL</ORMGenerator>
+    </None>
+    <None Include="Conceptual\LunchAndLearn.DDIL.xml">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LunchAndLearn.orm</DependentUpon>
+      <ORMGenerator>DCILtoDDIL</ORMGenerator>
+    </None>
+    <None Include="Conceptual\LunchAndLearn.SQLServer.sql">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LunchAndLearn.orm</DependentUpon>
+      <ORMGenerator>DDILtoSQLServer</ORMGenerator>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dcl:schema name="LunchAndLearn" xmlns:dcl="http://schemas.orm.net/DIL/DCIL" xmlns:dil="http://schemas.orm.net/DIL/DIL" xmlns:ddt="http://schemas.orm.net/DIL/DILDT" xmlns:dep="http://schemas.orm.net/DIL/DILEP" xmlns:dml="http://schemas.orm.net/DIL/DMIL" xmlns:ddl="http://schemas.orm.net/DIL/DDIL">
+	<dcl:table name="Course">
+		<dcl:column name="CourseId" isNullable="false" isIdentity="true">
+			<dcl:predefinedDataType name="INTEGER" />
+		</dcl:column>
+		<dcl:column name="ClassName" isNullable="false" isIdentity="false">
+			<dcl:predefinedDataType name="CHARACTER VARYING" length="100" />
+		</dcl:column>
+		<dcl:column name="ClassDescription" isNullable="true" isIdentity="false">
+			<dcl:predefinedDataType name="CHARACTER VARYING" length="400" />
+		</dcl:column>
+		<dcl:uniquenessConstraint name="Course_PK" isPrimary="true">
+			<dcl:columnRef name="CourseId" />
+		</dcl:uniquenessConstraint>
+	</dcl:table>
+	<dcl:table name="Track">
+		<dcl:column name="TrackId" isNullable="false" isIdentity="true">
+			<dcl:predefinedDataType name="INTEGER" />
+		</dcl:column>
+		<dcl:column name="Name" isNullable="false" isIdentity="false">
+			<dcl:predefinedDataType name="CHARACTER VARYING" length="100" />
+		</dcl:column>
+		<dcl:column name="SeasonNr" isNullable="false" isIdentity="false">
+			<dcl:predefinedDataType name="INTEGER" />
+		</dcl:column>
+		<dcl:column name="Description" isNullable="true" isIdentity="false">
+			<dcl:predefinedDataType name="CHARACTER VARYING" length="400" />
+		</dcl:column>
+		<dcl:uniquenessConstraint name="Track_PK" isPrimary="true">
+			<dcl:columnRef name="TrackId" />
+		</dcl:uniquenessConstraint>
+		<dcl:uniquenessConstraint name="Track_UC" isPrimary="false">
+			<dcl:columnRef name="SeasonNr" />
+			<dcl:columnRef name="Name" />
+		</dcl:uniquenessConstraint>
+	</dcl:table>
+	<dcl:table name="TrackSession">
+		<dcl:column name="TrackSessionId" isNullable="false" isIdentity="true">
+			<dcl:predefinedDataType name="INTEGER" />
+		</dcl:column>
+		<dcl:column name="SessionDate" isNullable="false" isIdentity="false">
+			<dcl:predefinedDataType name="DATE" />
+		</dcl:column>
+		<dcl:column name="TrackId" isNullable="false" isIdentity="false">
+			<dcl:predefinedDataType name="INTEGER" />
+		</dcl:column>
+		<dcl:column name="RoomId" isNullable="true" isIdentity="false">
+			<dcl:predefinedDataType name="INTEGER" />
+		</dcl:column>
+		<dcl:column name="CourseSessionId" isNullable="true" isIdentity="false">
+			<dcl:predefinedDataType name="INTEGER" />
+		</dcl:column>
+		<dcl:column name="IsReady" isNullable="true" isIdentity="false">
+			<dcl:predefinedDataType name="BOOLEAN" />
+		</dcl:column>
+		<dcl:column name="Note" isNullable="true" isIdentity="false">
+			<dcl:predefinedDataType name="CHARACTER VARYING" />
+		</dcl:column>
+		<dcl:uniquenessConstraint name="TrackSession_PK" isPrimary="true">
+			<dcl:columnRef name="TrackSessionId" />
+		</dcl:uniquenessConstraint>
+		<dcl:uniquenessConstraint name="TrackSession_UC1" isPrimary="false">
+			<dcl:columnRef name="TrackId" />
+			<dcl:columnRef name="SessionDate" />
+		</dcl:uniquenessConstraint>
+		<dcl:uniquenessConstraint name="TrackSession_UC2" isPrimary="false">
+			<dcl:columnRef name="RoomId" />
+			<dcl:columnRef name="SessionDate" />
+		</dcl:uniquenessConstraint>
+		<dcl:referenceConstraint name="TrackSession_FK1" targetTable="Track">
+			<dcl:columnRef sourceName="TrackId" targetName="TrackId" />
+		</dcl:referenceConstraint>
+		<dcl:referenceConstraint name="TrackSession_FK2" targetTable="CourseSession">
+			<dcl:columnRef sourceName="CourseSessionId" targetName="CourseSessionId" />
+		</dcl:referenceConstraint>
+		<dcl:referenceConstraint name="TrackSession_FK3" targetTable="Room">
+			<dcl:columnRef sourceName="RoomId" targetName="RoomId" />
+		</dcl:referenceConstraint>
+	</dcl:table>
+	<dcl:table name="SessionInstructor">
+		<dcl:column name="InstructorId" isNullable="false" isIdentity="false">
+			<dcl:predefinedDataType name="INTEGER" />
+		</dcl:column>
+		<dcl:column name="TrackSessionId" isNullable="false" isIdentity="false">
+			<dcl:predefinedDataType name="INTEGER" />
+		</dcl:column>
+		<dcl:uniquenessConstraint name="SessionInstructor_PK" isPrimary="true">
+			<dcl:columnRef name="InstructorId" />
+			<dcl:columnRef name="TrackSessionId" />
+		</dcl:uniquenessConstraint>
+		<dcl:referenceConstraint name="SessionInstructor_FK1" targetTable="Person">
+			<dcl:columnRef sourceName="InstructorId" targetName="PersonId" />
+		</dcl:referenceConstraint>
+		<dcl:referenceConstraint name="SessionInstructor_FK2" targetTable="TrackSession">
+			<dcl:columnRef sourceName="TrackSessionId" targetName="TrackSessionId" />
+		</dcl:referenceConstraint>
+	</dcl:table>
+	<dcl:table name="Room">
+		<dcl:column name="RoomId" isNullable="false" isIdentity="true">
+			<dcl:predefinedDataType name="INTEGER" />
+		</dcl:column>
+		<dcl:column name="Name" isNullable="false" isIdentity="false">
+			<dcl:predefinedDataType name="CHARACTER VARYING" length="100" />
+		</dcl:column>
+		<dcl:column name="Description" isNullable="true" isIdentity="false">
+			<dcl:predefinedDataType name="CHARACTER VARYING" length="400" />
+		</dcl:column>
+		<dcl:column name="MaxOccupancy" isNullable="true" isIdentity="false">
+			<dcl:predefinedDataType name="TINYINT" />
+		</dcl:column>
+		<dcl:uniquenessConstraint name="Room_PK" isPrimary="true">
+			<dcl:columnRef name="RoomId" />
+		</dcl:uniquenessConstraint>
+	</dcl:table>
+	<dcl:table name="Rating">
+		<dcl:column name="RatingId" isNullable="false" isIdentity="true">
+			<dcl:predefinedDataType name="INTEGER" />
+		</dcl:column>
+		<dcl:column name="TrackSessionId" isNullable="false" isIdentity="false">
+			<dcl:predefinedDataType name="INTEGER" />
+		</dcl:column>
+		<dcl:column name="Comment" isNullable="true" isIdentity="false">
+			<dcl:predefinedDataType name="CHARACTER VARYING" />
+		</dcl:column>
+		<dcl:column name="InstructorScoreNr" isNullable="true" isIdentity="false">
+			<dcl:predefinedDataType name="INTEGER" />
+		</dcl:column>
+		<dcl:column name="SessionScoreNr" isNullable="true" isIdentity="false">
+			<dcl:predefinedDataType name="INTEGER" />
+		</dcl:column>
+		<dcl:uniquenessConstraint name="Rating_PK" isPrimary="true">
+			<dcl:columnRef name="RatingId" />
+		</dcl:uniquenessConstraint>
+		<dcl:referenceConstraint name="Rating_FK" targetTable="TrackSession">
+			<dcl:columnRef sourceName="TrackSessionId" targetName="TrackSessionId" />
+		</dcl:referenceConstraint>
+	</dcl:table>
+	<dcl:table name="SessionAttendee">
+		<dcl:column name="AttendeeId" isNullable="false" isIdentity="false">
+			<dcl:predefinedDataType name="INTEGER" />
+		</dcl:column>
+		<dcl:column name="TrackSessionId" isNullable="false" isIdentity="false">
+			<dcl:predefinedDataType name="INTEGER" />
+		</dcl:column>
+		<dcl:uniquenessConstraint name="SessionAttendee_PK" isPrimary="true">
+			<dcl:columnRef name="TrackSessionId" />
+			<dcl:columnRef name="AttendeeId" />
+		</dcl:uniquenessConstraint>
+		<dcl:referenceConstraint name="SessionAttendee_FK1" targetTable="Person">
+			<dcl:columnRef sourceName="AttendeeId" targetName="PersonId" />
+		</dcl:referenceConstraint>
+		<dcl:referenceConstraint name="SessionAttendee_FK2" targetTable="TrackSession">
+			<dcl:columnRef sourceName="TrackSessionId" targetName="TrackSessionId" />
+		</dcl:referenceConstraint>
+	</dcl:table>
+	<dcl:table name="Person">
+		<dcl:column name="PersonId" isNullable="false" isIdentity="true">
+			<dcl:predefinedDataType name="INTEGER" />
+		</dcl:column>
+		<dcl:uniquenessConstraint name="Person_PK" isPrimary="true">
+			<dcl:columnRef name="PersonId" />
+		</dcl:uniquenessConstraint>
+	</dcl:table>
+	<dcl:table name="RatingHash">
+		<dcl:column name="&quot;Value&quot;" requestedName="Value" isNullable="false" isIdentity="false">
+			<dcl:predefinedDataType name="CHARACTER" length="300" />
+		</dcl:column>
+		<dcl:uniquenessConstraint name="RatingHash_PK" isPrimary="true">
+			<dcl:columnRef name="&quot;Value&quot;" />
+		</dcl:uniquenessConstraint>
+	</dcl:table>
+	<dcl:table name="Artifact">
+		<dcl:column name="ArtifactId" isNullable="false" isIdentity="true">
+			<dcl:predefinedDataType name="INTEGER" />
+		</dcl:column>
+		<dcl:column name="FilePath" isNullable="true" isIdentity="false">
+			<dcl:predefinedDataType name="CHARACTER VARYING" length="500" />
+		</dcl:column>
+		<dcl:uniquenessConstraint name="Artifact_PK" isPrimary="true">
+			<dcl:columnRef name="ArtifactId" />
+		</dcl:uniquenessConstraint>
+	</dcl:table>
+	<dcl:table name="SessionCurriculum">
+		<dcl:column name="ArtifactId" isNullable="false" isIdentity="false">
+			<dcl:predefinedDataType name="INTEGER" />
+		</dcl:column>
+		<dcl:column name="CourseSessionId" isNullable="false" isIdentity="false">
+			<dcl:predefinedDataType name="INTEGER" />
+		</dcl:column>
+		<dcl:uniquenessConstraint name="SessionCurriculum_PK" isPrimary="true">
+			<dcl:columnRef name="ArtifactId" />
+			<dcl:columnRef name="CourseSessionId" />
+		</dcl:uniquenessConstraint>
+		<dcl:referenceConstraint name="SessionCurriculum_FK1" targetTable="Artifact">
+			<dcl:columnRef sourceName="ArtifactId" targetName="ArtifactId" />
+		</dcl:referenceConstraint>
+		<dcl:referenceConstraint name="SessionCurriculum_FK2" targetTable="CourseSession">
+			<dcl:columnRef sourceName="CourseSessionId" targetName="CourseSessionId" />
+		</dcl:referenceConstraint>
+	</dcl:table>
+	<dcl:table name="CourseOwner">
+		<dcl:column name="CourseId" isNullable="false" isIdentity="false">
+			<dcl:predefinedDataType name="INTEGER" />
+		</dcl:column>
+		<dcl:column name="InstructorId" isNullable="false" isIdentity="false">
+			<dcl:predefinedDataType name="INTEGER" />
+		</dcl:column>
+		<dcl:uniquenessConstraint name="CourseOwner_PK" isPrimary="true">
+			<dcl:columnRef name="CourseId" />
+			<dcl:columnRef name="InstructorId" />
+		</dcl:uniquenessConstraint>
+		<dcl:referenceConstraint name="CourseOwner_FK1" targetTable="Course">
+			<dcl:columnRef sourceName="CourseId" targetName="CourseId" />
+		</dcl:referenceConstraint>
+		<dcl:referenceConstraint name="CourseOwner_FK2" targetTable="Person">
+			<dcl:columnRef sourceName="InstructorId" targetName="PersonId" />
+		</dcl:referenceConstraint>
+	</dcl:table>
+	<dcl:table name="CourseSession">
+		<dcl:column name="CourseSessionId" isNullable="false" isIdentity="true">
+			<dcl:predefinedDataType name="INTEGER" />
+		</dcl:column>
+		<dcl:column name="CourseId" isNullable="false" isIdentity="false">
+			<dcl:predefinedDataType name="INTEGER" />
+		</dcl:column>
+		<dcl:uniquenessConstraint name="CourseSession_PK" isPrimary="true">
+			<dcl:columnRef name="CourseSessionId" />
+		</dcl:uniquenessConstraint>
+		<dcl:referenceConstraint name="CourseSession_FK" targetTable="Course">
+			<dcl:columnRef sourceName="CourseId" targetName="CourseId" />
+		</dcl:referenceConstraint>
+	</dcl:table>
+</dcl:schema>

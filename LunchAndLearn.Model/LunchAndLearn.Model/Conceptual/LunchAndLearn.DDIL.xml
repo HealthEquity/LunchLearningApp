@@ -1,0 +1,502 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dil:root xmlns:dil="http://schemas.orm.net/DIL/DIL" xmlns:dcl="http://schemas.orm.net/DIL/DCIL" xmlns:ddt="http://schemas.orm.net/DIL/DILDT" xmlns:dep="http://schemas.orm.net/DIL/DILEP" xmlns:dms="http://schemas.orm.net/DIL/DILMS" xmlns:dml="http://schemas.orm.net/DIL/DMIL" xmlns:ddl="http://schemas.orm.net/DIL/DDIL">
+	<dms:startTransactionStatement isolationLevel="SERIALIZABLE" accessMode="READ WRITE" />
+	<ddl:schemaDefinition schemaName="LunchAndLearn" defaultCharacterSet="UTF8" />
+	<dms:setSchemaStatement>
+		<ddt:characterStringLiteral value="LUNCHANDLEARN" />
+	</dms:setSchemaStatement>
+	<ddl:tableDefinition name="Course" schema="LunchAndLearn">
+		<ddl:columnDefinition name="CourseId">
+			<ddt:exactNumeric type="INTEGER" />
+			<ddl:identityColumnSpecification type="ALWAYS">
+				<ddl:sequenceGeneratorStartWithOption>
+					<ddt:exactNumericLiteral value="1" />
+				</ddl:sequenceGeneratorStartWithOption>
+				<ddl:sequenceGeneratorIncrementByOption>
+					<ddt:exactNumericLiteral value="1" />
+				</ddl:sequenceGeneratorIncrementByOption>
+			</ddl:identityColumnSpecification>
+			<ddl:columnConstraintDefinition>
+				<ddl:notNullKeyword />
+			</ddl:columnConstraintDefinition>
+		</ddl:columnDefinition>
+		<ddl:columnDefinition name="ClassName">
+			<ddt:characterString type="CHARACTER VARYING" length="100" />
+			<ddl:columnConstraintDefinition>
+				<ddl:notNullKeyword />
+			</ddl:columnConstraintDefinition>
+		</ddl:columnDefinition>
+		<ddl:columnDefinition name="ClassDescription">
+			<ddt:characterString type="CHARACTER VARYING" length="400" />
+		</ddl:columnDefinition>
+		<ddl:tableConstraintDefinition name="Course_PK">
+			<ddl:uniqueConstraintDefinition type="PRIMARY KEY">
+				<dep:simpleColumnReference name="CourseId" />
+			</ddl:uniqueConstraintDefinition>
+		</ddl:tableConstraintDefinition>
+	</ddl:tableDefinition>
+	<ddl:tableDefinition name="Track" schema="LunchAndLearn">
+		<ddl:columnDefinition name="TrackId">
+			<ddt:exactNumeric type="INTEGER" />
+			<ddl:identityColumnSpecification type="ALWAYS">
+				<ddl:sequenceGeneratorStartWithOption>
+					<ddt:exactNumericLiteral value="1" />
+				</ddl:sequenceGeneratorStartWithOption>
+				<ddl:sequenceGeneratorIncrementByOption>
+					<ddt:exactNumericLiteral value="1" />
+				</ddl:sequenceGeneratorIncrementByOption>
+			</ddl:identityColumnSpecification>
+			<ddl:columnConstraintDefinition>
+				<ddl:notNullKeyword />
+			</ddl:columnConstraintDefinition>
+		</ddl:columnDefinition>
+		<ddl:columnDefinition name="Name">
+			<ddt:characterString type="CHARACTER VARYING" length="100" />
+			<ddl:columnConstraintDefinition>
+				<ddl:notNullKeyword />
+			</ddl:columnConstraintDefinition>
+		</ddl:columnDefinition>
+		<ddl:columnDefinition name="SeasonNr">
+			<ddt:exactNumeric type="INTEGER" />
+			<ddl:columnConstraintDefinition>
+				<ddl:notNullKeyword />
+			</ddl:columnConstraintDefinition>
+		</ddl:columnDefinition>
+		<ddl:columnDefinition name="Description">
+			<ddt:characterString type="CHARACTER VARYING" length="400" />
+		</ddl:columnDefinition>
+		<ddl:tableConstraintDefinition name="Track_PK">
+			<ddl:uniqueConstraintDefinition type="PRIMARY KEY">
+				<dep:simpleColumnReference name="TrackId" />
+			</ddl:uniqueConstraintDefinition>
+		</ddl:tableConstraintDefinition>
+		<ddl:tableConstraintDefinition name="Track_UC">
+			<ddl:uniqueConstraintDefinition type="UNIQUE">
+				<dep:simpleColumnReference name="SeasonNr" />
+				<dep:simpleColumnReference name="Name" />
+			</ddl:uniqueConstraintDefinition>
+		</ddl:tableConstraintDefinition>
+	</ddl:tableDefinition>
+	<ddl:tableDefinition name="TrackSession" schema="LunchAndLearn">
+		<ddl:columnDefinition name="TrackSessionId">
+			<ddt:exactNumeric type="INTEGER" />
+			<ddl:identityColumnSpecification type="ALWAYS">
+				<ddl:sequenceGeneratorStartWithOption>
+					<ddt:exactNumericLiteral value="1" />
+				</ddl:sequenceGeneratorStartWithOption>
+				<ddl:sequenceGeneratorIncrementByOption>
+					<ddt:exactNumericLiteral value="1" />
+				</ddl:sequenceGeneratorIncrementByOption>
+			</ddl:identityColumnSpecification>
+			<ddl:columnConstraintDefinition>
+				<ddl:notNullKeyword />
+			</ddl:columnConstraintDefinition>
+		</ddl:columnDefinition>
+		<ddl:columnDefinition name="SessionDate">
+			<ddt:date type="DATE" />
+			<ddl:columnConstraintDefinition>
+				<ddl:notNullKeyword />
+			</ddl:columnConstraintDefinition>
+		</ddl:columnDefinition>
+		<ddl:columnDefinition name="TrackId">
+			<ddt:exactNumeric type="INTEGER" />
+			<ddl:columnConstraintDefinition>
+				<ddl:notNullKeyword />
+			</ddl:columnConstraintDefinition>
+		</ddl:columnDefinition>
+		<ddl:columnDefinition name="RoomId">
+			<ddt:exactNumeric type="INTEGER" />
+		</ddl:columnDefinition>
+		<ddl:columnDefinition name="CourseSessionId">
+			<ddt:exactNumeric type="INTEGER" />
+		</ddl:columnDefinition>
+		<ddl:columnDefinition name="IsReady">
+			<ddt:boolean type="BOOLEAN" />
+		</ddl:columnDefinition>
+		<ddl:columnDefinition name="Note">
+			<ddt:characterString type="CHARACTER VARYING" />
+		</ddl:columnDefinition>
+		<ddl:tableConstraintDefinition name="TrackSession_PK">
+			<ddl:uniqueConstraintDefinition type="PRIMARY KEY">
+				<dep:simpleColumnReference name="TrackSessionId" />
+			</ddl:uniqueConstraintDefinition>
+		</ddl:tableConstraintDefinition>
+		<ddl:tableConstraintDefinition name="TrackSession_UC1">
+			<ddl:uniqueConstraintDefinition type="UNIQUE">
+				<dep:simpleColumnReference name="TrackId" />
+				<dep:simpleColumnReference name="SessionDate" />
+			</ddl:uniqueConstraintDefinition>
+		</ddl:tableConstraintDefinition>
+		<ddl:tableConstraintDefinition name="TrackSession_UC2">
+			<ddl:uniqueConstraintDefinition type="UNIQUE">
+				<dep:simpleColumnReference name="RoomId" />
+				<dep:simpleColumnReference name="SessionDate" />
+			</ddl:uniqueConstraintDefinition>
+		</ddl:tableConstraintDefinition>
+	</ddl:tableDefinition>
+	<ddl:tableDefinition name="SessionInstructor" schema="LunchAndLearn">
+		<ddl:columnDefinition name="InstructorId">
+			<ddt:exactNumeric type="INTEGER" />
+			<ddl:columnConstraintDefinition>
+				<ddl:notNullKeyword />
+			</ddl:columnConstraintDefinition>
+		</ddl:columnDefinition>
+		<ddl:columnDefinition name="TrackSessionId">
+			<ddt:exactNumeric type="INTEGER" />
+			<ddl:columnConstraintDefinition>
+				<ddl:notNullKeyword />
+			</ddl:columnConstraintDefinition>
+		</ddl:columnDefinition>
+		<ddl:tableConstraintDefinition name="SessionInstructor_PK">
+			<ddl:uniqueConstraintDefinition type="PRIMARY KEY">
+				<dep:simpleColumnReference name="InstructorId" />
+				<dep:simpleColumnReference name="TrackSessionId" />
+			</ddl:uniqueConstraintDefinition>
+		</ddl:tableConstraintDefinition>
+	</ddl:tableDefinition>
+	<ddl:tableDefinition name="Room" schema="LunchAndLearn">
+		<ddl:columnDefinition name="RoomId">
+			<ddt:exactNumeric type="INTEGER" />
+			<ddl:identityColumnSpecification type="ALWAYS">
+				<ddl:sequenceGeneratorStartWithOption>
+					<ddt:exactNumericLiteral value="1" />
+				</ddl:sequenceGeneratorStartWithOption>
+				<ddl:sequenceGeneratorIncrementByOption>
+					<ddt:exactNumericLiteral value="1" />
+				</ddl:sequenceGeneratorIncrementByOption>
+			</ddl:identityColumnSpecification>
+			<ddl:columnConstraintDefinition>
+				<ddl:notNullKeyword />
+			</ddl:columnConstraintDefinition>
+		</ddl:columnDefinition>
+		<ddl:columnDefinition name="Name">
+			<ddt:characterString type="CHARACTER VARYING" length="100" />
+			<ddl:columnConstraintDefinition>
+				<ddl:notNullKeyword />
+			</ddl:columnConstraintDefinition>
+		</ddl:columnDefinition>
+		<ddl:columnDefinition name="Description">
+			<ddt:characterString type="CHARACTER VARYING" length="400" />
+		</ddl:columnDefinition>
+		<ddl:columnDefinition name="MaxOccupancy">
+			<ddt:exactNumeric type="TINYINT" />
+		</ddl:columnDefinition>
+		<ddl:tableConstraintDefinition name="Room_PK">
+			<ddl:uniqueConstraintDefinition type="PRIMARY KEY">
+				<dep:simpleColumnReference name="RoomId" />
+			</ddl:uniqueConstraintDefinition>
+		</ddl:tableConstraintDefinition>
+	</ddl:tableDefinition>
+	<ddl:tableDefinition name="Rating" schema="LunchAndLearn">
+		<ddl:columnDefinition name="RatingId">
+			<ddt:exactNumeric type="INTEGER" />
+			<ddl:identityColumnSpecification type="ALWAYS">
+				<ddl:sequenceGeneratorStartWithOption>
+					<ddt:exactNumericLiteral value="1" />
+				</ddl:sequenceGeneratorStartWithOption>
+				<ddl:sequenceGeneratorIncrementByOption>
+					<ddt:exactNumericLiteral value="1" />
+				</ddl:sequenceGeneratorIncrementByOption>
+			</ddl:identityColumnSpecification>
+			<ddl:columnConstraintDefinition>
+				<ddl:notNullKeyword />
+			</ddl:columnConstraintDefinition>
+		</ddl:columnDefinition>
+		<ddl:columnDefinition name="TrackSessionId">
+			<ddt:exactNumeric type="INTEGER" />
+			<ddl:columnConstraintDefinition>
+				<ddl:notNullKeyword />
+			</ddl:columnConstraintDefinition>
+		</ddl:columnDefinition>
+		<ddl:columnDefinition name="Comment">
+			<ddt:characterString type="CHARACTER VARYING" />
+		</ddl:columnDefinition>
+		<ddl:columnDefinition name="InstructorScoreNr">
+			<ddt:exactNumeric type="INTEGER" />
+		</ddl:columnDefinition>
+		<ddl:columnDefinition name="SessionScoreNr">
+			<ddt:exactNumeric type="INTEGER" />
+		</ddl:columnDefinition>
+		<ddl:tableConstraintDefinition name="Rating_PK">
+			<ddl:uniqueConstraintDefinition type="PRIMARY KEY">
+				<dep:simpleColumnReference name="RatingId" />
+			</ddl:uniqueConstraintDefinition>
+		</ddl:tableConstraintDefinition>
+	</ddl:tableDefinition>
+	<ddl:tableDefinition name="SessionAttendee" schema="LunchAndLearn">
+		<ddl:columnDefinition name="AttendeeId">
+			<ddt:exactNumeric type="INTEGER" />
+			<ddl:columnConstraintDefinition>
+				<ddl:notNullKeyword />
+			</ddl:columnConstraintDefinition>
+		</ddl:columnDefinition>
+		<ddl:columnDefinition name="TrackSessionId">
+			<ddt:exactNumeric type="INTEGER" />
+			<ddl:columnConstraintDefinition>
+				<ddl:notNullKeyword />
+			</ddl:columnConstraintDefinition>
+		</ddl:columnDefinition>
+		<ddl:tableConstraintDefinition name="SessionAttendee_PK">
+			<ddl:uniqueConstraintDefinition type="PRIMARY KEY">
+				<dep:simpleColumnReference name="TrackSessionId" />
+				<dep:simpleColumnReference name="AttendeeId" />
+			</ddl:uniqueConstraintDefinition>
+		</ddl:tableConstraintDefinition>
+	</ddl:tableDefinition>
+	<ddl:tableDefinition name="Person" schema="LunchAndLearn">
+		<ddl:columnDefinition name="PersonId">
+			<ddt:exactNumeric type="INTEGER" />
+			<ddl:identityColumnSpecification type="ALWAYS">
+				<ddl:sequenceGeneratorStartWithOption>
+					<ddt:exactNumericLiteral value="1" />
+				</ddl:sequenceGeneratorStartWithOption>
+				<ddl:sequenceGeneratorIncrementByOption>
+					<ddt:exactNumericLiteral value="1" />
+				</ddl:sequenceGeneratorIncrementByOption>
+			</ddl:identityColumnSpecification>
+			<ddl:columnConstraintDefinition>
+				<ddl:notNullKeyword />
+			</ddl:columnConstraintDefinition>
+		</ddl:columnDefinition>
+		<ddl:tableConstraintDefinition name="Person_PK">
+			<ddl:uniqueConstraintDefinition type="PRIMARY KEY">
+				<dep:simpleColumnReference name="PersonId" />
+			</ddl:uniqueConstraintDefinition>
+		</ddl:tableConstraintDefinition>
+	</ddl:tableDefinition>
+	<ddl:tableDefinition name="RatingHash" schema="LunchAndLearn">
+		<ddl:columnDefinition name="&quot;Value&quot;">
+			<ddt:characterString type="CHARACTER" length="300" />
+			<ddl:columnConstraintDefinition>
+				<ddl:notNullKeyword />
+			</ddl:columnConstraintDefinition>
+		</ddl:columnDefinition>
+		<ddl:tableConstraintDefinition name="RatingHash_PK">
+			<ddl:uniqueConstraintDefinition type="PRIMARY KEY">
+				<dep:simpleColumnReference name="&quot;Value&quot;" />
+			</ddl:uniqueConstraintDefinition>
+		</ddl:tableConstraintDefinition>
+	</ddl:tableDefinition>
+	<ddl:tableDefinition name="Artifact" schema="LunchAndLearn">
+		<ddl:columnDefinition name="ArtifactId">
+			<ddt:exactNumeric type="INTEGER" />
+			<ddl:identityColumnSpecification type="ALWAYS">
+				<ddl:sequenceGeneratorStartWithOption>
+					<ddt:exactNumericLiteral value="1" />
+				</ddl:sequenceGeneratorStartWithOption>
+				<ddl:sequenceGeneratorIncrementByOption>
+					<ddt:exactNumericLiteral value="1" />
+				</ddl:sequenceGeneratorIncrementByOption>
+			</ddl:identityColumnSpecification>
+			<ddl:columnConstraintDefinition>
+				<ddl:notNullKeyword />
+			</ddl:columnConstraintDefinition>
+		</ddl:columnDefinition>
+		<ddl:columnDefinition name="FilePath">
+			<ddt:characterString type="CHARACTER VARYING" length="500" />
+		</ddl:columnDefinition>
+		<ddl:tableConstraintDefinition name="Artifact_PK">
+			<ddl:uniqueConstraintDefinition type="PRIMARY KEY">
+				<dep:simpleColumnReference name="ArtifactId" />
+			</ddl:uniqueConstraintDefinition>
+		</ddl:tableConstraintDefinition>
+	</ddl:tableDefinition>
+	<ddl:tableDefinition name="SessionCurriculum" schema="LunchAndLearn">
+		<ddl:columnDefinition name="ArtifactId">
+			<ddt:exactNumeric type="INTEGER" />
+			<ddl:columnConstraintDefinition>
+				<ddl:notNullKeyword />
+			</ddl:columnConstraintDefinition>
+		</ddl:columnDefinition>
+		<ddl:columnDefinition name="CourseSessionId">
+			<ddt:exactNumeric type="INTEGER" />
+			<ddl:columnConstraintDefinition>
+				<ddl:notNullKeyword />
+			</ddl:columnConstraintDefinition>
+		</ddl:columnDefinition>
+		<ddl:tableConstraintDefinition name="SessionCurriculum_PK">
+			<ddl:uniqueConstraintDefinition type="PRIMARY KEY">
+				<dep:simpleColumnReference name="ArtifactId" />
+				<dep:simpleColumnReference name="CourseSessionId" />
+			</ddl:uniqueConstraintDefinition>
+		</ddl:tableConstraintDefinition>
+	</ddl:tableDefinition>
+	<ddl:tableDefinition name="CourseOwner" schema="LunchAndLearn">
+		<ddl:columnDefinition name="CourseId">
+			<ddt:exactNumeric type="INTEGER" />
+			<ddl:columnConstraintDefinition>
+				<ddl:notNullKeyword />
+			</ddl:columnConstraintDefinition>
+		</ddl:columnDefinition>
+		<ddl:columnDefinition name="InstructorId">
+			<ddt:exactNumeric type="INTEGER" />
+			<ddl:columnConstraintDefinition>
+				<ddl:notNullKeyword />
+			</ddl:columnConstraintDefinition>
+		</ddl:columnDefinition>
+		<ddl:tableConstraintDefinition name="CourseOwner_PK">
+			<ddl:uniqueConstraintDefinition type="PRIMARY KEY">
+				<dep:simpleColumnReference name="CourseId" />
+				<dep:simpleColumnReference name="InstructorId" />
+			</ddl:uniqueConstraintDefinition>
+		</ddl:tableConstraintDefinition>
+	</ddl:tableDefinition>
+	<ddl:tableDefinition name="CourseSession" schema="LunchAndLearn">
+		<ddl:columnDefinition name="CourseSessionId">
+			<ddt:exactNumeric type="INTEGER" />
+			<ddl:identityColumnSpecification type="ALWAYS">
+				<ddl:sequenceGeneratorStartWithOption>
+					<ddt:exactNumericLiteral value="1" />
+				</ddl:sequenceGeneratorStartWithOption>
+				<ddl:sequenceGeneratorIncrementByOption>
+					<ddt:exactNumericLiteral value="1" />
+				</ddl:sequenceGeneratorIncrementByOption>
+			</ddl:identityColumnSpecification>
+			<ddl:columnConstraintDefinition>
+				<ddl:notNullKeyword />
+			</ddl:columnConstraintDefinition>
+		</ddl:columnDefinition>
+		<ddl:columnDefinition name="CourseId">
+			<ddt:exactNumeric type="INTEGER" />
+			<ddl:columnConstraintDefinition>
+				<ddl:notNullKeyword />
+			</ddl:columnConstraintDefinition>
+		</ddl:columnDefinition>
+		<ddl:tableConstraintDefinition name="CourseSession_PK">
+			<ddl:uniqueConstraintDefinition type="PRIMARY KEY">
+				<dep:simpleColumnReference name="CourseSessionId" />
+			</ddl:uniqueConstraintDefinition>
+		</ddl:tableConstraintDefinition>
+	</ddl:tableDefinition>
+	<ddl:alterTableStatement name="TrackSession" schema="LunchAndLearn">
+		<ddl:addTableConstraintDefinition name="TrackSession_FK1">
+			<ddl:referentialConstraintDefinition>
+				<dep:simpleColumnReference name="TrackId" />
+				<ddl:referencesSpecification name="Track" onDelete="RESTRICT" onUpdate="RESTRICT" schema="LunchAndLearn">
+					<dep:simpleColumnReference name="TrackId" />
+				</ddl:referencesSpecification>
+			</ddl:referentialConstraintDefinition>
+		</ddl:addTableConstraintDefinition>
+	</ddl:alterTableStatement>
+	<ddl:alterTableStatement name="TrackSession" schema="LunchAndLearn">
+		<ddl:addTableConstraintDefinition name="TrackSession_FK2">
+			<ddl:referentialConstraintDefinition>
+				<dep:simpleColumnReference name="CourseSessionId" />
+				<ddl:referencesSpecification name="CourseSession" onDelete="RESTRICT" onUpdate="RESTRICT" schema="LunchAndLearn">
+					<dep:simpleColumnReference name="CourseSessionId" />
+				</ddl:referencesSpecification>
+			</ddl:referentialConstraintDefinition>
+		</ddl:addTableConstraintDefinition>
+	</ddl:alterTableStatement>
+	<ddl:alterTableStatement name="TrackSession" schema="LunchAndLearn">
+		<ddl:addTableConstraintDefinition name="TrackSession_FK3">
+			<ddl:referentialConstraintDefinition>
+				<dep:simpleColumnReference name="RoomId" />
+				<ddl:referencesSpecification name="Room" onDelete="RESTRICT" onUpdate="RESTRICT" schema="LunchAndLearn">
+					<dep:simpleColumnReference name="RoomId" />
+				</ddl:referencesSpecification>
+			</ddl:referentialConstraintDefinition>
+		</ddl:addTableConstraintDefinition>
+	</ddl:alterTableStatement>
+	<ddl:alterTableStatement name="SessionInstructor" schema="LunchAndLearn">
+		<ddl:addTableConstraintDefinition name="SessionInstructor_FK1">
+			<ddl:referentialConstraintDefinition>
+				<dep:simpleColumnReference name="InstructorId" />
+				<ddl:referencesSpecification name="Person" onDelete="RESTRICT" onUpdate="RESTRICT" schema="LunchAndLearn">
+					<dep:simpleColumnReference name="PersonId" />
+				</ddl:referencesSpecification>
+			</ddl:referentialConstraintDefinition>
+		</ddl:addTableConstraintDefinition>
+	</ddl:alterTableStatement>
+	<ddl:alterTableStatement name="SessionInstructor" schema="LunchAndLearn">
+		<ddl:addTableConstraintDefinition name="SessionInstructor_FK2">
+			<ddl:referentialConstraintDefinition>
+				<dep:simpleColumnReference name="TrackSessionId" />
+				<ddl:referencesSpecification name="TrackSession" onDelete="RESTRICT" onUpdate="RESTRICT" schema="LunchAndLearn">
+					<dep:simpleColumnReference name="TrackSessionId" />
+				</ddl:referencesSpecification>
+			</ddl:referentialConstraintDefinition>
+		</ddl:addTableConstraintDefinition>
+	</ddl:alterTableStatement>
+	<ddl:alterTableStatement name="Rating" schema="LunchAndLearn">
+		<ddl:addTableConstraintDefinition name="Rating_FK">
+			<ddl:referentialConstraintDefinition>
+				<dep:simpleColumnReference name="TrackSessionId" />
+				<ddl:referencesSpecification name="TrackSession" onDelete="RESTRICT" onUpdate="RESTRICT" schema="LunchAndLearn">
+					<dep:simpleColumnReference name="TrackSessionId" />
+				</ddl:referencesSpecification>
+			</ddl:referentialConstraintDefinition>
+		</ddl:addTableConstraintDefinition>
+	</ddl:alterTableStatement>
+	<ddl:alterTableStatement name="SessionAttendee" schema="LunchAndLearn">
+		<ddl:addTableConstraintDefinition name="SessionAttendee_FK1">
+			<ddl:referentialConstraintDefinition>
+				<dep:simpleColumnReference name="AttendeeId" />
+				<ddl:referencesSpecification name="Person" onDelete="RESTRICT" onUpdate="RESTRICT" schema="LunchAndLearn">
+					<dep:simpleColumnReference name="PersonId" />
+				</ddl:referencesSpecification>
+			</ddl:referentialConstraintDefinition>
+		</ddl:addTableConstraintDefinition>
+	</ddl:alterTableStatement>
+	<ddl:alterTableStatement name="SessionAttendee" schema="LunchAndLearn">
+		<ddl:addTableConstraintDefinition name="SessionAttendee_FK2">
+			<ddl:referentialConstraintDefinition>
+				<dep:simpleColumnReference name="TrackSessionId" />
+				<ddl:referencesSpecification name="TrackSession" onDelete="RESTRICT" onUpdate="RESTRICT" schema="LunchAndLearn">
+					<dep:simpleColumnReference name="TrackSessionId" />
+				</ddl:referencesSpecification>
+			</ddl:referentialConstraintDefinition>
+		</ddl:addTableConstraintDefinition>
+	</ddl:alterTableStatement>
+	<ddl:alterTableStatement name="SessionCurriculum" schema="LunchAndLearn">
+		<ddl:addTableConstraintDefinition name="SessionCurriculum_FK1">
+			<ddl:referentialConstraintDefinition>
+				<dep:simpleColumnReference name="ArtifactId" />
+				<ddl:referencesSpecification name="Artifact" onDelete="RESTRICT" onUpdate="RESTRICT" schema="LunchAndLearn">
+					<dep:simpleColumnReference name="ArtifactId" />
+				</ddl:referencesSpecification>
+			</ddl:referentialConstraintDefinition>
+		</ddl:addTableConstraintDefinition>
+	</ddl:alterTableStatement>
+	<ddl:alterTableStatement name="SessionCurriculum" schema="LunchAndLearn">
+		<ddl:addTableConstraintDefinition name="SessionCurriculum_FK2">
+			<ddl:referentialConstraintDefinition>
+				<dep:simpleColumnReference name="CourseSessionId" />
+				<ddl:referencesSpecification name="CourseSession" onDelete="RESTRICT" onUpdate="RESTRICT" schema="LunchAndLearn">
+					<dep:simpleColumnReference name="CourseSessionId" />
+				</ddl:referencesSpecification>
+			</ddl:referentialConstraintDefinition>
+		</ddl:addTableConstraintDefinition>
+	</ddl:alterTableStatement>
+	<ddl:alterTableStatement name="CourseOwner" schema="LunchAndLearn">
+		<ddl:addTableConstraintDefinition name="CourseOwner_FK1">
+			<ddl:referentialConstraintDefinition>
+				<dep:simpleColumnReference name="CourseId" />
+				<ddl:referencesSpecification name="Course" onDelete="RESTRICT" onUpdate="RESTRICT" schema="LunchAndLearn">
+					<dep:simpleColumnReference name="CourseId" />
+				</ddl:referencesSpecification>
+			</ddl:referentialConstraintDefinition>
+		</ddl:addTableConstraintDefinition>
+	</ddl:alterTableStatement>
+	<ddl:alterTableStatement name="CourseOwner" schema="LunchAndLearn">
+		<ddl:addTableConstraintDefinition name="CourseOwner_FK2">
+			<ddl:referentialConstraintDefinition>
+				<dep:simpleColumnReference name="InstructorId" />
+				<ddl:referencesSpecification name="Person" onDelete="RESTRICT" onUpdate="RESTRICT" schema="LunchAndLearn">
+					<dep:simpleColumnReference name="PersonId" />
+				</ddl:referencesSpecification>
+			</ddl:referentialConstraintDefinition>
+		</ddl:addTableConstraintDefinition>
+	</ddl:alterTableStatement>
+	<ddl:alterTableStatement name="CourseSession" schema="LunchAndLearn">
+		<ddl:addTableConstraintDefinition name="CourseSession_FK">
+			<ddl:referentialConstraintDefinition>
+				<dep:simpleColumnReference name="CourseId" />
+				<ddl:referencesSpecification name="Course" onDelete="RESTRICT" onUpdate="RESTRICT" schema="LunchAndLearn">
+					<dep:simpleColumnReference name="CourseId" />
+				</ddl:referencesSpecification>
+			</ddl:referentialConstraintDefinition>
+		</ddl:addTableConstraintDefinition>
+	</ddl:alterTableStatement>
+	<dms:commitStatement />
+</dil:root>

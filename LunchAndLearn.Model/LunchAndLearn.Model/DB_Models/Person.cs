@@ -6,27 +6,26 @@ namespace LunchAndLearn.Model.DB_Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("LunchAndLearn.Room")]
-    public partial class Room
+    [Table("LunchAndLearn.Person")]
+    public partial class Person
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Room()
+        public Person()
         {
+            Courses = new HashSet<Course>();
             TrackSessions = new HashSet<TrackSession>();
+            TrackSessions1 = new HashSet<TrackSession>();
         }
 
-        public int RoomId { get; set; }
+        public int PersonId { get; set; }
 
-        [Required]
-        [StringLength(100)]
-        public string Name { get; set; }
-
-        [StringLength(400)]
-        public string Description { get; set; }
-
-        public byte? MaxOccupancy { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Course> Courses { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TrackSession> TrackSessions { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TrackSession> TrackSessions1 { get; set; }
     }
 }
