@@ -1,3 +1,5 @@
+using LunchAndLearn.Model.DTOs;
+
 namespace LunchAndLearn.Model.DB_Models
 {
     using System;
@@ -20,7 +22,17 @@ namespace LunchAndLearn.Model.DB_Models
         [StringLength(500)]
         public string FilePath { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage",
+            "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CourseSession> CourseSessions { get; set; }
+
+        public ArtifactDto ConvertToArtifactDto()
+        {
+            return new ArtifactDto()
+            {
+                ArtifactId = this.ArtifactId,
+                FilePath = this.FilePath
+            };
+        }
     }
 }

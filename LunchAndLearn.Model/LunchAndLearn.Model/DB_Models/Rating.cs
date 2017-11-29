@@ -1,3 +1,5 @@
+using LunchAndLearn.Model.DTOs;
+
 namespace LunchAndLearn.Model.DB_Models
 {
     using System;
@@ -20,5 +22,17 @@ namespace LunchAndLearn.Model.DB_Models
         public int? SessionScoreNr { get; set; }
 
         public virtual TrackSession TrackSession { get; set; }
+
+        public RatingDto ConvertToRatingDto()
+        {
+            return new RatingDto()
+            {
+                RatingId = this.RatingId,
+                TrackSessionId = this.TrackSessionId,
+                Comment = this.Comment,
+                InstructorScoreNr = this.InstructorScoreNr,
+                SessionScoreNr = this.SessionScoreNr
+            };
+        }
     }
 }

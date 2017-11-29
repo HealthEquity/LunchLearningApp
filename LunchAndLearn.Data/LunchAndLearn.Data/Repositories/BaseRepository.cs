@@ -53,7 +53,7 @@ namespace LunchAndLearn.Data.Repositories
 
     public void Delete(int id)
     {
-      var entityToDelete = DbContext.Schedules.Find(id);
+      var entityToDelete = DbContext.TrackSessions.Find(id);
       DbContext.Entry(entityToDelete).State = EntityState.Deleted;
     }
 

@@ -49,21 +49,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClassService.cs" />
-    <Compile Include="InstructorService.cs" />
+    <Compile Include="PersonService.cs" />
+    <Compile Include="CourseSessionService.cs" />
+    <Compile Include="CourseService.cs" />
+    <Compile Include="ArtifactService.cs" />
+    <Compile Include="Interfaces\ITrackSessionService.cs" />
+    <Compile Include="Interfaces\IRatingHashService.cs" />
+    <Compile Include="Interfaces\IPersonService.cs" />
+    <Compile Include="Interfaces\ICourseSessionService.cs" />
     <Compile Include="Interfaces\IBaseService.cs" />
-    <Compile Include="Interfaces\IClassService.cs" />
-    <Compile Include="Interfaces\IInstructorService.cs" />
+    <Compile Include="Interfaces\IArtifactService.cs" />
+    <Compile Include="Interfaces\ICourseService.cs" />
     <Compile Include="Interfaces\IRatingService.cs" />
-    <Compile Include="Interfaces\Reporting\IReportingService.cs" />
     <Compile Include="Interfaces\IRoomService.cs" />
-    <Compile Include="Interfaces\IScheduleService.cs" />
     <Compile Include="Interfaces\ITrackService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RatingHashService.cs" />
     <Compile Include="RatingService.cs" />
-    <Compile Include="Reporting\ReportingService.cs" />
     <Compile Include="RoomService.cs" />
-    <Compile Include="ScheduleService.cs" />
+    <Compile Include="TrackSessionService.cs" />
     <Compile Include="TrackService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -80,7 +84,10 @@
       <Name>LunchAndLearn.Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Interfaces\Reporting\" />
+    <Folder Include="Reporting\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

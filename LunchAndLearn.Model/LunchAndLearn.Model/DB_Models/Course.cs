@@ -1,3 +1,5 @@
+using LunchAndLearn.Model.DTOs;
+
 namespace LunchAndLearn.Model.DB_Models
 {
     using System;
@@ -20,15 +22,25 @@ namespace LunchAndLearn.Model.DB_Models
 
         [Required]
         [StringLength(100)]
-        public string ClassName { get; set; }
+        public string CourseName { get; set; }
 
         [StringLength(400)]
-        public string ClassDescription { get; set; }
+        public string CourseDescription { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CourseSession> CourseSessions { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Person> People { get; set; }
+
+        public CourseDto ConvertToCourseDto()
+        {
+            return new CourseDto()
+            {
+                CourseId = this.CourseId,
+                CourseName = this.CourseName,
+                CourseDescription = this.CourseDescription
+            };
+        }
     }
 }
