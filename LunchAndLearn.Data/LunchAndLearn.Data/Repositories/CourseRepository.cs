@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +8,7 @@ using LunchAndLearn.Model.DB_Models;
 
 namespace LunchAndLearn.Data.Repositories
 {
-  public class RoomRepository : BaseRepository<Room>, IRoomRepository
+  public class CourseRepository : BaseRepository<Course>, ICourseRepository
   {
 
   }

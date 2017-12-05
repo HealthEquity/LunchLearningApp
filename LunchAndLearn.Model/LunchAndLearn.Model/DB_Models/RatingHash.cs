@@ -1,3 +1,5 @@
+using LunchAndLearn.Model.DTOs;
+
 namespace LunchAndLearn.Model.DB_Models
 {
     using System;
@@ -12,5 +14,13 @@ namespace LunchAndLearn.Model.DB_Models
         [Key]
         [StringLength(300)]
         public string Value { get; set; }
+
+        public RatingHashDto ConvertToRatingHashDto()
+        {
+            return new RatingHashDto()
+            {
+                Value = this.Value
+            };
+        }
     }
 }

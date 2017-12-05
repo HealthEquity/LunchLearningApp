@@ -1,3 +1,5 @@
+using LunchAndLearn.Model.DTOs;
+
 namespace LunchAndLearn.Model.DB_Models
 {
     using System;
@@ -28,5 +30,16 @@ namespace LunchAndLearn.Model.DB_Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TrackSession> TrackSessions { get; set; }
+
+        public TrackDto ConvertToTrackDto()
+        {
+            return new TrackDto()
+            {
+                TrackId = this.TrackId,
+                Description = this.Description,
+                Name = this.Name,
+                SeasonNr = this.SeasonNr
+            };
+        }
     }
 }

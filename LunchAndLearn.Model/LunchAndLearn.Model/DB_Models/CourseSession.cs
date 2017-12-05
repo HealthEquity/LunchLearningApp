@@ -1,3 +1,5 @@
+using LunchAndLearn.Model.DTOs;
+
 namespace LunchAndLearn.Model.DB_Models
 {
     using System;
@@ -27,5 +29,14 @@ namespace LunchAndLearn.Model.DB_Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Artifact> Artifacts { get; set; }
+
+        public CourseSessionDto ConvertToCourseSessionDto()
+        {
+            return new CourseSessionDto()
+            {
+                CourseSessionId = this.CourseSessionId,
+                CourseId = this.CourseId
+            };
+        }
     }
 }
