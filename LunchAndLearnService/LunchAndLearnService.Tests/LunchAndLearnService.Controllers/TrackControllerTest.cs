@@ -30,23 +30,23 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
         new TrackDto()
         {
           TrackId = 1,
-          IsActive = true,
-          TrackDescription = "track description 1",
-          TrackName = "track name 1"
+          Name = "name",
+          Description = "description",
+          SeasonNr = 1
         },
         new TrackDto()
         {
           TrackId = 2,
-          IsActive = true,
-          TrackDescription = "track description 2",
-          TrackName = "track name 2"
+          Name = "name 2",
+          Description = "description 2",
+          SeasonNr = 1
         },
         new TrackDto()
         {
           TrackId = 3,
-          IsActive = true,
-          TrackDescription = "track description 3",
-          TrackName = "track name 3"
+          Name = "name",
+          Description = "description",
+          SeasonNr = 1
         }
       };
     }
@@ -107,9 +107,9 @@ namespace LunchAndLearnService.Tests.LunchAndLearnService.Controllers
       var trackToCreate = new TrackDto()
       {
         TrackId = 7,
-        IsActive = true,
-        TrackDescription = "test description 7",
-        TrackName = "track name 7"
+        Name = "track name",
+        Description = "track description",
+        SeasonNr = 1
       };
 
       Mock.Arrange(() => _trackService.Create(trackToCreate))

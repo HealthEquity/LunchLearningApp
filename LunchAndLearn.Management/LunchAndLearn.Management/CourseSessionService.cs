@@ -14,11 +14,11 @@ using LunchAndLearn.Model.DTOs;
 
 namespace LunchAndLearn.Management
 {
-  public class ClassSessionService : ICourseSessionService
+  public class CourseSessionService : ICourseSessionService
   {
     private readonly ICourseSessionRepository _courseSessionRepository;
 
-    public ClassSessionService(ICourseSessionRepository courseSessionRepository)
+    public CourseSessionService(ICourseSessionRepository courseSessionRepository)
     {
       _courseSessionRepository = courseSessionRepository;
     }

@@ -27,23 +27,23 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
         new TrackDto()
         {
           TrackId = 1,
-          TrackName = "track 1",
-          TrackDescription = "track description 1",
-          IsActive = true
+          Name = "track 1",
+          Description = "description 1",
+          SeasonNr = 1
         },
         new TrackDto()
         {
           TrackId = 2,
-          TrackName = "track 2",
-          TrackDescription = "track description 2",
-          IsActive = true
+          Name = "track 2",
+          Description = "description 2",
+          SeasonNr = 2
         },
         new TrackDto()
         {
           TrackId = 3,
-          TrackName = "track 3",
-          TrackDescription = "track description 3",
-          IsActive = false
+          Name = "track 3",
+          Description = "description 3",
+          SeasonNr = 3
         },
       };
     }
@@ -63,9 +63,9 @@ namespace LunchAndLearnService.Tests.LunchAndLearn.Management
       var trackToCreate = new TrackDto()
       {
         TrackId = 6,
-        TrackName = "track 6",
-        TrackDescription = "track description 6",
-        IsActive = true
+        Name = "track 6",
+        Description = "description 6",
+        SeasonNr = 5
       };
 
       var mockRepo = Mock.Create<ITrackRepository>();

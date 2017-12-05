@@ -9,6 +9,7 @@ using System.Web.Http;
 using System.Web.Http.ModelBinding;
 using LunchAndLearn.Data.Repositories;
 using LunchAndLearn.Model.DB_Models;
+using LunchAndLearn.Model.InterfaceModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;

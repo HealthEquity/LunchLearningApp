@@ -74,6 +74,7 @@
     <Compile Include="DTOs\CourseSessionDto.cs" />
     <Compile Include="DTOs\CourseDto.cs" />
     <Compile Include="DTOs\ArtifactDto.cs" />
+    <Compile Include="InterfaceModels\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
