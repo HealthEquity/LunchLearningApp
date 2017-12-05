@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Login</h2>
+<mat-dialog-content>
+  <form (ngSubmit)="save()" [formGroup]="personLoginForm">
+    <mat-form-field style="width:100%">
+      <input matInput placeholder="Username">
+    </mat-form-field>
+    <mat-form-field style="width:100%">
+      <input matInput placeholder="Password">
+    </mat-form-field>
+ </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button [mat-dialog-close]="true" tabindex="1" color="accent" style="width:100%">Log In</button>
+</mat-dialog-actions>
+<div class="mat-body-2" style="text-align:center">
+    Don't have an account? <a href="#">Sign Up</a>
+</div>
