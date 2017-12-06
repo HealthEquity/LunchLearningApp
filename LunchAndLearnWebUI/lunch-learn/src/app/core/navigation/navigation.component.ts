@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { PersonLoginComponent } from '../person-login/person-login.component';
-import { PersonSignupComponent } from '../person-signup/person-signup.component';
+import { PersonLoginComponent } from '../../person/person-login/person-login.component';
+import { PersonSignupComponent } from '../../person/person-signup/person-signup.component';
 
 @Component({
   selector: 'll-navigation',

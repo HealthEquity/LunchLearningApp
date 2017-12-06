@@ -1,56 +1,39 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+
+import { AppRoutingModule } from './app.routing.module';
 import { CustomMaterialModule } from './custom-material.module';
-
-
+import { CoreModule } from './core/core.module';
+import { CourseModule } from './course/course.module';
+import { PersonModule } from './person/person.module';
+import { RoomModule } from './room/room.module';
+import { SessionModule } from './session/session.module';
+import { TrackModule } from './track/track.module'
+ 
 import { AppComponent } from './app.component';
-import { AppRoutingModule, routingComponents } from './app.routing.module';
-
-import { TrackDetailsComponent } from './track-details/track-details.component';
-import { CourseDetailsComponent } from './course-details/course-details.component';
-import { RoomDetailsComponent } from './room-details/room-details.component';
-import { SessionDetailsComponent } from './session-details/session-details.component';
-import { PersonDetailsComponent } from './person-details/person-details.component';
-import { CoursesComponent } from './courses/courses.component';
-import { SessionsComponent } from './sessions/sessions.component';
-import { TracksComponent } from './tracks/tracks.component';
-import { RoomsComponent } from './rooms/rooms.component';
-import { PersonsComponent } from './persons/persons.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { NavigationComponent } from './navigation/navigation.component';
-import { PersonSignupComponent } from './person-signup/person-signup.component';
-import { PersonLoginComponent } from './person-login/person-login.component';
+import { PersonSignupComponent } from './person/person-signup/person-signup.component';
+import { PersonLoginComponent } from './person/person-login/person-login.component';
+import { CourseDetailsComponent} from './course/course-details/course-details.component';
 
 
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    routingComponents,
-    TrackDetailsComponent,
-    CourseDetailsComponent,
-    RoomDetailsComponent,
-    SessionDetailsComponent,
-    PersonDetailsComponent,
-    CoursesComponent,
-    SessionsComponent,
-    TracksComponent,
-    RoomsComponent,
-    PersonsComponent,
-    PageNotFoundComponent,
-    NavigationComponent,
-    PersonSignupComponent,
-    PersonLoginComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule,
     CustomMaterialModule,
-    AppRoutingModule
+    AppRoutingModule,
+    CoreModule,
+    CourseModule,
+    PersonModule,
+    RoomModule,
+    SessionModule,
+    TrackModule
   ],
   entryComponents: [
     PersonLoginComponent,
