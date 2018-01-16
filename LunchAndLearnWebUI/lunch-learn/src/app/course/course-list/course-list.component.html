@@ -14,13 +14,13 @@
         <!-- Name Column -->
         <ng-container matColumnDef="name">
           <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
-          <mat-cell *matCellDef="let course"> {{course.name}} </mat-cell>
+          <mat-cell *matCellDef="let course"> {{course.courseName}} </mat-cell>
         </ng-container>
 
         <!-- Description Column -->
         <ng-container matColumnDef="description">
           <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
-          <mat-cell *matCellDef="let course"> {{course.description}} </mat-cell>
+          <mat-cell *matCellDef="let course"> {{course.courseDescription}} </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

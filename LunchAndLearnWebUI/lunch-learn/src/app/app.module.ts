@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-
+import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app.routing.module';
 import { CustomMaterialModule } from './custom-material.module';
 import { CoreModule } from './core/core.module';
@@ -15,6 +15,10 @@ import { AppComponent } from './app.component';
 import { PersonSignupComponent } from './person/person-signup/person-signup.component';
 import { PersonLoginComponent } from './person/person-login/person-login.component';
 import { CourseDetailsComponent} from './course/course-details/course-details.component';
+
+import { ClassService } from './course/course.service';
+
+import { Configuration } from "./app.constants";
 
 
 
@@ -33,7 +37,8 @@ import { CourseDetailsComponent} from './course/course-details/course-details.co
     PersonModule,
     RoomModule,
     SessionModule,
-    TrackModule
+    TrackModule,
+    HttpModule
   ],
   entryComponents: [
     PersonLoginComponent,
@@ -41,7 +46,7 @@ import { CourseDetailsComponent} from './course/course-details/course-details.co
     CourseDetailsComponent
   ],
   exports: [CustomMaterialModule],
-  providers: [CustomMaterialModule],
+  providers: [CustomMaterialModule, ClassService, Configuration],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

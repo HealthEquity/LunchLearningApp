@@ -10,17 +10,17 @@ import { Course } from './course';
 export class ClassService {
 
   private headers = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json', 'Access-Control-Allow-Origin': 'Allow'});
-  private classUrl = 'api/class';  // URL to web api
+  private classUrl = '';
 
   constructor(private http: Http, private _configuration: Configuration) {
-    this.classUrl = _configuration.ServerWithApiUrl + 'class/';
+    this.classUrl = _configuration.ServerWithApiUrl + 'course/';  // URL to web api
    }
   
   getClasses() {
         return this.http.get(this.classUrl + 'all')
             .map(res => <Course[]>res.json())
             .catch(this.handleError);
-    }
+  }
 
   getClass(id: number) {
       const url = `${this.classUrl}/${id}`;
@@ -44,7 +44,7 @@ export class ClassService {
   }
   
   update(dbClass: Course) {
-    const url = `${this.classUrl}/${dbClass.id}`;
+    const url = `${this.classUrl}/${dbClass.courseId}`;
     return this.http
       .put(url, JSON.stringify(dbClass), {headers: this.headers})
       .map(() => dbClass)
