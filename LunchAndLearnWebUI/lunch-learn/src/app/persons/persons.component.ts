@@ -5,10 +5,10 @@ import { PersonDetailsComponent } from '../person-details/person-details.compone
 
 @Component({
   selector: 'll-persons',
-  templateUrl: './person-list.component.html',
-  styleUrls: ['./person-list.component.css']
+  templateUrl: './persons.component.html',
+  styleUrls: ['./persons.component.css']
 })
-export class PersonListComponent {
+export class PersonsComponent {
   displayedColumns = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
 
