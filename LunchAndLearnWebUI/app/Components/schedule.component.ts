@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Schedule } from '../Models/schedule';
-import { DbClass } from '../Models/dbClass';
+import { DbCourse } from '../Models/dbCourse';
 import { Room } from '../Models/room';
 import { Track } from '../Models/track';
 import { Instructor } from '../Models/instructor';
 import { ScheduleService } from '../Services/schedule.service';
-import { ClassService } from '../Services/class.service';
+import { CourseService } from '../Services/course.service';
 import { RoomService } from '../Services/room.service';
 import { TrackService } from '../Services/track.service';
 import { InstructorService } from '../Services/instructor.service';
@@ -20,7 +20,7 @@ import { InstructorService } from '../Services/instructor.service';
 })
 export class ScheduleComponent implements OnInit {
  schedules: Schedule[] = [];
- classesList: DbClass[] = [];
+ coursesList: DbCourse[] = [];
  roomList: Room[] = [];
  trackList: Track[] = [];
  instructorList: Instructor[] = [];
@@ -29,7 +29,7 @@ export class ScheduleComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private scheduleService: ScheduleService,
-    private classService: ClassService,
+    private courseService: CourseService,
     private roomService: RoomService,
     private trackService: TrackService,
     private instructorService: InstructorService) {
@@ -38,8 +38,8 @@ export class ScheduleComponent implements OnInit {
   ngOnInit(): void {
       this.getSchedules();
 
-      this.classService.getClasses()
-      .subscribe(value => this.classesList = value);
+      this.courseService.getCourses()
+      .subscribe(value => this.coursesList = value);
 
        this.roomService.getRooms()
       .subscribe(value => this.roomList = value);
@@ -51,10 +51,10 @@ export class ScheduleComponent implements OnInit {
       .subscribe(value => this.instructorList = value);
 
       this.newSchedule = this.formBuilder.group({
-            classId: ['', [Validators.required]],
+            courseId: ['', [Validators.required]],
             instructorId: ['', [Validators.required]],
             trackId: ['', [Validators.required]],
-            classDate: ['', [Validators.required]],
+            courseDate: ['', [Validators.required]],
             roomId: ['', [Validators.required]],
         });
   }
