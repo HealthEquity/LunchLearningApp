@@ -5,10 +5,10 @@ import { CourseDetailsComponent } from '../course-details/course-details.compone
 
 @Component({
   selector: 'll-courses',
-  templateUrl: './course-list.component.html',
-  styleUrls: ['./course-list.component.css']
+  templateUrl: './courses.component.html',
+  styleUrls: ['./courses.component.css']
 })
-export class CourseListComponent {
+export class CoursesComponent {
   displayedColumns = ['name', 'description'];
   dataSource = new MatTableDataSource<Course>(COURSE_DATA);
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Course } from '../course'
+import { Course } from './course'
 
 @Component({
   selector: 'll-course-details',
