@@ -4,7 +4,7 @@ import {Configuration } from '../app.constants';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
-import { DbCourse } from '../Models/dbCourse';
+import { Course } from '../Models/course';
 
 @Injectable()
 export class CourseService {
@@ -18,14 +18,14 @@ export class CourseService {
   
   getCourses() {
         return this.http.get(this.courseUrl + 'all')
-            .map(res => <DbCourse[]>res.json())
+            .map(res => <Course[]>res.json())
             .catch(this.handleError);
     }
 
   getCourse(id: number) {
       const url = `${this.courseUrl}/${id}`;
       return this.http.get(url)
-          .map(res => <DbCourse>res.json())
+          .map(res => <Course>res.json())
           .catch(this.handleError);
   }
 
@@ -36,18 +36,18 @@ export class CourseService {
     .catch(this.handleError);
   }
 
-   create(dbCourse: DbCourse) {
+   create(course: Course) {
     return this.http
-      .post(this.courseUrl + 'create', JSON.stringify(dbCourse), {headers: this.headers})
+      .post(this.courseUrl + 'create', JSON.stringify(course), {headers: this.headers})
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
   
-  update(dbCourse: DbCourse) {
-    const url = `${this.courseUrl}/${dbCourse.id}`;
+  update(course: Course) {
+    const url = `${this.courseUrl}/${course.id}`;
     return this.http
-      .put(url, JSON.stringify(dbCourse), {headers: this.headers})
-      .map(() => dbCourse)
+      .put(url, JSON.stringify(course), {headers: this.headers})
+      .map(() => course)
       .catch(this.handleError);
   }
 

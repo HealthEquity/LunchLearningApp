@@ -27,7 +27,8 @@ export class RoomComponent implements OnInit {
 
          this.newRoom = this.formBuilder.group({
             roomName: ['', [Validators.required]],
-            roomDescription: ['']
+            roomDescription: [''],
+            maxOccupancy: ['']
         });
   }
 

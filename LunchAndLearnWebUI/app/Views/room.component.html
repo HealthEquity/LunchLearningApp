@@ -15,6 +15,12 @@
       <input type="text"  class="form-control" placeholder="Description of Room" formControlName="roomDescription">
     </div>
   </div>
+  <div class="form-group">
+    <label for="maxOccupancy" class="col-lg-2 control-label">Max Occupancy</label>
+    <div class="col-lg-10">
+      <input type="text"  class="form-control" placeholder="Max Occupancy" formControlName="maxOccupancy">
+    </div>
+  </div>
       <div class="form-group">
       <div class="col-lg-10 col-lg-offset-2">
         <button type="submit" class="btn btn-primary" [disabled]="newRoom.invalid">Create Room</button>
@@ -32,6 +38,7 @@
             <th>Room Id</th>
             <th>Room Name</th>
             <th>Room Description</th>
+            <th>Max Occupancy</th>
           </tr>
           </thead>
           <tbody>
@@ -39,6 +46,7 @@
               <td>{{room.roomId}}</td>
               <td>{{room.roomName}}</td>
               <td>{{room.roomDescription}}</td>
+              <td>{{room.maxOccupancy}}</td>
             </tr>
           </tbody>
        </table>

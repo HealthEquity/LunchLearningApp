@@ -1,24 +1,24 @@
 <form class="form-horizontal" novalidate (submit)="createTrack(newTrack)" [formGroup]="newTrack">
   <fieldset>
   <div class="form-group">
-    <label for="trackName" class="col-lg-2 control-label">Track Name</label>
+    <label for="name" class="col-lg-2 control-label">Track Name</label>
     <div class="col-lg-10">
-    <input type="text"  class="form-control" placeholder="Track name" formControlName="trackName">
+    <input type="text"  class="form-control" placeholder="Track name" formControlName="name">
     </div>
-    <div class="error" *ngIf="newTrack.get('trackName').hasError('required') && newTrack.get('trackName').touched">
+    <div class="error" *ngIf="newTrack.get('name').hasError('required') && newTrack.get('name').touched">
     Track Name is required
     </div>
   </div>
   <div class="form-group">
-    <label for="trackDescription" class="col-lg-2 control-label">Track Description</label>
+    <label for="description" class="col-lg-2 control-label">Track Description</label>
     <div class="col-lg-10">
-    <input type="text"  class="form-control" placeholder="Track Description" formControlName="trackDescription">
+    <input type="text"  class="form-control" placeholder="Track Description" formControlName="description">
     </div>
   </div>
   <div class="form-group">
-    <label for="isActive" class="col-lg-2 control-label">Is Active</label>
+    <label for="seasonNr" class="col-lg-2 control-label">Season Nr</label>
     <div class="col-lg-10">
-      <input type="checkbox"  class="form-control" formControlName="isActive">
+      <input type="text"  class="form-control" formControlName="seasonNr">
     </div>
   </div>
       <div class="form-group">
@@ -37,16 +37,16 @@
           <tr>
             <th>Track Id</th>
             <th>Track Name</th>
+            <th>Season Nr</th>
             <th>Track Description</th>
-            <th>Is Active</th>
           </tr>
           </thead>
           <tbody>
             <tr *ngFor="let track of tracks | paginate: { itemsPerPage: 20, currentPage: page }">
               <td>{{track.trackId}}</td>
-              <td>{{track.trackName}}</td>
-              <td>{{track.trackDescription}}</td>
-              <td>{{track.isActive}}</td>
+              <td>{{track.name}}</td>
+              <td>{{track.seasonNr}}</td>
+              <td>{{track.description}}</td>
             </tr>
           </tbody>
        </table>

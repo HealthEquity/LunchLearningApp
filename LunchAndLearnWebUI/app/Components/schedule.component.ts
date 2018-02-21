@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Schedule } from '../Models/schedule';
-import { DbCourse } from '../Models/dbCourse';
+import { Course } from '../Models/course';
 import { Room } from '../Models/room';
 import { Track } from '../Models/track';
 import { Instructor } from '../Models/instructor';
@@ -20,7 +20,7 @@ import { InstructorService } from '../Services/instructor.service';
 })
 export class ScheduleComponent implements OnInit {
  schedules: Schedule[] = [];
- coursesList: DbCourse[] = [];
+ coursesList: Course[] = [];
  roomList: Room[] = [];
  trackList: Track[] = [];
  instructorList: Instructor[] = [];

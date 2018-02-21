@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { DbCourse } from '../Models/dbCourse';
+import { Course } from '../Models/course';
 import { CourseService } from '../Services/course.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { CourseService } from '../Services/course.service';
   styleUrls: ['../CSS/app.component.css']
 })
 export class CoursesComponent implements OnInit {
-  courses: DbCourse[] = [];
+  courses: Course[] = [];
   newCourse: FormGroup;
   constructor(
     private router: Router,
@@ -32,7 +32,7 @@ export class CoursesComponent implements OnInit {
         
   }
 
-  createClass({ value, valid }: {value: DbCourse, valid: boolean}) {
+  createClass({ value, valid }: {value: Course, valid: boolean}) {
       this.courseService.create(value)
       .subscribe(
       value => this.courses.push(value));

@@ -1,4 +1,4 @@
- export class DbCourse {
+ export class Course {
      id: number;
      courseName: string;
      courseDescription: string;

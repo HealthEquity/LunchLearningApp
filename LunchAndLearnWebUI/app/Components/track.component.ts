@@ -26,9 +26,9 @@ export class TrackComponent implements OnInit {
             );
 
         this.newTrack = this.formBuilder.group({
-        trackName: ['', [Validators.required]],
-        trackDescription: [''],
-        isActive: ['']
+        name: ['', [Validators.required]],
+        description: [''],
+        seasonNr: ['']
         });
   }
 
@@ -38,8 +38,5 @@ export class TrackComponent implements OnInit {
       value => this.tracks.push(value));
       this.newTrack.reset();
   }
-//   gotoDetail(hero: Hero): void {
-//     let link = ['/detail', hero.id];
-//     this.router.navigate(link);
-//   }
+
 }

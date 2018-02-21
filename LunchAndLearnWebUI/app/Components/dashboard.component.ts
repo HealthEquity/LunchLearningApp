@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { DbCourse } from '../Models/dbCourse';
+import { Course } from '../Models/course';
 import { CourseService } from '../Services/course.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { CourseService } from '../Services/course.service';
   styleUrls: ['../CSS/app.component.css']
 })
 export class DashboardComponent implements OnInit {
-  courses: DbCourse[] = [];
+  courses: Course[] = [];
 
   constructor(
     private router: Router,

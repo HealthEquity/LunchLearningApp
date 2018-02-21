@@ -1,7 +1,6 @@
  export class Track {
      id: number;
-     trackName: string;
-     trackDescription: string;
-     isActive: boolean;
-
+     name: string;
+     description: string;
+     seasonNr: number;
  }

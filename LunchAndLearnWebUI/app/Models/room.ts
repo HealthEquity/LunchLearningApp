@@ -2,5 +2,5 @@
      id: number;
      roomName: string;
      roomDescription: string;
-
+     maxOccupancy: number;
  }
