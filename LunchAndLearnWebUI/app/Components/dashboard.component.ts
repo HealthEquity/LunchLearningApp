@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { DbClass } from '../Models/dbClass';
-import { ClassService } from '../Services/class.service';
+import { DbCourse } from '../Models/dbCourse';
+import { CourseService } from '../Services/course.service';
 
 @Component({
   moduleId: module.id,
@@ -11,24 +11,18 @@ import { ClassService } from '../Services/class.service';
   styleUrls: ['../CSS/app.component.css']
 })
 export class DashboardComponent implements OnInit {
-  classes: DbClass[] = [];
+  courses: DbCourse[] = [];
 
   constructor(
     private router: Router,
-    private classService: ClassService) {
+    private courseService: CourseService) {
   }
 
   ngOnInit(): void {
-    // this.classService.getClasses()
-    //   .then(classes => this.classes = classes.slice(1, 5));
-       this.classService.getClasses()
+       this.courseService.getCourses()
             .subscribe(
-            value => this.classes = value.slice(1, 5)
+            value => this.courses = value.slice(1, 5)
             );
   }
 
-//   gotoDetail(hero: Hero): void {
-//     let link = ['/detail', hero.id];
-//     this.router.navigate(link);
-//   }
 }

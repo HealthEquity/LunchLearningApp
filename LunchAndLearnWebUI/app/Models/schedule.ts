@@ -1,8 +1,8 @@
  export class Schedule {
      id: number;
-     classId: number;
+     courseId: number;
      instructorId: number;
      trackId: number;
-     classDate: Date;
+     courseDate: Date;
      roomId: number;
  }

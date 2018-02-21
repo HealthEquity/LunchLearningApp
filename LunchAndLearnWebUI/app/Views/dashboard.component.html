@@ -1,9 +1,9 @@
-<h3>Top Classes</h3>
+<h3>Top Courses</h3>
 <div class="grid grid-pad">
-  <div *ngFor="let class of classes" (click)="gotoDetail(class)" class="col-1-4">
-    <div class="module class">
-      <h4>{{class.className}}</h4>
-      <div>{{class.classDescription}}</div>
+  <div *ngFor="let course of courses" (click)="gotoDetail(course)" class="col-1-4">
+    <div class="module course">
+      <h4>{{course.courseName}}</h4>
+      <div>{{course.courseDescription}}</div>
     </div>
   </div>
 </div>

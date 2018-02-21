@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { ClassService } from '../Services/class.service'
+import { CourseService } from '../Services/course.service'
 
 @Component({
   moduleId: module.id,
   selector: 'my-app',
   templateUrl: '../Views/menu.component.html',
-  providers: [ClassService],
+  providers: [CourseService],
   styleUrls: ['../CSS/app.component.css']
 })
 export class AppComponent {
-  title = 'Lunch and Learn Classes';
+  title = 'Lunch and Learn Courses';
 }

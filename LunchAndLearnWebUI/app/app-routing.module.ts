@@ -2,7 +2,7 @@ import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { DashboardComponent }   from './Components/dashboard.component';
-import { ClassesComponent }      from './Components/classes.component';
+import { CoursesComponent }      from './Components/courses.component';
 import { InstructorComponent }  from './Components/instructor.component';
 import { TrackComponent }  from './Components/track.component';
 import { RoomComponent }  from './Components/room.component';
@@ -14,7 +14,7 @@ import { AuthGuard } from './Guards/auth.guard';
 const routes: Routes = [
   { 
     path: '', 
-    redirectTo: '/classes',
+    redirectTo: '/courses',
     pathMatch: 'full' 
   },
   {
@@ -27,8 +27,8 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'classes',
-    component: ClassesComponent,
+    path: 'courses',
+    component: CoursesComponent,
     canActivate: [AuthGuard]
   },
   {

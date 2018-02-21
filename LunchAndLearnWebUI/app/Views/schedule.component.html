@@ -1,16 +1,16 @@
 <form class="form-horizontal" (submit)="createSchedule(newSchedule)" [formGroup]="newSchedule">
   <fieldset>
      <div class="form-group">
-       <label for="classId" class="col-lg-2 control-label">Class</label>
+       <label for="courseId" class="col-lg-2 control-label">Course</label>
        <div class="col-lg-10">
-           <select formControlName="classId">
-                <option *ngFor="let class of classesList" value= {{class.classId}}>
-                  {{class.className}}
+           <select formControlName="courseId">
+                <option *ngFor="let course of courses" value= {{course.courseId}}>
+                  {{course.courseName}}
                 </option>
            </select>
        </div>
-       <div class="error" *ngIf="newSchedule.get('classId').hasError('required') && newSchedule.get('classId').touched">
-        Class Id is required
+       <div class="error" *ngIf="newSchedule.get('courseid').hasError('required') && newSchedule.get('courseId').touched">
+        Course Id is required
       </div>
      </div>
      <div class="form-group">
@@ -40,11 +40,11 @@
       </div>
      </div>
         <div class="form-group">
-       <label for="classDate" class="col-lg-2 control-label">Class Date</label>
+       <label for="courseDate" class="col-lg-2 control-label">Class Date</label>
        <div class="col-lg-10">
-        <input type="date"  class="form-control" placeholder="Class Date" formControlName="classDate">
+        <input type="date"  class="form-control" placeholder="Class Date" formControlName="courseDate">
        </div>
-       <div class="error" *ngIf="newSchedule.get('classDate').hasError('required') && newSchedule.get('classDate').touched">
+       <div class="error" *ngIf="newSchedule.get('courseDate').hasError('required') && newSchedule.get('courseDate').touched">
         Class Date is required
       </div>
      </div>
@@ -76,10 +76,10 @@
         <thead>
           <tr>
             <th>Schedule Id</th>
-            <th>Class Id</th>
+            <th>Course Id</th>
             <th>Instructor Id</th>
             <th>Track Id</th>
-            <th>Class Date</th>
+            <th>Course Date</th>
             <th>Room Id</th>
             <th></th>
           </tr>
@@ -88,9 +88,9 @@
             <tr *ngFor="let schedule of schedules | paginate: { itemsPerPage: 20, currentPage: page }">
               <td>{{schedule.scheduleId}}</td>
               <td>
-                <select [ngModel]="schedule.classId">
-                <option *ngFor="let class of classesList" value= {{class.classId}}>
-                  {{class.className}}
+                <select [ngModel]="schedule.courseId">
+                <option *ngFor="let course of courses" value= {{class.classId}}>
+                  {{course.courseName}}
                 </option>
            </select>
               </td>
@@ -109,7 +109,7 @@
            </select>
               </td>
               <td>
-                <input type="text" [ngModel]="schedule.classDate | date:'MM/dd/yyyy'">
+                <input type="text" [ngModel]="schedule.courseDate | date:'MM/dd/yyyy'">
               </td>
               <td>
                  <select [ngModel]="schedule.roomId">
