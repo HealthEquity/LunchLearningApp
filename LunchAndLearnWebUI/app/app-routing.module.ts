@@ -3,10 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { DashboardComponent }   from './Components/dashboard.component';
 import { CoursesComponent }      from './Components/courses.component';
-import { InstructorComponent }  from './Components/instructor.component';
+import { PersonComponent }  from './Components/person.component';
 import { TrackComponent }  from './Components/track.component';
 import { RoomComponent }  from './Components/room.component';
-import { ScheduleComponent }  from './Components/schedule.component';
+import { TrackSessionComponent }  from './Components/trackSession.component';
 import { RatingComponent }  from './Components/rating.component';
 import { LoginComponent } from './Components/login.component';
 import { AuthGuard } from './Guards/auth.guard';
@@ -32,8 +32,8 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'instructors',
-    component: InstructorComponent,
+    path: 'persons',
+    component: PersonComponent,
     canActivate: [AuthGuard]
   },
   {
@@ -47,8 +47,8 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'schedules',
-    component: ScheduleComponent,
+    path: 'trackSessions',
+    component: TrackSessionComponent,
     canActivate: [AuthGuard]
   },
   {

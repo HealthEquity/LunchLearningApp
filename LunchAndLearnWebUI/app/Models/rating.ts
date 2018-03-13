@@ -2,7 +2,7 @@
      id: number;
      classId: number;
      classRating: number;
-     instructorId: number;
-     instructorRating: number;
+     personId: number;
+     personRating: number;
      comment: string;
  }

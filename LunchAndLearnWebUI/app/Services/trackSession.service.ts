@@ -3,49 +3,49 @@ import { Headers, Http, Response } from '@angular/http';
 import {Configuration } from '../app.constants';
 import 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
-import { Schedule } from '../Models/schedule';
+import { TrackSession } from '../Models/trackSession';
 
 @Injectable()
-export class ScheduleService {
+export class TrackSessionService {
 
   private headers = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json', 'Access-Control-Allow-Origin': 'Allow'});
-  private scheduleUrl = 'api/schedule';  // URL to web api
+  private trackSessionUrl = 'api/trackSession';  // URL to web api
 
   constructor(private http: Http, private _configuration: Configuration) {
-    this.scheduleUrl = _configuration.ServerWithApiUrl + 'schedule/';
+    this.trackSessionUrl = _configuration.ServerWithApiUrl + 'trackSession/';
    }
   
-  getSchedules() {
-        return this.http.get(this.scheduleUrl + 'all')
-            .map(res => <Schedule[]>res.json())
+  getTrackSessions() {
+        return this.http.get(this.trackSessionUrl + 'all')
+            .map(res => <TrackSession[]>res.json())
             .catch(this.handleError);
     }
 
-    getSchedule(id: number) {
-        const url = `${this.scheduleUrl}/${id}`;
+    getTrackSession(id: number) {
+        const url = `${this.trackSessionUrl}/${id}`;
         return this.http.get(url)
-            .map(res => <Schedule>res.json())
+            .map(res => <TrackSession>res.json())
             .catch(this.handleError);
     }
 
   delete(id: number) {
-    const url = `${this.scheduleUrl}/${id}`;
+    const url = `${this.trackSessionUrl}/${id}`;
     return this.http.delete(url, {headers: this.headers})
     .map(() => null)
     .catch(this.handleError);
   }
 
-   create(schedule: Schedule) {
+   create(trackSession: TrackSession) {
     return this.http
-      .post(this.scheduleUrl + 'create', JSON.stringify(schedule), {headers: this.headers})
+      .post(this.trackSessionUrl + 'create', JSON.stringify(trackSession), {headers: this.headers})
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
   
-  update(schedule: Schedule) {
+  update(trackSession: TrackSession) {
     return this.http
-      .put(this.scheduleUrl + 'update', JSON.stringify(schedule), {headers: this.headers})
-      .map(() => schedule)
+      .put(this.trackSessionUrl + 'update', JSON.stringify(trackSession), {headers: this.headers})
+      .map(() => trackSession)
       .catch(this.handleError);
   }
 

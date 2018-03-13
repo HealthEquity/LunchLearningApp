@@ -1,7 +1,7 @@
- export class Schedule {
+ export class TrackSession {
      id: number;
      courseId: number;
-     instructorId: number;
+     personId: number;
      trackId: number;
      courseDate: Date;
      roomId: number;

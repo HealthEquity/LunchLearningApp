@@ -1,4 +1,4 @@
-<form class="form-horizontal" (submit)="createSchedule(newSchedule)" [formGroup]="newSchedule">
+<form class="form-horizontal" (submit)="createTrackSession(newTrackSession)" [formGroup]="newTrackSession">
   <fieldset>
      <div class="form-group">
        <label for="courseId" class="col-lg-2 control-label">Course</label>
@@ -9,21 +9,21 @@
                 </option>
            </select>
        </div>
-       <div class="error" *ngIf="newSchedule.get('courseid').hasError('required') && newSchedule.get('courseId').touched">
+       <div class="error" *ngIf="newTrackSession.get('courseid').hasError('required') && newTrackSession.get('courseId').touched">
         Course Id is required
       </div>
      </div>
      <div class="form-group">
-       <label for="instructorId" class="col-lg-2 control-label">Instructor</label>
+       <label for="personId" class="col-lg-2 control-label">Person</label>
        <div class="col-lg-10">
-          <select formControlName="instructorId">
-                <option *ngFor="let instructor of instructorList" value= {{instructor.instructorId}}>
-                  {{instructor.instructorName}}
+          <select formControlName="personId">
+                <option *ngFor="let person of personList" value= {{person.personId}}>
+                  {{person.personName}}
                 </option>
            </select>
        </div>
-       <div class="error" *ngIf="newSchedule.get('instructorId').hasError('required') && newSchedule.get('instructorId').touched">
-        Instructor Id is required
+       <div class="error" *ngIf="newTrackSession.get('personId').hasError('required') && newTrackSession.get('personId').touched">
+        Person Id is required
       </div>
      </div>
       <div class="form-group">
@@ -35,7 +35,7 @@
                 </option>
            </select>
        </div>
-       <div class="error" *ngIf="newSchedule.get('trackId').hasError('required') && newSchedule.get('trackId').touched">
+       <div class="error" *ngIf="newTrackSession.get('trackId').hasError('required') && newTrackSession.get('trackId').touched">
         Track Id is required
       </div>
      </div>
@@ -44,7 +44,7 @@
        <div class="col-lg-10">
         <input type="date"  class="form-control" placeholder="Class Date" formControlName="courseDate">
        </div>
-       <div class="error" *ngIf="newSchedule.get('courseDate').hasError('required') && newSchedule.get('courseDate').touched">
+       <div class="error" *ngIf="newTrackSession.get('courseDate').hasError('required') && newTrackSession.get('courseDate').touched">
         Class Date is required
       </div>
      </div>
@@ -57,13 +57,13 @@
                 </option>
            </select>
        </div>
-       <div class="error" *ngIf="newSchedule.get('roomId').hasError('required') && newSchedule.get('roomId').touched">
+       <div class="error" *ngIf="newTrackSession.get('roomId').hasError('required') && newTrackSession.get('roomId').touched">
         Room Id is required
       </div>
      </div> 
       <div class="form-group">
         <div class="col-lg-10 col-lg-offset-2">
-          <button type="submit" class="btn btn-primary" [disabled]="newSchedule.invalid">Create Schedule</button>
+          <button type="submit" class="btn btn-primary" [disabled]="newTrackSession.invalid">Create TrackSession</button>
         </div>
       </div>
   </fieldset>
@@ -72,12 +72,12 @@
     <div class="row">
     <div class="col-md-12">
       <!--Body content-->
-      <table id="schedules" class="table table-striped table-bordered table-hover">
+      <table id="trackSessions" class="table table-striped table-bordered table-hover">
         <thead>
           <tr>
-            <th>Schedule Id</th>
+            <th>TrackSession Id</th>
             <th>Course Id</th>
-            <th>Instructor Id</th>
+            <th>Person Id</th>
             <th>Track Id</th>
             <th>Course Date</th>
             <th>Room Id</th>
@@ -85,40 +85,40 @@
           </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let schedule of schedules | paginate: { itemsPerPage: 20, currentPage: page }">
-              <td>{{schedule.scheduleId}}</td>
+            <tr *ngFor="let trackSession of trackSessions | paginate: { itemsPerPage: 20, currentPage: page }">
+              <td>{{trackSession.trackSessionId}}</td>
               <td>
-                <select [ngModel]="schedule.courseId">
+                <select [ngModel]="trackSession.courseId">
                 <option *ngFor="let course of courses" value= {{class.classId}}>
                   {{course.courseName}}
                 </option>
            </select>
               </td>
               <td>
-                <select [ngModel]="schedule.instructorId">
-                <option *ngFor="let instructor of instructorList" value= {{instructor.instructorId}}>
-                  {{instructor.instructorName}}
+                <select [ngModel]="trackSession.personId">
+                <option *ngFor="let person of personList" value= {{person.personId}}>
+                  {{person.personName}}
                 </option>
                 </select>
               </td>
               <td>
-                <select [ngModel]="schedule.trackId">
+                <select [ngModel]="trackSession.trackId">
                 <option *ngFor="let track of trackList" value= {{track.trackId}}>
                   {{track.trackName}}
                 </option>
            </select>
               </td>
               <td>
-                <input type="text" [ngModel]="schedule.courseDate | date:'MM/dd/yyyy'">
+                <input type="text" [ngModel]="trackSession.courseDate | date:'MM/dd/yyyy'">
               </td>
               <td>
-                 <select [ngModel]="schedule.roomId">
+                 <select [ngModel]="trackSession.roomId">
                 <option *ngFor="let room of roomList" value= {{room.roomId}}>
                   {{room.roomName}}
                 </option>
            </select>
               </td>
-              <td><button type="button" class="btn btn-default" (click)="updateSchedule(schedule)">Update</button></td>
+              <td><button type="button" class="btn btn-default" (click)="updateTrackSession(trackSession)">Update</button></td>
             </tr>
           </tbody>
        </table>

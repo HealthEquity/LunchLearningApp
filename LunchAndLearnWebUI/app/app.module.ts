@@ -6,18 +6,18 @@ import { HttpModule }    from '@angular/http';
 import './rxjs-extensions';
 import { DashboardComponent} from './Components/dashboard.component';
 import { CoursesComponent} from './Components/courses.component';
-import { InstructorComponent} from './Components/instructor.component';
+import { PersonComponent} from './Components/person.component';
 import { RoomComponent} from './Components/room.component';
 import { RatingComponent} from './Components/rating.component';
-import { ScheduleComponent} from './Components/schedule.component';
+import { TrackSessionComponent} from './Components/trackSession.component';
 import { TrackComponent} from './Components/track.component';
 import { AppComponent }         from './Components/app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CourseService }          from './Services/course.service';
-import { InstructorService }          from './Services/instructor.service';
+import { PersonService }          from './Services/person.service';
 import { RoomService }          from './Services/room.service';
 import { RatingService }          from './Services/rating.service';
-import { ScheduleService }          from './Services/schedule.service';
+import { TrackSessionService }          from './Services/trackSession.service';
 import { TrackService }          from './Services/track.service';
 import { Configuration } from './app.constants';
 import {APP_BASE_HREF} from '@angular/common';
@@ -35,9 +35,9 @@ import { AuthGuard } from './Guards/auth.guard';
     AppRoutingModule, 
     Ng2PaginationModule,
     ],
-  declarations: [ AppComponent, DashboardComponent, CoursesComponent, InstructorComponent, RoomComponent, RatingComponent,ScheduleComponent, TrackComponent, LoginComponent ],
+  declarations: [ AppComponent, DashboardComponent, CoursesComponent, PersonComponent, RoomComponent, RatingComponent,TrackSessionComponent, TrackComponent, LoginComponent ],
   providers: [ {provide: APP_BASE_HREF, useValue : '/' },
-    CourseService, InstructorService, RoomService, RatingService, ScheduleService, TrackService, Configuration, AuthenticationService, AuthGuard
+    CourseService, PersonService, RoomService, RatingService, TrackSessionService, TrackService, Configuration, AuthenticationService, AuthGuard
   ],
   bootstrap:    [ AppComponent ]
 })

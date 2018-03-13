@@ -4,50 +4,50 @@ import {Configuration } from '../app.constants';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
-import { Instructor } from '../Models/instructor';
+import { Person } from '../Models/person';
 
 @Injectable()
-export class InstructorService {
+export class PersonService {
 
   private headers = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json', 'Access-Control-Allow-Origin': 'Allow'});
-  private instructorUrl = 'api/instructor';  // URL to web api
+  private personUrl = 'api/person';  // URL to web api
 
   constructor(private http: Http, private _configuration: Configuration) {
-    this.instructorUrl = _configuration.ServerWithApiUrl + 'instructor/';
+    this.personUrl = _configuration.ServerWithApiUrl + 'person/';
    }
   
-  getInstructors() {
-        return this.http.get(this.instructorUrl + 'all')
-            .map(res => <Instructor[]>res.json())
+  getPersons() {
+        return this.http.get(this.personUrl + 'all')
+            .map(res => <Person[]>res.json())
             .catch(this.handleError);
     }
 
-    getInstructor(id: number) {
-        const url = `${this.instructorUrl}/${id}`;
+    getPerson(id: number) {
+        const url = `${this.personUrl}/${id}`;
         return this.http.get(url)
-            .map(res => <Instructor>res.json())
+            .map(res => <Person>res.json())
             .catch(this.handleError);
     }
 
   delete(id: number) {
-    const url = `${this.instructorUrl}/${id}`;
+    const url = `${this.personUrl}/${id}`;
     return this.http.delete(url, {headers: this.headers})
     .map(() => null)
     .catch(this.handleError);
   }
 
-   create(instructor: Instructor) {
+   create(person: Person) {
     return this.http
-      .post(this.instructorUrl + 'create', JSON.stringify(instructor), {headers: this.headers})
+      .post(this.personUrl + 'create', JSON.stringify(person), {headers: this.headers})
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
   
-  update(instructor: Instructor) {
-    const url = `${this.instructorUrl}/${instructor.id}`;
+  update(person: Person) {
+    const url = `${this.personUrl}/${person.id}`;
     return this.http
-      .put(url, JSON.stringify(instructor), {headers: this.headers})
-      .map(() => instructor)
+      .put(url, JSON.stringify(person), {headers: this.headers})
+      .map(() => person)
       .catch(this.handleError);
   }
 
