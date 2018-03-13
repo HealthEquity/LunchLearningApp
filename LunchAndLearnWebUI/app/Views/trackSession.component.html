@@ -18,7 +18,7 @@
        <div class="col-lg-10">
           <select formControlName="personId">
                 <option *ngFor="let person of personList" value= {{person.personId}}>
-                  {{person.personName}}
+                  {{person.name}}
                 </option>
            </select>
        </div>
@@ -97,7 +97,7 @@
               <td>
                 <select [ngModel]="trackSession.personId">
                 <option *ngFor="let person of personList" value= {{person.personId}}>
-                  {{person.personName}}
+                  {{person.name}}
                 </option>
                 </select>
               </td>

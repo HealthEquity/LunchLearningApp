@@ -1,8 +1,7 @@
  export class Rating {
      id: number;
-     classId: number;
-     classRating: number;
-     personId: number;
-     personRating: number;
+     trackSessionId: number;
+     sessionScoreNr: number;
+     instructorScoreNr: number;
      comment: string;
  }

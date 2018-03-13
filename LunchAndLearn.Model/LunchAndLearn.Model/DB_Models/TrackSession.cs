@@ -16,7 +16,6 @@ namespace LunchAndLearn.Model.DB_Models
         {
             Ratings = new HashSet<Rating>();
             People = new HashSet<Person>();
-            People1 = new HashSet<Person>();
         }
 
         public int TrackSessionId { get; set; }
@@ -45,9 +44,6 @@ namespace LunchAndLearn.Model.DB_Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Person> People { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Person> People1 { get; set; }
 
         public TrackSessionDto ConvertToTrackSessionDto()
         {

@@ -1,6 +1,6 @@
  export class Room {
      id: number;
-     roomName: string;
-     roomDescription: string;
+     name: string;
+     description: string;
      maxOccupancy: number;
  }

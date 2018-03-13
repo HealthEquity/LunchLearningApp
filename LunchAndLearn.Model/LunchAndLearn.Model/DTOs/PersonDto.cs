@@ -10,11 +10,14 @@ namespace LunchAndLearn.Model.DTOs
   public class PersonDto
   {
     public int PersonId { get; set; }
+    public string Name { get; set; }
+
     public Person ConvertToPersonDbModel()
     {
       return new Person
       {
-        PersonId = this.PersonId
+        PersonId = this.PersonId,
+        Name = this.Name
       };
     }
   }

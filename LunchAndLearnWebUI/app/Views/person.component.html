@@ -1,25 +1,19 @@
 <form class="form-horizontal" novalidate (submit)="createPerson(newPerson)" [formGroup]="newPerson">
   <fieldset>
   <div class="form-group">
-    <label for="personName" class="col-lg-2 control-label">Person Name</label>
+    <label for="name" class="col-lg-2 control-label">Person Name</label>
     <div class="col-lg-10">
-    <input type="text"  class="form-control" placeholder="Person name" formControlName="personName">
+    <input type="text"  class="form-control" placeholder="Person name" formControlName="name">
     </div>
-    <div class="error" *ngIf="newPerson.get('personName').hasError('required') && newPerson.get('personName').touched">
+    <div class="error" *ngIf="newPerson.get('name').hasError('required') && newPerson.get('name').touched">
     Person Name is required
     </div>
   </div>
   <div class="form-group">
-    <label for="isActive" class="col-lg-2 control-label">Is Active</label>
-    <div class="col-lg-10">
-      <input type="checkbox"  class="form-control" formControlName="isActive">
+    <div class="col-lg-10 col-lg-offset-2">
+      <button type="submit" class="btn btn-primary" [disabled]="newPerson.invalid">Create Person</button>
     </div>
   </div>
-      <div class="form-group">
-      <div class="col-lg-10 col-lg-offset-2">
-        <button type="submit" class="btn btn-primary" [disabled]="newPerson.invalid">Create Person</button>
-      </div>
-    </div>
   </fieldset>
 </form>
 <div class="container-fluid">
@@ -31,14 +25,12 @@
           <tr>
             <th>Person Id</th>
             <th>Person Name</th>
-            <th>Is Active</th>
           </tr>
           </thead>
           <tbody>
             <tr *ngFor="let person of persons | paginate: { itemsPerPage: 20, currentPage: page }">
               <td>{{person.personId}}</td>
-              <td>{{person.personName}}</td>
-              <td>{{person.isActive}}</td>
+              <td>{{person.name}}</td>
             </tr>
           </tbody>
        </table>

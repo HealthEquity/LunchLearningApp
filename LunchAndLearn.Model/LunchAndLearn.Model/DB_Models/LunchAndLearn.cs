@@ -45,8 +45,8 @@ namespace LunchAndLearn.Model.DB_Models
           .Map(m => m.ToTable("SessionAttendee", "LunchAndLearn").MapLeftKey("AttendeeId").MapRightKey("TrackSessionId"));
 
       modelBuilder.Entity<Person>()
-          .HasMany(e => e.TrackSessions1)
-          .WithMany(e => e.People1)
+          .HasMany(e => e.TrackSessions)
+          .WithMany(e => e.People)
           .Map(m => m.ToTable("SessionInstructor", "LunchAndLearn").MapLeftKey("InstructorId").MapRightKey("TrackSessionId"));
 
       modelBuilder.Entity<RatingHash>()

@@ -23,7 +23,7 @@ namespace LunchAndLearnService.Controllers
 
     [HttpGet]
     [Route("all")]
-    [ResponseType(typeof(List<Room>))]
+    [ResponseType(typeof(List<RoomDto>))]
     public IHttpActionResult GetAll()
     {
       List<RoomDto> rooms;
@@ -36,7 +36,7 @@ namespace LunchAndLearnService.Controllers
 
     [HttpGet]
     [Route("{id}")]
-    [ResponseType(typeof(Room))]
+    [ResponseType(typeof(RoomDto))]
     public IHttpActionResult Get(int id)
     {
       RoomDto room;

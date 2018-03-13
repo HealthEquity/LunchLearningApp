@@ -26,7 +26,7 @@ export class PersonComponent implements OnInit {
             );
 
        this.newPerson = this.formBuilder.group({
-            personName: ['', [Validators.required]],
+            name: ['', [Validators.required]],
             isActive: ['']
         });    
   }

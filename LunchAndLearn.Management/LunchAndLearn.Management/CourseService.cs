@@ -36,8 +36,8 @@ namespace LunchAndLearn.Management
     {
       using (_courseRepository)
       {
-        var Classs = _courseRepository.GetAll().ToList();
-        return Classs.Select(x => x.ConvertToCourseDto()).ToList();
+        var courses = _courseRepository.GetAll().ToList();
+        return courses.Select(x => x.ConvertToCourseDto()).ToList();
       }
     }
 
