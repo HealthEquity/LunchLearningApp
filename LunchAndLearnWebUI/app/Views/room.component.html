@@ -1,18 +1,18 @@
 <form class="form-horizontal" novalidate (submit)="createRoom(newRoom)" [formGroup]="newRoom">
   <fieldset>
   <div class="form-group">
-    <label for="roomName" class="col-lg-2 control-label">Room Name</label>
+    <label for="name" class="col-lg-2 control-label">Room Name</label>
     <div class="col-lg-10">
-    <input type="text"  class="form-control" placeholder="Room name" formControlName="roomName">
+    <input type="text"  class="form-control" placeholder="Name" formControlName="name">
     </div>
-      <div class="error" *ngIf="newRoom.get('roomName').hasError('required') && newRoom.get('roomName').touched">
+      <div class="error" *ngIf="newRoom.get('name').hasError('required') && newRoom.get('name').touched">
     Room Name is required
   </div>
   </div>
   <div class="form-group">
-    <label for="roomDescription" class="col-lg-2 control-label">Room Description</label>
+    <label for="description" class="col-lg-2 control-label">Description</label>
     <div class="col-lg-10">
-      <input type="text"  class="form-control" placeholder="Description of Room" formControlName="roomDescription">
+      <input type="text"  class="form-control" placeholder="Description of Room" formControlName="description">
     </div>
   </div>
   <div class="form-group">
@@ -44,8 +44,8 @@
           <tbody>
             <tr *ngFor="let room of rooms | paginate: { itemsPerPage: 20, currentPage: page }">
               <td>{{room.roomId}}</td>
-              <td>{{room.roomName}}</td>
-              <td>{{room.roomDescription}}</td>
+              <td>{{room.name}}</td>
+              <td>{{room.description}}</td>
               <td>{{room.maxOccupancy}}</td>
             </tr>
           </tbody>

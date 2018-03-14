@@ -6,20 +6,18 @@
         <thead>
           <tr>
             <th>Rating Id</th>
-            <th>Class Id</th>
-            <th>Class Rating</th>
-            <th>Person Id</th>
-            <th>Person Rating</th>
+            <th>Track Session Id</th>
+            <th>Session Score</th>
+            <th>Instructor Rating</th>
             <th>Comment</th>
           </tr>
           </thead>
           <tbody>
             <tr *ngFor="let rating of ratings | paginate: { itemsPerPage: 20, currentPage: page }">
               <td>{{rating.ratingId}}</td>
-              <td>{{rating.classId}}</td>
-              <td>{{rating.classRating}}</td>
-              <td>{{rating.personId}}</td>
-              <td>{{rating.personRating}}</td>
+              <td>{{rating.trackSessionId}}</td>
+              <td>{{rating.sessionScoreNr}}</td>
+              <td>{{rating.instructorScoreNr}}</td>
               <td>{{rating.comment}}</td>
             </tr>
           </tbody>
