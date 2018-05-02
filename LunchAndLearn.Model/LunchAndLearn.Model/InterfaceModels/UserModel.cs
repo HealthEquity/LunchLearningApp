@@ -29,5 +29,6 @@ namespace LunchAndLearn.Model.InterfaceModels
     public string Email { get; set; }
     [Display(Name = "Is Active")]
     public bool IsActive { get; set; }
+    public bool IsAdmin { get; set; }
   }
 }

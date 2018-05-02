@@ -39,6 +39,15 @@ namespace LunchAndLearn.Management
       }
     }
 
+    public List<TrackSessionDto> GetUpcoming()
+    {
+      using (_trackSessionRepository)
+      {
+        var trackSessionList = _trackSessionRepository.GetUpcoming().ToList();
+        return trackSessionList.Select(x => x.ConvertToTrackSessionDto()).ToList();
+      }
+    }
+
     public TrackSessionDto Create(TrackSessionDto entity)
     {
       using (_trackSessionRepository)

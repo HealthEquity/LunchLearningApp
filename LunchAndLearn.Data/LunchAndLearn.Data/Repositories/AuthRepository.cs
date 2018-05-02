@@ -46,7 +46,6 @@ namespace LunchAndLearn.Data.Repositories
       };
 
       var result = await _userManager.CreateAsync(user, userModel.Password);
-
       return result;
     }
 

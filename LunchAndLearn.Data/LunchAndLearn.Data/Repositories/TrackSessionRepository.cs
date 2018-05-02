@@ -11,6 +11,12 @@ namespace LunchAndLearn.Data.Repositories
 {
   public class TrackSessionRepository : BaseRepository<TrackSession>, ITrackSessionRepository
   {
-
+    public List<TrackSession> GetUpcoming()
+    {
+      var endDate = DateTime.Today.AddDays(5);
+      var trackSessions = DbContext.TrackSessions.Where(
+        ts => ts.SessionDate > DateTime.Today && ts.SessionDate <= endDate).ToList();
+      return trackSessions;
+    }
   }
 }

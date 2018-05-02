@@ -38,6 +38,19 @@ namespace LunchAndLearnService.Controllers
     }
 
     [HttpGet]
+    [Route("upcoming")]
+    [ResponseType(typeof(List<TrackSessionDto>))]
+    public IHttpActionResult GetUpcoming()
+    {
+      List<TrackSessionDto> trackSessions;
+      using (_trackSessionService)
+      {
+        trackSessions = _trackSessionService.GetUpcoming();
+      }
+      return Ok(trackSessions);
+    }
+
+    [HttpGet]
     [Route("{id}")]
     [ResponseType(typeof(TrackSessionDto))]
     public IHttpActionResult Get(int id)
