@@ -4,6 +4,7 @@
      trackName: string;
      sessionDate: Date;
      roomName: string;
+     roomDescription: string;
      courseName: string;
      isReady: boolean;
      note: string;

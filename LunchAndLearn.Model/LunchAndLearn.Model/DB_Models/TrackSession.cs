@@ -65,6 +65,7 @@ namespace LunchAndLearn.Model.DB_Models
         SessionDate = this.SessionDate,
         TrackName = this.Track?.Name ?? "",
         RoomName = this.Room?.Name ?? "",
+        RoomDescription = this.Room?.Description ?? "",
         CourseName = this.CourseSession?.Course?.CourseName ?? "",
         IsReady = this.IsReady,
         Note = this.Note

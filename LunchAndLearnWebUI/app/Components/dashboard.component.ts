@@ -24,10 +24,5 @@ export class DashboardComponent implements OnInit {
             .subscribe(
             value => this.upcomingtracksessions = value
             );
-
-       this.trackSessionService.getTrackSessions()
-            .subscribe(
-              value => this.tracksessions = value
-            );
   }
 }

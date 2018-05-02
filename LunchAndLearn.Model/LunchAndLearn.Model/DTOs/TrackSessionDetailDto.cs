@@ -8,6 +8,7 @@ namespace LunchAndLearn.Model.DTOs
     public DateTime SessionDate { get; set; }
     public string TrackName { get; set; }
     public string RoomName { get; set; }
+    public string RoomDescription { get; set; }
     public string CourseName { get; set; }
     public bool? IsReady { get; set; }
     public string Note { get; set; }
