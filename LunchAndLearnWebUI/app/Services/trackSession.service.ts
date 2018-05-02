@@ -28,6 +28,12 @@ export class TrackSessionService {
             .catch(this.handleError);
     }
 
+    getUpcomingTrackSessions() {
+      return this.http.get(this.trackSessionUrl + 'upcoming')
+      .map(res => <TrackSession[]>res.json())
+      .catch(this.handleError);
+   }
+
   delete(id: number) {
     const url = `${this.trackSessionUrl}/${id}`;
     return this.http.delete(url, {headers: this.headers})

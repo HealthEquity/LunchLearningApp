@@ -1,9 +1,10 @@
  export class TrackSession {
      id: number;
      courseSessionId: number;
-     trackId: number;
+     trackName: string;
      sessionDate: Date;
-     roomId: number;
+     roomName: string;
+     courseName: string;
      isReady: boolean;
      note: string;
  }

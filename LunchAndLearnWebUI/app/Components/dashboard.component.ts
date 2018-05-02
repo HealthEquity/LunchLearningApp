@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Course } from '../Models/course';
-import { CourseService } from '../Services/course.service';
+import { TrackSession } from '../Models/tracksession';
+import { TrackSessionService } from '../Services/trackSession.service';
 
 @Component({
   moduleId: module.id,
@@ -11,17 +11,23 @@ import { CourseService } from '../Services/course.service';
   styleUrls: ['../CSS/app.component.css']
 })
 export class DashboardComponent implements OnInit {
-  courses: Course[] = [];
+  upcomingtracksessions: TrackSession[] = [];
+  tracksessions: TrackSession[] = [];
 
   constructor(
     private router: Router,
-    private courseService: CourseService) {
+    private trackSessionService: TrackSessionService) {
   }
 
   ngOnInit(): void {
-       this.courseService.getCourses()
+       this.trackSessionService.getUpcomingTrackSessions()
             .subscribe(
-            value => this.courses = value.slice(1, 5)
+            value => this.upcomingtracksessions = value
+            );
+
+       this.trackSessionService.getTrackSessions()
+            .subscribe(
+              value => this.tracksessions = value
             );
   }
 }

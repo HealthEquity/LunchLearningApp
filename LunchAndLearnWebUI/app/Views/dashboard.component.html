@@ -1,10 +1,20 @@
-<h3>Top Classes</h3>
+<h3>Upcoming Classes</h3>
 <div class="grid grid-pad">
-  <div *ngFor="let class of classes" (click)="gotoDetail(class)" class="col-1-4">
+  <div *ngFor="let tracksession of upcomingtracksessions" (click)="gotoDetail(tracksession)" class="col-1-4">
     <div class="module class">
-      <h4>{{class.className}}</h4>
-      <div>{{class.classDescription}}</div>
+      <h4>{{tracksession.sessionDate | date: 'MM-dd-yyyy'}}</h4>
+      <div>{{tracksession.roomId}}</div>
     </div>
   </div>
 </div>
+
+<!-- <h3>My Sessions</h3>
+<div class="grid grid-pad">
+  <div *ngFor="let tracksession of tracksessions" class="col-1-4">
+    <div class="module class">
+      <h4>{{tracksession.courseSessionId}}</h4>
+      <div>{{tracksession.sessionDate  | date:'MM-dd-yyyy'}}</div>
+    </div>
+  </div>
+</div> -->
 <!--<class-search></class-search>-->
