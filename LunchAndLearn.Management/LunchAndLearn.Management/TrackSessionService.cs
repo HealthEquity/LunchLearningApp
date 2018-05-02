@@ -1,14 +1,8 @@
-﻿using LunchAndLearn.Data;
-using LunchAndLearn.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LunchAndLearn.Data.Interfaces;
-using LunchAndLearn.Data.Repositories;
 using LunchAndLearn.Management.Interfaces;
-using LunchAndLearn.Model.DB_Models;
 using LunchAndLearn.Model.DTOs;
 
 namespace LunchAndLearn.Management
@@ -39,12 +33,12 @@ namespace LunchAndLearn.Management
       }
     }
 
-    public List<TrackSessionDto> GetUpcoming()
+    public List<TrackSessionDetailDto> GetUpcoming()
     {
       using (_trackSessionRepository)
       {
-        var trackSessionList = _trackSessionRepository.GetUpcoming().ToList();
-        return trackSessionList.Select(x => x.ConvertToTrackSessionDto()).ToList();
+        var trackSessionList = _trackSessionRepository.GetUpcoming();
+        return trackSessionList.Select(x => x.ConvertToTrackSessionDetailDto()).ToList();
       }
     }
 

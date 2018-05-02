@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Http.Results;
-using LunchAndLearn.Management;
 using LunchAndLearn.Management.Interfaces;
-using LunchAndLearn.Model;
-using LunchAndLearn.Model.DB_Models;
 using LunchAndLearn.Model.DTOs;
 
 namespace LunchAndLearnService.Controllers
@@ -39,10 +33,10 @@ namespace LunchAndLearnService.Controllers
 
     [HttpGet]
     [Route("upcoming")]
-    [ResponseType(typeof(List<TrackSessionDto>))]
+    [ResponseType(typeof(List<TrackSessionDetailDto>))]
     public IHttpActionResult GetUpcoming()
     {
-      List<TrackSessionDto> trackSessions;
+      List<TrackSessionDetailDto> trackSessions;
       using (_trackSessionService)
       {
         trackSessions = _trackSessionService.GetUpcoming();

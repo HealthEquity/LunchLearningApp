@@ -65,6 +65,7 @@
     <Compile Include="DB_Models\Room.cs" />
     <Compile Include="DB_Models\Track.cs" />
     <Compile Include="DB_Models\TrackSession.cs" />
+    <Compile Include="DTOs\TrackSessionDetailDto.cs" />
     <Compile Include="DTOs\TrackSessionDto.cs" />
     <Compile Include="DTOs\TrackDto.cs" />
     <Compile Include="DTOs\RoomDto.cs" />
