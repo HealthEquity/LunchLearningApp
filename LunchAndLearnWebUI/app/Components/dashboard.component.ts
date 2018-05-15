@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { TrackSession } from '../Models/tracksession';
 import { TrackSessionService } from '../Services/trackSession.service';
 
+import { SessionAttendee} from '../Models/sessionAttendee';
+import { SessionAttendeeService } from '../Services/sessionAttendee.service';
+
 @Component({
   moduleId: module.id,
   selector: 'my-dashboard',
@@ -16,7 +19,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private trackSessionService: TrackSessionService) {
+    private trackSessionService: TrackSessionService,
+    private sessionAttendeeService: SessionAttendeeService) {
   }
 
   ngOnInit(): void {
@@ -25,4 +29,9 @@ export class DashboardComponent implements OnInit {
             value => this.upcomingtracksessions = value
             );
   }
+
+  enroll(trackSessionId) {
+    this.sessionAttendeeService.enroll(trackSessionId)
+    .subscribe();
+}
 }

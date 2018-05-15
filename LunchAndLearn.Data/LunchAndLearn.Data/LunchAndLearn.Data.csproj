@@ -64,6 +64,7 @@
     <Compile Include="Interfaces\IRatingHashRepository.cs" />
     <Compile Include="Interfaces\IRatingRepository.cs" />
     <Compile Include="Interfaces\IRoomRepository.cs" />
+    <Compile Include="Interfaces\ISessionAttendeeRepository.cs" />
     <Compile Include="Interfaces\ITrackSessionRepository.cs" />
     <Compile Include="Interfaces\ITrackRepository.cs" />
     <Compile Include="LunchAndLearnContext.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Repositories\RatingHashRepository.cs" />
     <Compile Include="Repositories\RatingRepository.cs" />
     <Compile Include="Repositories\RoomRepository.cs" />
+    <Compile Include="Repositories\SessionAttendeeRepository.cs" />
     <Compile Include="Repositories\TrackSessionRepository.cs" />
     <Compile Include="Repositories\TrackRepository.cs" />
   </ItemGroup>

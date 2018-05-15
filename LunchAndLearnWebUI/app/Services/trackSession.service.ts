@@ -55,6 +55,13 @@ export class TrackSessionService {
       .catch(this.handleError);
   }
 
+  enroll(trackSession: TrackSession) {
+    return this.http
+    .post(this.trackSessionUrl + 'enroll', JSON.stringify(trackSession), {headers: this.headers})
+    .map((res: Response) => res.json())
+    .catch(this.handleError);
+  }
+
   private handleError(error: Response) {
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');

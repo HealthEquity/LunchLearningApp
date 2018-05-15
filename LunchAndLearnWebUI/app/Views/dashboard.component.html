@@ -18,7 +18,7 @@
           <td>{{tracksession.roomDescription}}</td>
           <td>{{tracksession.courseName}}</td>
           <td>{{tracksession.note}}</td>
-          <td><button class="btn btn-primary">Click Me To Enroll</button></td>
+          <td><button class="btn btn-primary" (click)="enroll(tracksession)">Click Me To Enroll</button></td>
         </tr>
     </tbody>
   </table>  

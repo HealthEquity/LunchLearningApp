@@ -64,7 +64,9 @@
     <Compile Include="DB_Models\RatingHash.cs" />
     <Compile Include="DB_Models\Room.cs" />
     <Compile Include="DB_Models\Track.cs" />
+    <Compile Include="DB_Models\SessionAttendee.cs" />
     <Compile Include="DB_Models\TrackSession.cs" />
+    <Compile Include="DTOs\SessionAttendeeDto.cs" />
     <Compile Include="DTOs\TrackSessionDetailDto.cs" />
     <Compile Include="DTOs\TrackSessionDto.cs" />
     <Compile Include="DTOs\TrackDto.cs" />

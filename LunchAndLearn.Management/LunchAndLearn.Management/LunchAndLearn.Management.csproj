@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\ISessionAttendeeService.cs" />
     <Compile Include="PersonService.cs" />
     <Compile Include="CourseSessionService.cs" />
     <Compile Include="CourseService.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="RatingHashService.cs" />
     <Compile Include="RatingService.cs" />
     <Compile Include="RoomService.cs" />
+    <Compile Include="SessionAttendeeService.cs" />
     <Compile Include="TrackSessionService.cs" />
     <Compile Include="TrackService.cs" />
   </ItemGroup>

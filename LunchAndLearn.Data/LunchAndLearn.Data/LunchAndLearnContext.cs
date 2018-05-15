@@ -15,6 +15,8 @@ namespace LunchAndLearn.Data
     public DbSet<Room> Rooms { get; set; }
     public DbSet<Track> Tracks { get; set; }
     public DbSet<TrackSession> TrackSessions { get; set; }
+
+    public DbSet<SessionAttendee> SessionAttendees { get; set; }
     
     public LunchAndLearnContext() : this("LunchAndLearnDatabase")
     {

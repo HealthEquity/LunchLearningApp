@@ -53,7 +53,10 @@ namespace LunchAndLearnService
       container
         .RegisterType<ITrackSessionService, TrackSessionService>(new HierarchicalLifetimeManager())
         .RegisterType<ITrackSessionRepository, TrackSessionRepository>(new HierarchicalLifetimeManager());
-
+      //SessionAttendee
+      container
+        .RegisterType<ISessionAttendeeService, SessionAttendeeService>(new HierarchicalLifetimeManager())
+        .RegisterType<ISessionAttendeeRepository, SessionAttendeeRepository>(new HierarchicalLifetimeManager());
       return container;
     }
   }
