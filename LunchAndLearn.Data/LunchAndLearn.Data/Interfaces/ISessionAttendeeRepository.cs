@@ -7,5 +7,6 @@ namespace LunchAndLearn.Data.Interfaces
 {
   public interface ISessionAttendeeRepository : IBaseRepository<SessionAttendee>
   {
+    List<SessionAttendee> GetByPersonId(int personId);
   }
 }

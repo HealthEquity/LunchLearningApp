@@ -6,5 +6,6 @@ namespace LunchAndLearn.Management.Interfaces
   public interface ITrackSessionService : IBaseService<TrackSessionDto>
   {
     List<TrackSessionDetailDto> GetUpcoming();
+    TrackSessionDetailDto GetTrackSessionDetail(int trackSessionId);
   }
 }

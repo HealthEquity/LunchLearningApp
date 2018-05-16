@@ -1,4 +1,5 @@
  export class SessionAttendee {
-     attendeeId: number;
+     id: number;
+     personId: number;
      trackSessionId: number;
  }

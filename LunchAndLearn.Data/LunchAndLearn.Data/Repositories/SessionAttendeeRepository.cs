@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Mapping;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,5 +13,10 @@ namespace LunchAndLearn.Data.Repositories
 {
   public class SessionAttendeeRepository : BaseRepository<SessionAttendee>, ISessionAttendeeRepository
   {
+    public List<SessionAttendee> GetByPersonId(int personId)
+    {
+      var sessionAttendees = DbContext.SessionAttendees.Where(sa => sa.PersonId == personId).ToList();
+      return sessionAttendees;
+    }
   }
 }

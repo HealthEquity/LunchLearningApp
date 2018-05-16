@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Http.Results;
 using LunchAndLearn.Management.Interfaces;
+using LunchAndLearn.Model.DB_Models;
 using LunchAndLearn.Model.DTOs;
 
 namespace LunchAndLearnService.Controllers
@@ -12,10 +14,12 @@ namespace LunchAndLearnService.Controllers
   public class TrackSessionController : ApiController
   {
     private readonly ITrackSessionService _trackSessionService;
+    private readonly ISessionAttendeeService _sessionAttendeeService;
 
-    public TrackSessionController(ITrackSessionService trackSessionService)
+    public TrackSessionController(ITrackSessionService trackSessionService, ISessionAttendeeService sessionAttendeeService)
     {
       _trackSessionService = trackSessionService;
+      _sessionAttendeeService = sessionAttendeeService;
     }
 
     [HttpGet]
@@ -40,6 +44,28 @@ namespace LunchAndLearnService.Controllers
       using (_trackSessionService)
       {
         trackSessions = _trackSessionService.GetUpcoming();
+      }
+      return Ok(trackSessions);
+    }
+
+    [HttpGet]
+    [Route("mysessions")]
+    [ResponseType(typeof(List<TrackSessionDetailDto>))]
+    public IHttpActionResult GetMySessions(int personId)
+    {
+      var attendingSessions = new List<SessionAttendeeDto>();
+      var trackSessions = new List<TrackSessionDetailDto>();
+      using (_sessionAttendeeService)
+      {
+        attendingSessions = _sessionAttendeeService.GetByPersonId(personId);
+      }
+      if (attendingSessions == null || attendingSessions.Count <= 0) return Ok(trackSessions);
+      foreach (var session in attendingSessions)
+      {
+        using (_trackSessionService)
+        {
+          trackSessions.Add(_trackSessionService.GetTrackSessionDetail(session.TrackSessionId));
+        }
       }
       return Ok(trackSessions);
     }

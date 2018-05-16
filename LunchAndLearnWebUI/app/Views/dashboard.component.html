@@ -1,3 +1,28 @@
+<h3>My Classes</h3>
+<div>
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+      <th>Session Date</th>
+      <th>Room Name</th>
+      <th>Room Description</th>
+      <th>Course Name</th>
+      <th>Notes</th>
+      <th>Enroll</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let tracksession of mytracksessions" (click)="gotoDetail(tracksession)" class="col-1-4">
+          <td>{{tracksession.sessionDate | date: 'MM-dd-yyyy'}}</td>
+          <td>{{tracksession.roomName}}</td>
+          <td>{{tracksession.roomDescription}}</td>
+          <td>{{tracksession.courseName}}</td>
+          <td>{{tracksession.note}}</td>
+          <td><button class="btn btn-primary" (click)="unenroll(tracksession)">Unenroll</button></td>
+        </tr>
+    </tbody>
+  </table>  
+</div>
 <h3>Upcoming Classes</h3>
 <div>
   <table class="table table-striped table-bordered table-hover">

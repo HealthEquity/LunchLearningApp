@@ -15,7 +15,8 @@ import { SessionAttendeeService } from '../Services/sessionAttendee.service';
 })
 export class DashboardComponent implements OnInit {
   upcomingtracksessions: TrackSession[] = [];
-  tracksessions: TrackSession[] = [];
+  mytracksessions: TrackSession[] = [];
+  personId: number;
 
   constructor(
     private router: Router,
@@ -28,10 +29,20 @@ export class DashboardComponent implements OnInit {
             .subscribe(
             value => this.upcomingtracksessions = value
             );
+
+       this.trackSessionService.getMyTrackSessions(this.personId)
+            .subscribe(
+              value => this.mytracksessions = value
+            );
   }
 
-  enroll(trackSessionId) {
-    this.sessionAttendeeService.enroll(trackSessionId)
+  enroll({ value, valid } : {value: SessionAttendee, valid: boolean}) {
+    this.sessionAttendeeService.enroll(value)
     .subscribe();
-}
+  }
+
+  unenroll({ value, valid } : {value: SessionAttendee, valid: boolean}) {
+    this.sessionAttendeeService.unenroll(value.id)
+    .subscribe();
+  }
 }

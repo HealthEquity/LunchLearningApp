@@ -34,6 +34,12 @@ export class TrackSessionService {
       .catch(this.handleError);
    }
 
+   getMyTrackSessions(personId) {
+    return this.http.get(this.trackSessionUrl + 'mysessions?' + personId)
+    .map(res => <TrackSession[]>res.json())
+    .catch(this.handleError);
+   }
+
   delete(id: number) {
     const url = `${this.trackSessionUrl}/${id}`;
     return this.http.delete(url, {headers: this.headers})

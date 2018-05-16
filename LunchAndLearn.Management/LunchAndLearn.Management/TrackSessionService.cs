@@ -42,6 +42,15 @@ namespace LunchAndLearn.Management
       }
     }
 
+    public TrackSessionDetailDto GetTrackSessionDetail(int trackSessionId)
+    {
+      using (_trackSessionRepository)
+      {
+        var trackSession = _trackSessionRepository.Get(trackSessionId);
+        return trackSession.ConvertToTrackSessionDetailDto();
+      }
+    }
+
     public TrackSessionDto Create(TrackSessionDto entity)
     {
       using (_trackSessionRepository)

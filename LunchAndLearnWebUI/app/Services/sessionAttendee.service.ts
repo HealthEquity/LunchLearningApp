@@ -22,6 +22,13 @@ export class SessionAttendeeService {
     .catch(this.handleError);
   }
 
+  unenroll(id: number) {
+    const url = `${this.sessionAttendeeUrl}/${id}`;
+    return this.http.delete(url, {headers: this.headers})
+    .map(() => null)
+    .catch(this.handleError);
+  }
+
   private handleError(error: Response) {
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');

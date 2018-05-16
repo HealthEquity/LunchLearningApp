@@ -39,6 +39,15 @@ namespace LunchAndLearn.Management
       }
     }
 
+    public List<SessionAttendeeDto> GetByPersonId(int personId)
+    {
+      using (_sessionAttendeeRepository)
+      {
+        var sessionAttendeeList = _sessionAttendeeRepository.GetAll().ToList();
+        return sessionAttendeeList.Select(x => x.ConvertToSessionAttendeeDto()).ToList();
+      }
+    }
+
     public SessionAttendeeDto Create(SessionAttendeeDto entity)
     {
       using (_sessionAttendeeRepository)

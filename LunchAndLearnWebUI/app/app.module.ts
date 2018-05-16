@@ -18,6 +18,7 @@ import { PersonService }          from './Services/person.service';
 import { RoomService }          from './Services/room.service';
 import { RatingService }          from './Services/rating.service';
 import { TrackSessionService }          from './Services/trackSession.service';
+import { SessionAttendeeService } from './Services/sessionAttendee.service';
 import { TrackService }          from './Services/track.service';
 import { Configuration } from './app.constants';
 import {APP_BASE_HREF} from '@angular/common';
@@ -37,7 +38,7 @@ import { AuthGuard } from './Guards/auth.guard';
     ],
   declarations: [ AppComponent, DashboardComponent, CoursesComponent, PersonComponent, RoomComponent, RatingComponent,TrackSessionComponent, TrackComponent, LoginComponent ],
   providers: [ {provide: APP_BASE_HREF, useValue : '/' },
-    CourseService, PersonService, RoomService, RatingService, TrackSessionService, TrackService, Configuration, AuthenticationService, AuthGuard
+    CourseService, PersonService, RoomService, RatingService, TrackSessionService, SessionAttendeeService, TrackService, Configuration, AuthenticationService, AuthGuard
   ],
   bootstrap:    [ AppComponent ]
 })
