@@ -1,0 +1,53 @@
+<form class="form-horizontal" novalidate (submit)="createClass(newCourse)" [formGroup]="newCourse">
+  <fieldset>
+  <div class="form-group">
+    <label for="courseName" class="col-lg-2 control-label">Course Name</label>
+    <div class="col-lg-10">
+    <input type="text"  class="form-control" placeholder="Course name" formControlName="courseName">
+    <div class="has-error" *ngIf="newCourse.get('courseName').hasError('required') && newCourse.get('courseName').touched">
+    Class Name is required
+    </div>
+    <div class="error" *ngIf="newCourse.get('courseName').hasError('minlength') && newCourse.get('courseName').touched">
+    Minimum of 2 characters
+    </div>
+  </div>  
+  </div>
+  <div class="form-group">
+    <label for="courseDescription" class="col-lg-2 control-label">Course Description</label>
+    <div class="col-lg-10">
+      <input type="text"  class="form-control" placeholder="Description of Course" formControlName="courseDescription">
+    </div>
+  </div>
+      <div class="form-group">
+      <div class="col-lg-10 col-lg-offset-2">
+        <button type="submit" class="btn btn-primary" [disabled]="newCourse.invalid">Create Course</button>
+      </div>
+    </div>
+  </fieldset>
+</form>
+<div class="container-fluid">
+    <div class="row">
+    <div class="col-md-12">
+      <!--Body content-->
+      <table id="courses" class="table table-striped table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Course Id</th>
+            <th>Course Name</th>
+            <th>Course Description</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let course of courses | paginate: { itemsPerPage: 20, currentPage: page }">
+              <td>{{course.courseId}}</td>
+              <td>{{course.courseName}}</td>
+              <td>{{course.courseDescription}}</td>
+            </tr>
+          </tbody>
+       </table>
+      </div>
+    </div>
+    <div class="has-text-centered">
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+    </div>
+</div>

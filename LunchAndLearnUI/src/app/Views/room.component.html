@@ -1,0 +1,58 @@
+<form class="form-horizontal" novalidate (submit)="createRoom(newRoom)" [formGroup]="newRoom">
+  <fieldset>
+  <div class="form-group">
+    <label for="name" class="col-lg-2 control-label">Room Name</label>
+    <div class="col-lg-10">
+    <input type="text"  class="form-control" placeholder="Name" formControlName="name">
+    </div>
+      <div class="error" *ngIf="newRoom.get('name').hasError('required') && newRoom.get('name').touched">
+    Room Name is required
+  </div>
+  </div>
+  <div class="form-group">
+    <label for="description" class="col-lg-2 control-label">Description</label>
+    <div class="col-lg-10">
+      <input type="text"  class="form-control" placeholder="Description of Room" formControlName="description">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="maxOccupancy" class="col-lg-2 control-label">Max Occupancy</label>
+    <div class="col-lg-10">
+      <input type="text"  class="form-control" placeholder="Max Occupancy" formControlName="maxOccupancy">
+    </div>
+  </div>
+      <div class="form-group">
+      <div class="col-lg-10 col-lg-offset-2">
+        <button type="submit" class="btn btn-primary" [disabled]="newRoom.invalid">Create Room</button>
+      </div>
+    </div>
+  </fieldset>
+</form>
+<div class="container-fluid">
+    <div class="row">
+    <div class="col-md-12">
+      <!--Body content-->
+      <table id="rooms" class="table table-striped table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Room Id</th>
+            <th>Room Name</th>
+            <th>Room Description</th>
+            <th>Max Occupancy</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let room of rooms | paginate: { itemsPerPage: 20, currentPage: page }">
+              <td>{{room.roomId}}</td>
+              <td>{{room.name}}</td>
+              <td>{{room.description}}</td>
+              <td>{{room.maxOccupancy}}</td>
+            </tr>
+          </tbody>
+       </table>
+      </div>
+    </div>
+    <div class="has-text-centered">
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+    </div>
+</div>

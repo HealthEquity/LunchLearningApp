@@ -15,6 +15,7 @@ using LunchAndLearn.Model.DTOs;
 
 namespace LunchAndLearnService.Controllers
 {
+  [Authorize]
   [RoutePrefix("api/coursesession")]
   public class CourseSessionController : ApiController
   {

@@ -10,6 +10,7 @@ using LunchAndLearn.Model.DTOs;
 
 namespace LunchAndLearnService.Controllers
 {
+  [Authorize]
   [RoutePrefix("api/tracksession")]
   public class TrackSessionController : ApiController
   {

@@ -8,6 +8,7 @@ using LunchAndLearn.Model.DTOs;
 
 namespace LunchAndLearnService.Controllers
 {
+  [Authorize]
   [RoutePrefix("api/sessionattendee")]
   public class SessionAttendeeController : ApiController
   {

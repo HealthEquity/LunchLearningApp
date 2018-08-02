@@ -57,6 +57,8 @@ namespace LunchAndLearnService.Providers
                 context.AdditionalResponseParameters.Add(property.Key, property.Value);
             }
 
+            context.AdditionalResponseParameters.Add("userID", context.Identity.GetUserId());
+
             return Task.FromResult<object>(null);
         }
 

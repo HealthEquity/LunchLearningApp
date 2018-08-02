@@ -1,0 +1,130 @@
+<form class="form-horizontal" (ngSubmit)="createTrackSession(newTrackSession)" [formGroup]="newTrackSession">
+  <fieldset>
+     <div class="form-group">
+       <label for="courseId" class="col-lg-2 control-label">Course</label>
+       <div class="col-lg-10">
+           <select formControlName="courseId">
+                <option *ngFor="let course of courses" value= {{course.courseId}}>
+                  {{course.courseName}}
+                </option>
+           </select>
+       </div>
+       <div class="error" *ngIf="newTrackSession.get('courseid').hasError('required') && newTrackSession.get('courseId').touched">
+        Course Id is required
+      </div>
+     </div>
+     <div class="form-group">
+       <label for="personId" class="col-lg-2 control-label">Person</label>
+       <div class="col-lg-10">
+          <select formControlName="personId">
+                <option *ngFor="let person of personList" value= {{person.personId}}>
+                  {{person.name}}
+                </option>
+           </select>
+       </div>
+       <div class="error" *ngIf="newTrackSession.get('personId').hasError('required') && newTrackSession.get('personId').touched">
+        Person Id is required
+      </div>
+     </div>
+      <div class="form-group">
+       <label for="trackId" class="col-lg-2 control-label">Track</label>
+       <div class="col-lg-10">
+        <select formControlName="trackId">
+                <option *ngFor="let track of trackList" value= {{track.trackId}}>
+                  {{track.trackName}}
+                </option>
+           </select>
+       </div>
+       <div class="error" *ngIf="newTrackSession.get('trackId').hasError('required') && newTrackSession.get('trackId').touched">
+        Track Id is required
+      </div>
+     </div>
+        <div class="form-group">
+       <label for="courseDate" class="col-lg-2 control-label">Class Date</label>
+       <div class="col-lg-10">
+        <input type="date"  class="form-control" placeholder="Class Date" formControlName="courseDate">
+       </div>
+       <div class="error" *ngIf="newTrackSession.get('courseDate').hasError('required') && newTrackSession.get('courseDate').touched">
+        Class Date is required
+      </div>
+     </div>
+    <div class="form-group">
+       <label for="roomId" class="col-lg-2 control-label">Room</label>
+       <div class="col-lg-10">
+        <select formControlName="roomId">
+                <option *ngFor="let room of roomList" value= {{room.roomId}}>
+                  {{room.roomName}}
+                </option>
+           </select>
+       </div>
+       <div class="error" *ngIf="newTrackSession.get('roomId').hasError('required') && newTrackSession.get('roomId').touched">
+        Room Id is required
+      </div>
+     </div> 
+      <div class="form-group">
+        <div class="col-lg-10 col-lg-offset-2">
+          <button type="submit" class="btn btn-primary" [disabled]="newTrackSession.invalid">Create TrackSession</button>
+        </div>
+      </div>
+  </fieldset>
+</form>
+<div class="container-fluid">
+    <div class="row">
+    <div class="col-md-12">
+      <!--Body content-->
+      <table id="trackSessions" class="table table-striped table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>TrackSession Id</th>
+            <th>Course Id</th>
+            <th>Person Id</th>
+            <th>Track Id</th>
+            <th>Course Date</th>
+            <th>Room Id</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let trackSession of trackSessions | paginate: { itemsPerPage: 20, currentPage: page }">
+              <td>{{trackSession.trackSessionId}}</td>
+              <td>
+                <select>
+                <option *ngFor="let course of courses" value= {{class.classId}}>
+                  {{course.courseName}}
+                </option>
+           </select>
+              </td>
+              <td>
+                <select>
+                <option *ngFor="let person of personList" value= {{person.personId}}>
+                  {{person.name}}
+                </option>
+                </select>
+              </td>
+              <td>
+                <select>
+                <option *ngFor="let track of trackList" value= {{track.trackId}}>
+                  {{track.trackName}}
+                </option>
+           </select>
+              </td>
+              <td>
+                <input type="text" formControlName="trackSession.courseDate | date:'MM/dd/yyyy'">
+              </td>
+              <td>
+                 <select>
+                <option *ngFor="let room of roomList" value= {{room.roomId}}>
+                  {{room.roomName}}
+                </option>
+           </select>
+              </td>
+              <td><button type="button" class="btn btn-default" (click)="updateTrackSession(trackSession)">Update</button></td>
+            </tr>
+          </tbody>
+       </table>
+      </div>
+    </div>
+    <div class="has-text-centered">
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+    </div>
+</div>
